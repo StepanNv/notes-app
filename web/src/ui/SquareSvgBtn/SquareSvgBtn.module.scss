@@ -1,7 +1,7 @@
 .squareSvgBtn {
   @include btn-reset;
   @include flex-center;
-  min-width: 36px;
+  width: 36px;
   height: 36px;
   border-radius: 8px;
   cursor: pointer;
@@ -9,8 +9,8 @@
   transition: background 0.2s ease-in-out;
 
   svg {
-    width: 25px;
-    height: 25px;
+    width: 28px;
+    height: 28px;
   }
 
   &:hover {
