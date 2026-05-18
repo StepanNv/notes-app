@@ -1,6 +1,6 @@
 import styles from './SquareSvgBtn.module.scss';
 
 const SquareSvgBtn = ({ children }: { children: React.ReactNode }) => {
-  return <div className={styles.squareSvgBtn}>{children}</div>;
+  return <button className={styles.squareSvgBtn}>{children}</button>;
 };
 export default SquareSvgBtn;
