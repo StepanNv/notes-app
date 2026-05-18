@@ -1,6 +1,15 @@
 import styles from './SquareSvgBtn.module.scss';
 
-const SquareSvgBtn = ({ children }: { children: React.ReactNode }) => {
-  return <button className={styles.squareSvgBtn}>{children}</button>;
+type TSquareSvgBtnProps = {
+  onClick: () => void;
+  children: React.ReactNode;
+};
+
+const SquareSvgBtn = ({ onClick, children }: TSquareSvgBtnProps) => {
+  return (
+    <button className={styles.squareSvgBtn} onClick={onClick}>
+      {children}
+    </button>
+  );
 };
 export default SquareSvgBtn;
