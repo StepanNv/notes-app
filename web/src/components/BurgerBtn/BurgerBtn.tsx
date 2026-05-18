@@ -2,9 +2,9 @@ import SquareSvgBtn from '../../ui/SquareSvgBtn/SquareSvgBtn';
 import BurgerIcon from '../../assets/icons/burger.svg?react';
 import styles from './BurgerBtn.module.scss';
 
-const BurgerBtn = ({ ...props }) => {
+const BurgerBtn = ({ onClick }: { onClick: () => void }) => {
   return (
-    <SquareSvgBtn {...props}>
+    <SquareSvgBtn onClick={onClick}>
       <div className={styles.burgerIconWrapper}>
         <BurgerIcon />
       </div>
