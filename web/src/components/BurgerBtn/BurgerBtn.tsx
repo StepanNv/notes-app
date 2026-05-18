@@ -5,7 +5,7 @@ import styles from './BurgerBtn.module.scss';
 const BurgerBtn = ({ onClick }: { onClick: () => void }) => {
   return (
     <SquareSvgBtn onClick={onClick}>
-      <div className={styles.burgerIconWrapper}>
+      <div className={styles.iconWrapper}>
         <BurgerIcon />
       </div>
     </SquareSvgBtn>
