@@ -1,0 +1,28 @@
+.searchNotesBox {
+  width: 680px;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-block-surface);
+  border-radius: 50px;
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+.sortBtns {
+  display: flex;
+}
+
+.openSortModalBtn {
+  @include flex-center;
+  @include btn-reset;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-hover-block-surface);
+  }
+}

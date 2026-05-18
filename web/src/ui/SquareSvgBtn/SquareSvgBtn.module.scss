@@ -1,0 +1,19 @@
+.squareSvgBtn {
+  @include btn-reset;
+  @include flex-center;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--bg-color-3);
+  transition: background 0.2s ease-in-out;
+
+  svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  &:hover {
+    background: var(--bg-color-3-hover);
+  }
+}
