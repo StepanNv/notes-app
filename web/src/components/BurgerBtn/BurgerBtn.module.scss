@@ -1,4 +1,4 @@
 .burgerIconWrapper {
   @include flex-center;
-  stroke: black;
+  color: var(--text-color);
 }
