@@ -1,13 +1,10 @@
 import SquareSvgBtn from '../../ui/SquareSvgBtn/SquareSvgBtn';
-import BurgerIcon from '../../assets/icons/burger.svg?react';
-import styles from './BurgerBtn.module.scss';
+import BurgerIcon from '/src/assets/icons/burger.svg?react';
 
 const BurgerBtn = ({ onClick }: { onClick: () => void }) => {
   return (
     <SquareSvgBtn onClick={onClick}>
-      <div className={styles.iconWrapper}>
-        <BurgerIcon />
-      </div>
+      <BurgerIcon />
     </SquareSvgBtn>
   );
 };
