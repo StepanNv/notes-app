@@ -6,6 +6,6 @@ type TUseAuthStore = {
 };
 
 export const useAuthStore = create<TUseAuthStore>()((set) => ({
-  isAuth: false,
+  isAuth: true,
   setIsAuth: (value: boolean) => set({ isAuth: value }),
 }));
