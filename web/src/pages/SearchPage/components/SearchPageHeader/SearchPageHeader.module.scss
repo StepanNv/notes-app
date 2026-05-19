@@ -1,0 +1,28 @@
+.backBtn {
+  @include btn-reset;
+  background-color: var(--bg-color-2);
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-right: 10px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--bg-color-2-hover);
+  }
+}
+
+.searchInput {
+  height: 40px;
+  display: flex;
+  flex: 1;
+  background-color: transparent;
+  border: 0;
+  font-size: 18px;
+  color: inherit;
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}
