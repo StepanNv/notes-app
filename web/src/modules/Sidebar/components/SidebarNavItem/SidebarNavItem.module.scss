@@ -4,12 +4,12 @@
   height: 40px;
   margin-bottom: 4px;
   border-radius: 8px;
-  background-color: var(--bg-color-2);
+  border: 1px solid var(--mark-up);
   transition: background-color 0.2s ease-in-out;
   position: relative;
 
   &:hover {
-    background-color: var(--bg-color-2-hover);
+    background-color: var(--bg-color-2);
   }
 
   svg {
