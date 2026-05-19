@@ -110,8 +110,6 @@ export interface UpdateNotePositionDto {
   updatedPositionNumber: number;
 }
 
-export type Object = object;
-
 export type AuthControllerRegisterData = string;
 
 export type AuthControllerLoginData = string;
@@ -139,7 +137,7 @@ export type NotesControllerUpdateNoteContentData = any;
 export type NotesControllerUpdateNotePositionData = any;
 
 export interface NotesControllerGetNotesParams {
-  status: Object;
+  status: "default" | "archived" | "trashed";
   /** @default "custom" */
   sort?: "custom" | "created_at" | "updated_at";
   search?: string;
