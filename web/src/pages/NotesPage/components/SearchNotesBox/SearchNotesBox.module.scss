@@ -9,21 +9,3 @@
   padding: 0 20px;
   cursor: pointer;
 }
-
-.sortBtns {
-  display: flex;
-}
-
-.openSortModalBtn {
-  @include flex-center;
-  @include btn-reset;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: var(--bg-color-2-hover);
-  }
-}
