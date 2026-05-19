@@ -1,5 +1,6 @@
 import styles from './NotesPage.module.scss';
 import NotesPageHeader from '../NotesPageHeader/NotesPageHeader';
+import Sidebar from '../../../../modules/Sidebar/components/Sidebar/Sidebar';
 
 const NotesPage = () => {
   return (
@@ -10,6 +11,7 @@ const NotesPage = () => {
           <h1>NotesPage</h1>
         </div>
       </main>
+      <Sidebar />
     </>
   );
 };

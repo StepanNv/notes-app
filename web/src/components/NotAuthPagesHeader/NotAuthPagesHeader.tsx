@@ -1,5 +1,5 @@
-import AppName from '../../ui/AppName/AppName';
 import Header from '../../ui/Header/Header';
+import Logo from '../Logo/Logo';
 import styles from './NotAuthPagesHeader.module.scss';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ const NotAuthPagesHeader = ({
   return (
     <Header>
       <div className={styles.content}>
-        <AppName />
+        <Logo isAppNameVisible={true} />
         <nav className={styles.authLinks}>
           <Link
             to="/sign-in"
