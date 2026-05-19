@@ -5,7 +5,7 @@
   height: 34px;
   border-radius: 8px;
   cursor: pointer;
-  background: var(--bg-color-3);
+  background: var(--bg-color-2);
   transition: background 0.2s ease-in-out;
 
   svg {
@@ -14,6 +14,6 @@
   }
 
   &:hover {
-    background: var(--bg-color-3-hover);
+    background: var(--bg-color-2-hover);
   }
 }
