@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './SidebarNavItem.module.scss';
 
 type TSidebarNavItemProps = {
@@ -9,8 +9,12 @@ type TSidebarNavItemProps = {
 };
 
 const SidebarNavItem = ({ path, Icon, name }: TSidebarNavItemProps) => {
+  const location = useLocation();
+
   return (
-    <li className={`${styles.navItem} ${styles.active}`}>
+    <li
+      className={`${styles.navItem} ${path === location.pathname ? styles.active : ''}`}
+    >
       <Link to={path} className={styles.navLink}>
         <Icon />
         <span>{name}</span>
