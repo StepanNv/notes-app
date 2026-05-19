@@ -1,0 +1,17 @@
+.logo {
+  @include btn-reset;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  svg {
+    width: 26px;
+    height: 26px;
+    border-radius: 2px;
+  }
+}
+
+.appName {
+  font-size: 22px;
+  margin-left: 6px;
+}
