@@ -3,17 +3,21 @@ import Header from '../../../../ui/Header/Header';
 import SearchNotesBox from '../SearchNotesBox/SearchNotesBox';
 import UserMenu from '../UserMenu/UserMenu';
 import { useSidebarStore } from '../../../../modules/Sidebar/stores/useSidebarStore';
-import BurgerBtn from '../../../../components/BurgerBtn/BurgerBtn';
+import NavBar from '../../../../components/NavBar/NavBar';
 
 const NotesPageHeader = () => {
-  const openSidebar = useSidebarStore((state) => state.openSidebar);
-
   return (
     <Header>
       <div className={styles.content}>
-        <BurgerBtn onClick={openSidebar} />
-        <SearchNotesBox />
-        <UserMenu />
+        <div className={styles.container}>
+          <NavBar currentPage="Notes" />
+        </div>
+        <div className={styles.container}>
+          <SearchNotesBox />
+        </div>
+        <div className={styles.container}>
+          <UserMenu />
+        </div>
       </div>
     </Header>
   );

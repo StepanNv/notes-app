@@ -4,3 +4,12 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.container {
+  flex: 1;
+
+  &:last-child {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
