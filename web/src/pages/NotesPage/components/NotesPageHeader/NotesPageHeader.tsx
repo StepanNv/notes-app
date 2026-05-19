@@ -3,8 +3,7 @@ import Header from '../../../../ui/Header/Header';
 import SearchNotesBox from '../SearchNotesBox/SearchNotesBox';
 import UserMenu from '../UserMenu/UserMenu';
 import { useSidebarStore } from '../../../../modules/Sidebar/stores/useSidebarStore';
-import SquareSvgBtn from '../../../../ui/SquareSvgBtn/SquareSvgBtn';
-import BurgerIcon from '/src/assets/icons/burger.svg?react';
+import BurgerBtn from '../../../../components/BurgerBtn/BurgerBtn';
 
 const NotesPageHeader = () => {
   const openSidebar = useSidebarStore((state) => state.openSidebar);
@@ -12,9 +11,7 @@ const NotesPageHeader = () => {
   return (
     <Header>
       <div className={styles.content}>
-        <SquareSvgBtn onClick={openSidebar}>
-          <BurgerIcon />
-        </SquareSvgBtn>
+        <BurgerBtn onClick={openSidebar} />
         <SearchNotesBox />
         <UserMenu />
       </div>
