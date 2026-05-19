@@ -9,6 +9,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { status } from '../../../prisma/generated/enums';
+import { ApiProperty } from '@nestjs/swagger';
 
 // Небольшое улучшение: делаем enum строковым.
 // Иначе в URL придется передавать числа (?sort=1), а не читаемый текст (?sort=created_at).
@@ -18,6 +19,7 @@ export enum SORT_METHODS {
   UPDATED_AT = 'updated_at',
 }
 export class GetNotesDto {
+  @ApiProperty({ enum: status })
   @IsEnum(status)
   readonly status: status;
 
