@@ -10,7 +10,6 @@ const AppRouter = () => {
         <Route key={route.path} path={route.path} element={route.element} />
       ))}
       <Route path="*" element={<Navigate to="/notes" replace />} />
-      Приватные страницы
     </Routes>
   ) : (
     <Routes>
