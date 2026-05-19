@@ -6,7 +6,7 @@ const Logo = ({ isAppNameVisible }: { isAppNameVisible: boolean }) => {
   return (
     <Link className={styles.logo} to={'/'}>
       <LogoIcon />
-      {isAppNameVisible && <div className={styles.appName}>My notes</div>}
+      {isAppNameVisible && <div className={styles.appName}>Notes app</div>}
     </Link>
   );
 };
