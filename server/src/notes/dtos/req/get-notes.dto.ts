@@ -8,7 +8,7 @@ import {
   IsUUID,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { status } from '../../../prisma/generated/enums';
+import { status } from '../../../../prisma/generated/enums';
 import { ApiProperty } from '@nestjs/swagger';
 
 // Небольшое улучшение: делаем enum строковым.

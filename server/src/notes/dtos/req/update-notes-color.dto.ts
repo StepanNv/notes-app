@@ -5,7 +5,7 @@ import {
   IsIn,
   IsString,
 } from 'class-validator';
-import { colorKey } from '../../../prisma/generated/client';
+import { colorKey } from '../../../../prisma/generated/client';
 
 export class UpdateNotesColorDto {
   @IsArray()

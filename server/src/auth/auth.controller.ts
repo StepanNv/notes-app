@@ -4,8 +4,9 @@ import type { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { JwtRefreshAuthGuard } from './guards/jwt-refresh-auth.guard';
 import { GetRefreshTokenPayload } from './decorators/get-rt-payload.decorator';
-import { RegisterDto } from './dtos/register.dto';
-import { LoginDto } from './dtos/login.dto';
+import { RegisterDto } from './dtos/req/register.dto';
+import { LoginDto } from './dtos/req/login.dto';
+import { AuthDto } from './dtos/res/auth.dto';
 import type { TJwtPayload } from './types/jwt-payload';
 import { TokensService } from './tokens/tokens.service';
 import { ApiOperation } from '@nestjs/swagger';
@@ -23,7 +24,7 @@ export class AuthController {
   async register(
     @Body() dto: RegisterDto,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<AuthDto> {
     const userData = await this.authService.register(dto);
     return this.giveJwts({ userId: userData.id }, res);
   }
@@ -33,7 +34,7 @@ export class AuthController {
   async login(
     @Body() dto: LoginDto,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<AuthDto> {
     const userData = await this.authService.login(dto);
     return this.giveJwts({ userId: userData.id }, res);
   }
@@ -50,12 +51,15 @@ export class AuthController {
   async refresh(
     @GetRefreshTokenPayload() refreshJwtPayload: TJwtPayload,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<AuthDto> {
     const userData = await this.authService.refresh(refreshJwtPayload);
     return this.giveJwts({ userId: userData.id }, res);
   }
 
-  private async giveJwts(tokenPaylaod: TJwtPayload, res: Response) {
+  private async giveJwts(
+    tokenPaylaod: TJwtPayload,
+    res: Response,
+  ): Promise<AuthDto> {
     const jwts = await this.tokenService.generateJwts(tokenPaylaod);
 
     res.cookie('refreshJwt', jwts.refreshJwt, {
@@ -63,6 +67,6 @@ export class AuthController {
       maxAge: this.configService.get<number>('REFRESH_JWT_EXPIRES')! * 1000,
     });
 
-    return jwts.accessJwt;
+    return { accessJwt: jwts.accessJwt };
   }
 }

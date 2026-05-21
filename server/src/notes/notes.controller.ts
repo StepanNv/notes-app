@@ -7,21 +7,25 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { AddNoteDto } from './dtos/add-note.dto';
+import { AddNoteDto } from './dtos/req/add-note.dto';
 import { NotesService } from './notes.service';
-import { ArchiveNotesDto } from './dtos/archive-notes.dto';
-import { UnarchiveNotesDto } from './dtos/unarchive-notes.dto';
-import { TrashNotesDto } from './dtos/trash-notes.dto';
-import { RestoreTrashedNotesDto } from './dtos/restore-trashed-notes.dto';
-import { DeleteNotesDto } from './dtos/delete-notes.dto';
-import { UpdateNotesColorDto } from './dtos/update-notes-color.dto';
-import { UpdateNoteContentDto } from './dtos/update-note-content.dto';
+import { ArchiveNotesDto } from './dtos/req/archive-notes.dto';
+import { UnarchiveNotesDto } from './dtos/req/unarchive-notes.dto';
+import { TrashNotesDto } from './dtos/req/trash-notes.dto';
+import { RestoreTrashedNotesDto } from './dtos/req/restore-trashed-notes.dto';
+import { DeleteNotesDto } from './dtos/req/delete-notes.dto';
+import { UpdateNotesColorDto } from './dtos/req/update-notes-color.dto';
+import { UpdateNoteContentDto } from './dtos/req/update-note-content.dto';
 import { JwtAccessAuthGuard } from '../auth/guards/jwt-access-auth.guard';
 import { GetAccessTokenPayload } from '../auth/decorators/get-at-payload.decorator';
 import type { TJwtPayload } from '../auth/types/jwt-payload';
-import { UpdateNotePositionDto } from './dtos/update-note-position.dto';
-import { GetNotesDto } from './dtos/get-notes.dto';
+import { UpdateNotePositionDto } from './dtos/req/update-note-position.dto';
+import { GetNotesDto } from './dtos/req/get-notes.dto';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import { AddNoteResponseDto } from './dtos/res/add-note.dto';
+import { UpdateNotesColorResponseDto } from './dtos/res/update-notes-color.dto';
+import { UpdateNoteContentResponseDto } from './dtos/res/update-note-content.dto';
+import { GetNotesResponseDto } from './dtos/res/get-notes.dto';
 
 @ApiBearerAuth()
 @Controller('notes')
@@ -34,7 +38,7 @@ export class NotesController {
   addNote(
     @Body() dto: AddNoteDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
+  ): Promise<AddNoteResponseDto> {
     return this.notesService.addNote(dto, accessJwtPayload.userId);
   }
 
@@ -94,7 +98,7 @@ export class NotesController {
   updateNotesColor(
     @Body() dto: UpdateNotesColorDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
+  ): Promise<UpdateNotesColorResponseDto> {
     return this.notesService.updateNotesColor(dto, accessJwtPayload.userId);
   }
 
@@ -104,7 +108,7 @@ export class NotesController {
   updateNoteContent(
     @Body() dto: UpdateNoteContentDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
+  ): Promise<UpdateNoteContentResponseDto> {
     return this.notesService.updateNoteContent(dto, accessJwtPayload.userId);
   }
 
@@ -124,7 +128,7 @@ export class NotesController {
   getNotes(
     @Query() query: GetNotesDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
+  ): Promise<GetNotesResponseDto> {
     return this.notesService.getNotes(query, accessJwtPayload.userId);
   }
 }

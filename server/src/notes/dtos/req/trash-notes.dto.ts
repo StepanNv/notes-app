@@ -5,7 +5,7 @@ import {
   IsIn,
   IsString,
 } from 'class-validator';
-import { status } from '../../../prisma/generated/enums';
+import { status } from '../../../../prisma/generated/enums';
 
 export class TrashNotesDto {
   @IsArray()

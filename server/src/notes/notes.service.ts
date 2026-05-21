@@ -6,16 +6,16 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import type { Note, Prisma, status, User } from '../../prisma/generated/client';
-import { AddNoteDto } from './dtos/add-note.dto';
-import { ArchiveNotesDto } from './dtos/archive-notes.dto';
-import { UnarchiveNotesDto } from './dtos/unarchive-notes.dto';
-import { TrashNotesDto } from './dtos/trash-notes.dto';
-import { RestoreTrashedNotesDto } from './dtos/restore-trashed-notes.dto';
-import { DeleteNotesDto } from './dtos/delete-notes.dto';
-import { UpdateNotesColorDto } from './dtos/update-notes-color.dto';
-import { UpdateNoteContentDto } from './dtos/update-note-content.dto';
-import { UpdateNotePositionDto } from './dtos/update-note-position.dto';
-import { GetNotesDto, SORT_METHODS } from './dtos/get-notes.dto';
+import { AddNoteDto } from './dtos/req/add-note.dto';
+import { ArchiveNotesDto } from './dtos/req/archive-notes.dto';
+import { UnarchiveNotesDto } from './dtos/req/unarchive-notes.dto';
+import { TrashNotesDto } from './dtos/req/trash-notes.dto';
+import { RestoreTrashedNotesDto } from './dtos/req/restore-trashed-notes.dto';
+import { DeleteNotesDto } from './dtos/req/delete-notes.dto';
+import { UpdateNotesColorDto } from './dtos/req/update-notes-color.dto';
+import { UpdateNoteContentDto } from './dtos/req/update-note-content.dto';
+import { UpdateNotePositionDto } from './dtos/req/update-note-position.dto';
+import { GetNotesDto, SORT_METHODS } from './dtos/req/get-notes.dto';
 
 @Injectable()
 export class NotesService {
