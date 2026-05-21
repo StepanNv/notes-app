@@ -47,4 +47,6 @@ generateApi({
 
   // Папка для сохранения сгенерированного кода
   output: path.resolve(process.cwd(), 'src/api/generated'),
+
+  templates: path.resolve(process.cwd(), 'src/api/templates'),
 });

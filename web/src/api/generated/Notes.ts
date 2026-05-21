@@ -10,7 +10,7 @@
  * ---------------------------------------------------------------
  */
 
-import {
+import type {
   AddNoteDto,
   ArchiveNotesDto,
   DeleteNotesDto,
@@ -32,7 +32,7 @@ import {
   UpdateNotePositionDto,
   UpdateNotesColorDto,
 } from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+import { ContentType, HttpClient, type RequestParams } from "./http-client";
 
 export class Notes<SecurityDataType = unknown> {
   http: HttpClient<SecurityDataType>;
@@ -58,6 +58,7 @@ export class Notes<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: "json",
       ...params,
     });
   /**
@@ -190,6 +191,7 @@ export class Notes<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: "json",
       ...params,
     });
   /**
@@ -212,6 +214,7 @@ export class Notes<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: "json",
       ...params,
     });
   /**
@@ -247,14 +250,15 @@ export class Notes<SecurityDataType = unknown> {
    * @response `200` `NotesControllerGetNotesData`
    */
   notesControllerGetNotes = (
-    query: NotesControllerGetNotesParams,
     params: RequestParams = {},
+    query: NotesControllerGetNotesParams,
   ) =>
     this.http.request<NotesControllerGetNotesData, any>({
       path: `/notes`,
       method: "GET",
       query: query,
       secure: true,
+      format: "json",
       ...params,
     });
 }

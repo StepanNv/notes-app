@@ -10,7 +10,7 @@
  * ---------------------------------------------------------------
  */
 
-import {
+import type {
   AuthControllerLoginData,
   AuthControllerLogoutData,
   AuthControllerRefreshData,
@@ -18,7 +18,7 @@ import {
   LoginDto,
   RegisterDto,
 } from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+import { ContentType, HttpClient, type RequestParams } from "./http-client";
 
 export class Auth<SecurityDataType = unknown> {
   http: HttpClient<SecurityDataType>;
