@@ -1,6 +1,6 @@
-import FormCard from '../../ui/FormCard/AuthFormCard';
-import FormInput from '../../ui/FormInput/FormInput';
-import SubmitFormBtn from '../../ui/SubmitFormBtn/SubmitFormBtn';
+import FormCard from '../../../../ui/FormCard/AuthFormCard';
+import FormInput from '../../../../ui/FormInput/FormInput';
+import SubmitFormBtn from '../../../../ui/SubmitFormBtn/SubmitFormBtn';
 import styles from './SignUpForm.module.scss';
 
 const SignUpForm = () => {
