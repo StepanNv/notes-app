@@ -3,8 +3,8 @@ import { privateRoutes, publicRoutes } from './routes';
 import { useAuthStore } from '../stores/useAuthStore';
 
 const AppRouter = () => {
-  const isAuth = useAuthStore((state) => state.isAuth);
-  return isAuth ? (
+  const accessToken = useAuthStore((state) => state.accessToken);
+  return accessToken ? (
     <Routes>
       {privateRoutes.map((route) => (
         <Route key={route.path} path={route.path} element={route.element} />

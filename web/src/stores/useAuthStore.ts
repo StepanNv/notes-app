@@ -1,11 +1,22 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 type TUseAuthStore = {
-  isAuth: boolean;
-  setIsAuth: (value: boolean) => void;
+  accessToken: string | null;
+  setAccessToken: (accessToken: string | null) => void;
 };
 
-export const useAuthStore = create<TUseAuthStore>()((set) => ({
-  isAuth: false,
-  setIsAuth: (value: boolean) => set({ isAuth: value }),
-}));
+export const useAuthStore = create<TUseAuthStore>()(
+  persist(
+    (set) => ({
+      accessToken: null,
+      setAccessToken: (accessToken: string | null) => {
+        set({ accessToken });
+      },
+    }),
+    {
+      name: 'auth',
+      partialize: (state) => ({ accessToken: state.accessToken }),
+    },
+  ),
+);
