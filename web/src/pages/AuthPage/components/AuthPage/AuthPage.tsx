@@ -1,4 +1,5 @@
 import NotAuthPagesHeader from '../../../../components/NotAuthPagesHeader/NotAuthPagesHeader';
+import ServerErrorAlert from '../../../../components/ServerErrorAlert/ServerErrorAlert';
 import SignInForm from '../SignInForm/SignInForm';
 import SignUpForm from '../SignUpForm/SignUpForm';
 import styles from './AuthPage.module.scss';
