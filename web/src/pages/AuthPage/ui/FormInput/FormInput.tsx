@@ -1,22 +1,8 @@
 import styles from './FormInput.module.scss';
 
-const FormInput = ({
-  name,
-  type,
-  placeholder,
-}: {
-  name: string;
-  type: string;
-  placeholder: string;
-}) => {
+const FormInput = ({ ...props }) => {
   return (
-    <input
-      className={styles.formInput}
-      name={name}
-      type={type}
-      placeholder={placeholder}
-      autoComplete="true"
-    ></input>
+    <input className={styles.formInput} autoComplete="true" {...props}></input>
   );
 };
 
