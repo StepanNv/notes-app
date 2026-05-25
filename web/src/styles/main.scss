@@ -1,9 +1,11 @@
+// reset
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+// theme variables
 :root {
   --bg-color-1: #ffffff;
   --bg-color-2: #e5e5e5;
@@ -15,6 +17,8 @@
   --btn-text-color: #ffffff;
   --active-btn-bg: #0f70ee;
   --mark-up: rgba(192, 192, 192, 0.5);
+  --scrollbar-thumb: #9f9f9f;
+  --scrollbar-thumb-accent: #5596f6;
 }
 
 :root[data-theme='dark'] {
@@ -22,7 +26,44 @@
   --bg-color-2: #4a4a4a;
   --bg-color-2-hover: #747474;
   --text-color: #ffffff;
+  --scrollbar-thumb: #747474;
+  --scrollbar-thumb-accent: #5596f6;
 }
+
+// scrollbar
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--scrollbar-thumb),
+    var(--scrollbar-thumb-accent)
+  );
+  border: 3px solid var(--bg-color-1);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--active-btn-bg);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+// main styles
 
 #root {
   height: 100vh;
