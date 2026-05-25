@@ -35,6 +35,19 @@ import type {
 import { ContentType, HttpClient, type RequestParams } from "./http-client";
 
 export class Notes<SecurityDataType = unknown> {
+  static readonly paths = {
+    notesControllerAddNote: `/notes/add`,
+    notesControllerArchiveNotes: `/notes/archive`,
+    notesControllerUnarchiveNotes: `/notes/unarchive`,
+    notesControllerTrashNotes: `/notes/trash`,
+    notesControllerRestoreTrashedNotes: `/notes/restore-trashed`,
+    notesControllerDeleteNotes: `/notes/delete`,
+    notesControllerUpdateNotesColor: `/notes/update-color`,
+    notesControllerUpdateNoteContent: `/notes/update-content`,
+    notesControllerUpdateNotePosition: `/notes/update-position`,
+    notesControllerGetNotes: `/notes`,
+  } as const;
+
   http: HttpClient<SecurityDataType>;
 
   constructor(http: HttpClient<SecurityDataType>) {

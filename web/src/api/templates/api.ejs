@@ -14,6 +14,15 @@ import type{ <%~ dataContracts.join(", ") %> } from "./<%~ config.fileNames.data
 <% } %>
 
 export class <%= apiClassName %><SecurityDataType = unknown><% if (!config.singleHttpClient) { %> extends HttpClient<SecurityDataType> <% } %> {
+  static readonly paths = {
+    <% for (const route of routes) {
+      const routeName = route.routeName.usage;
+      const isValidIdentifier = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(routeName);
+    %>
+      <% if (isValidIdentifier) { %><%~ routeName %><% } else { %>"<%~ routeName %>"<% } %>: `<%~ route.request.path %>`,
+    <% } %>
+  } as const;
+
 <% if(config.singleHttpClient) { %>
   http: HttpClient<SecurityDataType>;
 
