@@ -3,7 +3,7 @@ import FormCard from '../../ui/FormCard/AuthFormCard';
 import FormInput from '../../ui/FormInput/FormInput';
 import SubmitFormBtn from '../../ui/SubmitFormBtn/SubmitFormBtn';
 import styles from './SignUpForm.module.scss';
-import { authController } from '../../api/auth.controller';
+import { authController } from '../../../../api/auth-controller';
 import { useForm } from 'react-hook-form';
 import type { RegisterDto } from '../../../../api/generated/data-contracts';
 import { useAuthStore } from '../../../../stores/useAuthStore';
