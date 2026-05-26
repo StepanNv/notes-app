@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma } from '../../prisma/generated/client';
 
@@ -24,13 +24,19 @@ export class UsersService {
     if (args.username) orConditions.push({ username: args.username });
 
     if (orConditions.length === 0) {
-      return null;
+      throw new NotFoundException('No user found with these conditions');
     }
 
-    return this.prismaService.user.findFirst({
+    const user = await this.prismaService.user.findFirst({
       where: {
         OR: orConditions,
       },
     });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
   }
 }
