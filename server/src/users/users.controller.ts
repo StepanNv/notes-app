@@ -4,8 +4,9 @@ import { JwtAccessAuthGuard } from '../auth/guards/jwt-access-auth.guard';
 import type { TJwtPayload } from '../auth/types/jwt-payload';
 import { GetAccessTokenPayload } from '../auth/decorators/get-at-payload.decorator';
 import type { User } from '../../prisma/generated/client';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
