@@ -10,37 +10,37 @@ const InfiniteNotesList = () => {
   const { ref, inView, entry } = useInView();
 
   const { data, fetchNextPage, isError, isLoading, isFetchingNextPage } =
-  useInfiniteQuery({
-    queryKey: ['notes'],
-    queryFn: async ({ pageParam }) => {
-      const res = await notesController.notesControllerGetNotes(
-        {},
-        {
-          status: 'default',
-          sort: 'created_at',
-          limit: 7,
-          ...(pageParam ? { last_id: pageParam } : {}),
-        },
-      );
+    useInfiniteQuery({
+      queryKey: ['notes'],
+      queryFn: async ({ pageParam }) => {
+        const res = await notesController.notesControllerGetNotes(
+          {},
+          {
+            status: 'default',
+            sort: 'created_at',
+            limit: 7,
+            ...(pageParam ? { last_id: pageParam } : {}),
+          },
+        );
 
-      return res.data;
-    },
-    initialPageParam: '',
-    getNextPageParam: (lastPage) => {
-      if (!lastPage?.meta?.next_last_id) {
-        return undefined;
-      }
-      return lastPage?.meta?.next_last_id;
-    },
-    refetchOnWindowFocus: false,
-  });
+        return res.data;
+      },
+      initialPageParam: '',
+      getNextPageParam: (lastPage) => {
+        if (!lastPage?.meta?.next_last_id) {
+          return undefined;
+        }
+        return lastPage?.meta?.next_last_id;
+      },
+      refetchOnWindowFocus: false,
+      retry: 1,
+    });
 
   useEffect(() => {
     if (entry && inView) {
       fetchNextPage();
     }
   }, [entry]);
-  
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -54,11 +54,11 @@ const InfiniteNotesList = () => {
       {data?.pages[0]?.data.length ? (
         <>
           {data?.pages.length &&
-            data?.pages.map((page) => (
+            data?.pages.map((page) =>
               page?.data.map((note) => (
                 <NoteItem key={note.id} title={note.title} text={note.text} />
-              ))
-            ))}
+              )),
+            )}
           {isFetchingNextPage ? <div>Loading...</div> : <div ref={ref} />}
         </>
       ) : (
