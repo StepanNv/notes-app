@@ -5,6 +5,7 @@ import NoNotesContent from '../NoNotesContent/NoNotesContent';
 import NoteItem from '../NoteItem/NoteItem';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
+import AddNoteBtn from '../../ui/AddNoteBtn/AddNoteBtn';
 
 const InfiniteNotesList = () => {
   const { ref, inView, entry } = useInView();
@@ -64,6 +65,7 @@ const InfiniteNotesList = () => {
       ) : (
         <NoNotesContent />
       )}
+      <AddNoteBtn />
     </div>
   );
 };
