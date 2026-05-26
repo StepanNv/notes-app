@@ -1,6 +1,6 @@
 import styles from './InfiniteNotesList.module.scss';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { notesController } from '../../api/notes.controller';
+import { notesController } from '../../api/notes-controller';
 import NoNotesContent from '../NoNotesContent/NoNotesContent';
 import NoteItem from '../NoteItem/NoteItem';
 import { useInView } from 'react-intersection-observer';
