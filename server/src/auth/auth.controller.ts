@@ -42,11 +42,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Выход из системы' })
   @Post('logout')
   logout(@Res({ passthrough: true }) res: Response) {
-    res.cookie('refreshJwt', '', {
-      path: '/',
-      httpOnly: true,
-      maxAge: 0,
-    });
+    res.clearCookie('refreshJwt');
   }
 
   @ApiOperation({ summary: 'Обновление токенов авторизации' })
@@ -67,7 +63,6 @@ export class AuthController {
     const jwts = await this.tokenService.generateJwts(tokenPaylaod);
 
     res.cookie('refreshJwt', jwts.refreshJwt, {
-      path: '/',
       httpOnly: true,
       // secure: true,
       maxAge: this.configService.get<number>('REFRESH_JWT_EXPIRES')! * 1000,
