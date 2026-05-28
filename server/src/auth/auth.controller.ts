@@ -64,6 +64,7 @@ export class AuthController {
 
     res.cookie('refreshJwt', jwts.refreshJwt, {
       httpOnly: true,
+      // secure: true, // для production
       maxAge: this.configService.get<number>('REFRESH_JWT_EXPIRES')! * 1000,
     });
 
