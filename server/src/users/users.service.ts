@@ -24,7 +24,7 @@ export class UsersService {
     if (args.username) orConditions.push({ username: args.username });
 
     if (orConditions.length === 0) {
-      throw new NotFoundException('No user found with these conditions');
+      return null;
     }
 
     const user = await this.prismaService.user.findFirst({
@@ -34,7 +34,7 @@ export class UsersService {
     });
 
     if (!user) {
-      throw new NotFoundException('User not found');
+      return null;
     }
 
     return user;
