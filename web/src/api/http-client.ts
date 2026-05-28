@@ -77,7 +77,7 @@ httpClient.instance.interceptors.response.use(
       throw error;
     }
 
-    // Если был запрос на refresh, то удаляем access token из store и выбрасываем ошибку
+    // Если был запрос на refresh и 401 статус, то удаляем access token из store и выбрасываем ошибку
     if (error.config?.url === Auth.paths.authControllerRefresh) {
       useAuthStore.getState().setAccessToken(null);
       throw error;
