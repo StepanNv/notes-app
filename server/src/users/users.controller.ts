@@ -18,9 +18,11 @@ export class UsersController {
   async getMe(
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
   ): Promise<GetMeResDto> {
-    const user = await this.usersService.getOne({ id: accessJwtPayload.userId });
+    const user = await this.usersService.getOne({
+      id: accessJwtPayload.userId,
+    });
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException();
     }
     return user;
   }
