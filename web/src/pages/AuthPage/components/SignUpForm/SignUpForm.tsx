@@ -10,10 +10,10 @@ import { useAuthStore } from '../../../../stores/useAuthStore';
 import type { AxiosError } from 'axios';
 
 const SignUpForm = () => {
-  const { register, handleSubmit } = useForm<RegisterDto>();
   const setAccessToken = useAuthStore((state) => state.setAccessToken);
+  const { register, handleSubmit } = useForm<RegisterDto>();
 
-  const reigster = useMutation({
+  const registerMutation = useMutation({
     mutationFn: (formData: RegisterDto) =>
       authController.authControllerRegister(formData),
     onSuccess: (data) => {
@@ -24,13 +24,16 @@ const SignUpForm = () => {
     },
   });
 
-  const onSubmit = (formData: RegisterDto) => {
-    reigster.mutate(formData);
+  const handleRegister = (formData: RegisterDto) => {
+    registerMutation.mutate(formData);
   };
 
   return (
     <FormCard>
-      <form className={styles.signUpForm} onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className={styles.signUpForm}
+        onSubmit={handleSubmit(handleRegister)}
+      >
         <FormInput
           type="email"
           placeholder="Email address"
