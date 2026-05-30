@@ -1,11 +1,11 @@
 import styles from './InfiniteNotesList.module.scss';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { notesController } from '../../api/notes-controller';
+import { useInfiniteQuery } from '@tanstack/react-query'; 
 import NoNotesContent from '../NoNotesContent/NoNotesContent';
 import NoteItem from '../NoteItem/NoteItem';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import AddNoteBtn from '../../ui/AddNoteBtn/AddNoteBtn';
+import { getNotes } from '../../api/getNotes';
 
 const InfiniteNotesList = () => {
   const { ref, inView, entry } = useInView();
@@ -14,15 +14,12 @@ const InfiniteNotesList = () => {
     useInfiniteQuery({
       queryKey: ['notes'],
       queryFn: async ({ pageParam }) => {
-        const res = await notesController.notesControllerGetNotes(
-          {},
-          {
-            status: 'default',
-            sort: 'created_at',
-            limit: 7,
-            ...(pageParam ? { last_id: pageParam } : {}),
-          },
-        );
+        const res = await getNotes({
+          status: 'default',
+          sort: 'created_at',
+          limit: 7,
+          ...(pageParam ? { last_id: pageParam } : {}),
+        });
 
         return res.data;
       },
