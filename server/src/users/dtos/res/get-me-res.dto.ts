@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import type { User } from '../../../../prisma/generated/client';
 
-export class GetMeResDto implements User {
-  @ApiProperty()
-  readonly id: string;
-
+export class GetMeResDto implements Pick<
+  User,
+  'email' | 'username' | 'createdAt'
+> {
   @ApiProperty()
   readonly email: string;
 
@@ -13,7 +13,4 @@ export class GetMeResDto implements User {
 
   @ApiProperty()
   readonly createdAt: Date;
-
-  @ApiProperty()
-  readonly hashedPassword: string;
 }
