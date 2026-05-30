@@ -291,13 +291,9 @@ export class NotesService {
 
     // Возвращаем результат и следующий last_id для фронтенда
     return {
-      data: notes,
-      meta: {
-        // Если вернулось столько же элементов, сколько мы просили,
-        // значит скорее всего есть еще данные
-        next_last_id:
-          notes.length === limit ? notes[notes.length - 1].id : null,
-      },
+      notes: notes,
+      next_last_id: notes.length === limit ? notes[notes.length - 1].id : null, // Если вернулось столько же элементов, 
+      // сколько мы просили, значит скорее всего есть еще данные
     };
   }
 
