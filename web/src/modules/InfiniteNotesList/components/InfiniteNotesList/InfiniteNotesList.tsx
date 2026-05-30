@@ -28,10 +28,10 @@ const InfiniteNotesList = () => {
       },
       initialPageParam: '',
       getNextPageParam: (lastPage) => {
-        if (!lastPage?.meta?.next_last_id) {
+        if (!lastPage?.next_last_id) {
           return undefined;
         }
-        return lastPage?.meta?.next_last_id;
+        return lastPage?.next_last_id;
       },
       refetchOnWindowFocus: false,
       retry: 1,
@@ -52,11 +52,11 @@ const InfiniteNotesList = () => {
 
   return (
     <div className={styles.infiniteNotesList}>
-      {data?.pages[0]?.data.length ? (
+      {data?.pages[0]?.notes.length ? (
         <>
           {data?.pages.length &&
             data?.pages.map((page) =>
-              page?.data.map((note) => (
+              page?.notes.map((note) => (
                 <NoteItem key={note.id} title={note.title} text={note.text} />
               )),
             )}
