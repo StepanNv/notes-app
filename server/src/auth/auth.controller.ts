@@ -6,7 +6,7 @@ import { JwtRefreshAuthGuard } from './guards/jwt-refresh-auth.guard';
 import { GetRefreshTokenPayload } from './decorators/get-rt-payload.decorator';
 import { RegisterDto } from './dtos/req/register.dto';
 import { LoginDto } from './dtos/req/login.dto';
-import { AuthDto } from './dtos/res/auth.dto';
+import { AuthResDto } from './dtos/res/auth-res.dto';
 import type { TJwtPayload } from './types/jwt-payload';
 import { TokensService } from './tokens/tokens.service';
 import { ApiOperation } from '@nestjs/swagger';
@@ -24,7 +24,7 @@ export class AuthController {
   async register(
     @Body() dto: RegisterDto,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<AuthDto> {
+  ): Promise<AuthResDto> {
     const userData = await this.authService.register(dto);
     return this.giveJwts({ userId: userData.id }, res);
   }
@@ -34,7 +34,7 @@ export class AuthController {
   async login(
     @Body() dto: LoginDto,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<AuthDto> {
+  ): Promise<AuthResDto> {
     const userData = await this.authService.login(dto);
     return this.giveJwts({ userId: userData.id }, res);
   }
@@ -51,7 +51,7 @@ export class AuthController {
   async refresh(
     @GetRefreshTokenPayload() refreshJwtPayload: TJwtPayload,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<AuthDto> {
+  ): Promise<AuthResDto> {
     const userData = await this.authService.refresh(refreshJwtPayload);
     return this.giveJwts({ userId: userData.id }, res);
   }
@@ -59,7 +59,7 @@ export class AuthController {
   private async giveJwts(
     tokenPaylaod: TJwtPayload,
     res: Response,
-  ): Promise<AuthDto> {
+  ): Promise<AuthResDto> {
     const jwts = await this.tokenService.generateJwts(tokenPaylaod);
 
     res.cookie('refreshJwt', jwts.refreshJwt, {

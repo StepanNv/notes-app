@@ -22,10 +22,10 @@ import type { TJwtPayload } from '../auth/types/jwt-payload';
 import { UpdateNotePositionDto } from './dtos/req/update-note-position.dto';
 import { GetNotesDto } from './dtos/req/get-notes.dto';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
-import { AddNoteResponseDto } from './dtos/res/add-note.dto';
-import { UpdateNotesColorResponseDto } from './dtos/res/update-notes-color.dto';
-import { UpdateNoteContentResponseDto } from './dtos/res/update-note-content.dto';
-import { GetNotesResponseDto } from './dtos/res/get-notes.dto';
+import { AddNoteResDto } from './dtos/res/add-note-res.dto';
+import { UpdateNotesColorResDto } from './dtos/res/update-notes-color-res.dto';
+import { UpdateNoteContentResDto } from './dtos/res/update-note-content-res.dto';
+import { GetNotesResDto } from './dtos/res/get-notes-res.dto';
 
 @ApiBearerAuth()
 @Controller('notes')
@@ -38,7 +38,7 @@ export class NotesController {
   addNote(
     @Body() dto: AddNoteDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ): Promise<AddNoteResponseDto> {
+  ): Promise<AddNoteResDto> {
     return this.notesService.addNote(dto, accessJwtPayload.userId);
   }
 
@@ -98,7 +98,7 @@ export class NotesController {
   updateNotesColor(
     @Body() dto: UpdateNotesColorDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ): Promise<UpdateNotesColorResponseDto> {
+  ): Promise<UpdateNotesColorResDto> {
     return this.notesService.updateNotesColor(dto, accessJwtPayload.userId);
   }
 
@@ -108,7 +108,7 @@ export class NotesController {
   updateNoteContent(
     @Body() dto: UpdateNoteContentDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ): Promise<UpdateNoteContentResponseDto> {
+  ): Promise<UpdateNoteContentResDto> {
     return this.notesService.updateNoteContent(dto, accessJwtPayload.userId);
   }
 
@@ -128,7 +128,7 @@ export class NotesController {
   getNotes(
     @Query() query: GetNotesDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ): Promise<GetNotesResponseDto> {
+  ): Promise<GetNotesResDto> {
     return this.notesService.getNotes(query, accessJwtPayload.userId);
   }
 }
