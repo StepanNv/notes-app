@@ -13,17 +13,3 @@
     color: rgba(255, 255, 255, 0.5);
   }
 }
-
-.quill {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-
-  :global(.ql-toolbar) {
-    order: 2;
-  }
-
-  :global(.ql-blank) {
-    border: none;
-  }
-}
