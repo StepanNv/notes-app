@@ -32,7 +32,7 @@ const SignUpForm = () => {
     <FormCard>
       <form
         className={styles.signUpForm}
-        onSubmit={handleSubmit(handleRegister)}
+        onSubmit={handleSubmit(handleRegister)} // handleSubmit передаст в handleRegister данные из формы сам под капотом
       >
         <FormInput
           type="email"
