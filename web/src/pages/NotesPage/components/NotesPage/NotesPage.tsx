@@ -2,6 +2,7 @@ import styles from './NotesPage.module.scss';
 import NotesPageHeader from '../NotesPageHeader/NotesPageHeader';
 import Sidebar from '../../../../modules/Sidebar/components/Sidebar/Sidebar';
 import InfiniteNotesList from '../../../../modules/InfiniteNotesList/components/InfiniteNotesList/InfiniteNotesList';
+import AddNoteBtn from '../../ui/AddNoteBtn/AddNoteBtn';
 
 const NotesPage = () => {
   return (
@@ -9,6 +10,7 @@ const NotesPage = () => {
       <NotesPageHeader />
       <main className={styles.main}>
         <InfiniteNotesList />
+        <AddNoteBtn />
       </main>
       <Sidebar />
     </>
