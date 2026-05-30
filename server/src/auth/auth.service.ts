@@ -1,4 +1,6 @@
 import {
+  BadRequestException,
+  ForbiddenException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -34,7 +36,7 @@ export class AuthService {
   async login(dto: LoginDto) {
     const user = await this.usersService.getOne({ email: dto.email });
     if (!user) {
-      throw new UnauthorizedException({
+      throw new BadRequestException({
         message: 'User with this email is not exists',
       });
     }
@@ -44,7 +46,7 @@ export class AuthService {
       user.hashedPassword,
     );
     if (!passwordEquals) {
-      throw new UnauthorizedException({ message: 'Invalide password' });
+      throw new BadRequestException({ message: 'Invalide password' });
     }
 
     return user;
@@ -55,7 +57,7 @@ export class AuthService {
       id: refreshJwtPayload.userId,
     });
     if (!user) {
-      throw new UnauthorizedException(
+      throw new ForbiddenException(
         'This account no longer exists. Please log in with a different account.',
       );
     }
