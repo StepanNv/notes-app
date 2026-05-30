@@ -1,10 +1,9 @@
 import styles from './InfiniteNotesList.module.scss';
-import { useInfiniteQuery } from '@tanstack/react-query'; 
+import { useInfiniteQuery } from '@tanstack/react-query';
 import NoNotesContent from '../NoNotesContent/NoNotesContent';
 import NoteItem from '../NoteItem/NoteItem';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
-import AddNoteBtn from '../../ui/AddNoteBtn/AddNoteBtn';
 import { getNotes } from '../../api/getNotes';
 
 const InfiniteNotesList = () => {
@@ -62,7 +61,6 @@ const InfiniteNotesList = () => {
       ) : (
         <NoNotesContent />
       )}
-      <AddNoteBtn />
     </div>
   );
 };
