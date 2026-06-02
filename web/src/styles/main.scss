@@ -73,6 +73,7 @@
 .App {
   flex: 1;
   display: flex;
+  flex-direction: column;
   background-color: var(--bg-color-1);
   color: var(--text-color);
   font-family: 'Inter', sans-serif;
