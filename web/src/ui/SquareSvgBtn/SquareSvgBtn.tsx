@@ -7,7 +7,12 @@ type TSquareSvgBtnProps = {
 
 const SquareSvgBtn = ({ onClick, children }: TSquareSvgBtnProps) => {
   return (
-    <button className={styles.squareSvgBtn} onClick={onClick}>
+    <button
+      type="button"
+      className={styles.squareSvgBtn}
+      onMouseDown={(event) => event.preventDefault()}
+      onClick={onClick}
+    >
       {children}
     </button>
   );
