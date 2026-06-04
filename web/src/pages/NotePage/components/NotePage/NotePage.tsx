@@ -1,11 +1,11 @@
 import NotePageHeader from '../NotePageHeader/NotePageHeader';
-import NoteEditor from '../NoteEditor/NoteEditor';
+import NoteForm from '../NoteForm/NoteForm';
 
 const NotePage = () => {
   return (
     <>
       <NotePageHeader />
-      <NoteEditor />
+      <NoteForm />
     </>
   );
 };

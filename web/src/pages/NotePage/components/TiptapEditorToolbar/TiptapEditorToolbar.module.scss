@@ -1,0 +1,11 @@
+.tiptapEditorToolbar {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-color-1);
+  border-top: 1px solid var(--mark-up);
+  padding: 0 12px;
+  button:not(:last-child) {
+    margin-right: 4px;
+  }
+}
