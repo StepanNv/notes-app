@@ -1,5 +1,5 @@
 import styles from './Sidebar.module.scss';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSidebarStore } from '../../stores/useSidebarStore';
 import Backdrop from '../../../../ui/Backdrop/Backdrop';
@@ -23,7 +23,7 @@ const Sidebar = () => {
         className={`${styles.sidebar} ${isSidebarOpened ? styles.opened : ''}`}
         onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
       >
-        <SidebarHeader /> 
+        <SidebarHeader />
         <SidebarNavList />
       </div>
     </Backdrop>
