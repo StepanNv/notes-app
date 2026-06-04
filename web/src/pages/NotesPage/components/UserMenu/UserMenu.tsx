@@ -3,7 +3,7 @@ import styles from './UserMenu.module.scss';
 import { useClickOutside } from '../../../../hooks/useClickOutside';
 import Dropdown from '../Dropdown/Dropdown';
 import { useQuery } from '@tanstack/react-query';
-import { getUserName } from '../api/getUsername';
+import { getUsername } from '../../api/get-username';
 
 const UserMenu = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -19,7 +19,7 @@ const UserMenu = () => {
     isError,
   } = useQuery({
     queryKey: ['username'],
-    queryFn: getUserName,
+    queryFn: getUsername,
   });
 
   return (
