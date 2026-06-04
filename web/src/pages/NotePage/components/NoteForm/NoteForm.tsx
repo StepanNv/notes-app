@@ -1,30 +1,11 @@
-import { useForm } from 'react-hook-form';
 import { EditorContent } from '@tiptap/react';
 import styles from './NoteForm.module.scss';
-import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import TiptapEditorToolbar from '../TiptapEditorToolbar/TiptapEditorToolbar';
 import { useNoteEditor } from './useNoteEditor';
+import { useNoteForm } from './useNoteForm';
 
 const NoteForm = () => {
-  const formSchema = z.object({
-    title: z
-      .string()
-      .max(100, { message: 'Title cannot be longer than 100 characters' }),
-    text: z
-      .string()
-      .max(10000, { message: 'Text cannot be longer than 10000 characters' }),
-  });
-
-  const { register, handleSubmit, control } = useForm<
-    z.infer<typeof formSchema>
-  >({
-    resolver: zodResolver(formSchema),
-    mode: 'onChange',
-  });
-
-  const saveNote = (formData: z.infer<typeof formSchema>) => {};
-
+  const { register, handleSubmit, control, saveNote } = useNoteForm();
   const editor = useNoteEditor(control);
 
   return (
