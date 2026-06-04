@@ -3,7 +3,7 @@ import styles from './UserMenu.module.scss';
 import { useClickOutside } from '../../../../hooks/useClickOutside';
 import Dropdown from '../Dropdown/Dropdown';
 import { useQuery } from '@tanstack/react-query';
-import { getUserName } from '../api/getUserName';
+import { getUserName } from '../api/getUsername';
 
 const UserMenu = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
