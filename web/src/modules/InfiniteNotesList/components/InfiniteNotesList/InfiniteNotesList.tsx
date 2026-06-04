@@ -40,10 +40,14 @@ const InfiniteNotesList = () => {
   }, [entry]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className={styles.loading}>Loading...</div>;
   }
   if (isError) {
-    return <div>Error</div>;
+    return (
+      <div className={styles.error}>
+        Something went wrong. Please try again later.
+      </div>
+    );
   }
 
   return (

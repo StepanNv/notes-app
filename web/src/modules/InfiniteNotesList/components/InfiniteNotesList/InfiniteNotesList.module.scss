@@ -7,3 +7,17 @@
   overflow-y: auto;
   scrollbar-gutter: stable;
 }
+
+.loading {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
