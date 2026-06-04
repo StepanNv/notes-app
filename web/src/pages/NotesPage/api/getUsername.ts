@@ -1,4 +1,4 @@
-import { usersController } from '../../../../api/users-controller';
+import { usersController } from '../../../api/users-controller';
 
 export const getUserName = async () => {
   const res = await usersController.usersControllerGetMe();
