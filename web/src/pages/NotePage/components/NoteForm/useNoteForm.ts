@@ -1,8 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
+import { addNote } from '../../api/add-note';
+import { updateContent } from '../../api/update-content';
 
-export const useNoteForm = () => {
+export const useNoteForm = (noteId?: string) => {
   const formSchema = z.object({
     title: z
       .string()
@@ -19,9 +21,17 @@ export const useNoteForm = () => {
     mode: 'onChange',
   });
 
-  const saveNote = (formData: z.infer<typeof formSchema>) => {
-    console.log(formData);
-  };
+  const saveNote = handleSubmit((formData: z.infer<typeof formSchema>) => {
+    if (noteId) {
+      updateContent({
+        noteId,
+        updatedTitle: formData.title,
+        updatedText: formData.text,
+      });
+    } else {
+      addNote(formData);
+    }
+  });
 
-  return { register, handleSubmit, control, saveNote };
+  return { register, control, saveNote };
 };

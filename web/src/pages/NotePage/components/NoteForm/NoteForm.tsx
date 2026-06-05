@@ -3,16 +3,19 @@ import styles from './NoteForm.module.scss';
 import TiptapEditorToolbar from '../TiptapEditorToolbar/TiptapEditorToolbar';
 import { useNoteEditor } from './useNoteEditor';
 import { useNoteForm } from './useNoteForm';
+import { useParams } from 'react-router-dom';
 
 const NoteForm = () => {
-  const { register, handleSubmit, control, saveNote } = useNoteForm();
+  const { id } = useParams();
+  const { register, control, saveNote } = useNoteForm(id);
   const editor = useNoteEditor(control);
 
   return (
     <main className={styles.noteForm}>
       <form
+        id="note-form"
         className={styles.noteFormContent}
-        onSubmit={handleSubmit(saveNote)}
+        onSubmit={saveNote}
       >
         <div className={styles.scrollArea}>
           <input

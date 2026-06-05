@@ -9,7 +9,9 @@ const NotePageHeader = () => {
         <Link className={styles.headerBtn} to={'/notes'}>
           Back
         </Link>
-        <button className={styles.headerBtn}>Save</button>
+        <button className={styles.headerBtn} type="submit" form="note-form">
+          Save
+        </button>
       </div>
     </Header>
   );
