@@ -30,7 +30,6 @@ const InfiniteNotesList = () => {
         return lastPage?.next_last_id;
       },
       refetchOnWindowFocus: false,
-      retry: 1,
     });
 
   useEffect(() => {
