@@ -56,7 +56,7 @@ const InfiniteNotesList = () => {
           {data?.pages.length &&
             data?.pages.map((page) =>
               page?.notes.map((note) => (
-                <NoteItem key={note.id} title={note.title} text={note.text} />
+                <NoteItem key={note.id} id={note.id} title={note.title} text={note.text} />
               )),
             )}
           {isFetchingNextPage ? <div>Loading...</div> : <div ref={ref} />}
