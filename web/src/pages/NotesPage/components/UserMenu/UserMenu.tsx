@@ -1,17 +1,12 @@
-import { useState, useRef } from 'react';
 import styles from './UserMenu.module.scss';
-import { useClickOutside } from '../../../../hooks/useClickOutside';
 import Dropdown from '../UserMenuDropdown/UserMenuDropdown';
 import { useQuery } from '@tanstack/react-query';
 import { getUsername } from '../../api/get-username';
+import { useDropdownManipulations } from './useDropdown';
 
 const UserMenu = () => {
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const menuRef = useRef(null);
-
-  useClickOutside(menuRef, () => {
-    if (isDropdownOpen) setDropdownOpen(false);
-  });
+  const { isDropdownOpen, setDropdownOpen, userMenuRef } =
+    useDropdownManipulations();
 
   const {
     data: username,
@@ -23,7 +18,7 @@ const UserMenu = () => {
   });
 
   return (
-    <div className={styles.userMenu} ref={menuRef}>
+    <div className={styles.userMenu} ref={userMenuRef}>
       <button
         className={styles.userNameBtn}
         onClick={() => setDropdownOpen(!isDropdownOpen)}
