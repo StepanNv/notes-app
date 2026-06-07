@@ -2,7 +2,7 @@ import styles from './UserMenu.module.scss';
 import Dropdown from '../UserMenuDropdown/UserMenuDropdown';
 import { useQuery } from '@tanstack/react-query';
 import { getUsername } from '../../api/get-username';
-import { useDropdownManipulations } from './useDropdown';
+import { useDropdownManipulations } from './useDropdownManipulations';
 
 const UserMenu = () => {
   const { isDropdownOpen, setDropdownOpen, userMenuRef } =
