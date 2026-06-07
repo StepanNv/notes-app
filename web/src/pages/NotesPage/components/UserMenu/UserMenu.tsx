@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import styles from './UserMenu.module.scss';
 import { useClickOutside } from '../../../../hooks/useClickOutside';
-import Dropdown from '../Dropdown/Dropdown';
+import Dropdown from '../UserMenuDropdown/UserMenuDropdown';
 import { useQuery } from '@tanstack/react-query';
 import { getUsername } from '../../api/get-username';
 
