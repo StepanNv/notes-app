@@ -2,6 +2,7 @@ import NotAuthPagesHeader from '../../../../components/NotAuthPagesHeader/NotAut
 import SignInForm from '../SignInForm/SignInForm';
 import SignUpForm from '../SignUpForm/SignUpForm';
 import styles from './AuthPage.module.scss';
+import { ErrorAlersBox } from '../../../../modules/ErrorAlertsBox/index';
 
 const AuthPage = ({
   selectedAuthMethod,
@@ -14,6 +15,7 @@ const AuthPage = ({
       <main className={styles.main}>
         {selectedAuthMethod === 'sign-in' ? <SignInForm /> : <SignUpForm />}
       </main>
+      <ErrorAlersBox />
     </>
   );
 };
