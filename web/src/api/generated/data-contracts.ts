@@ -142,11 +142,23 @@ export interface UpdateNotePositionDto {
 }
 
 export interface NoteDto {
+  colorKey:
+    | "FIRST"
+    | "SECOND"
+    | "THIRD"
+    | "FOURTH"
+    | "FIFTH"
+    | "SIXTH"
+    | "SEVENTH"
+    | "EIGHTH"
+    | "NINTH"
+    | "TENTH"
+    | "ELEVENTH"
+    | "TWELVEFTH";
+  status: "default" | "archived" | "trashed";
   id: string;
   title: string | null;
   text: string | null;
-  colorKey: object;
-  status: object;
   positionNumber: number;
   /** @format date-time */
   createdAt: string;
