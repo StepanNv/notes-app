@@ -3,8 +3,13 @@ import NoNotesContent from '../NoNotesContent/NoNotesContent';
 import NoteItem from '../NoteItem/NoteItem';
 import { useInfiniteNotesQuery } from './useInfiniteNotesQuery';
 import { useInfiniteScrollTrigger } from './useInfiniteScrollTrigger';
+import type { NotesControllerGetNotesParams } from '../../../../api/generated/data-contracts';
 
-const InfiniteNotesList = () => {
+const InfiniteNotesList = ({
+  query,
+}: {
+  query: NotesControllerGetNotesParams;
+}) => {
   const {
     data,
     fetchNextPage,
@@ -12,12 +17,9 @@ const InfiniteNotesList = () => {
     isLoading,
     isFetchingNextPage,
     hasNextPage,
-  } = useInfiniteNotesQuery();
-  const { ref } = useInfiniteScrollTrigger({
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  });
+  } = useInfiniteNotesQuery(query);
+
+  const { ref } = useInfiniteScrollTrigger(fetchNextPage);
 
   const notes = data?.pages.flatMap((page) => page.notes) ?? [];
 
@@ -37,9 +39,18 @@ const InfiniteNotesList = () => {
       {notes.length ? (
         <>
           {notes.map((note) => (
-            <NoteItem key={note.id} id={note.id} title={note.title} text={note.text} />
+            <NoteItem
+              key={note.id}
+              id={note.id}
+              title={note.title}
+              text={note.text}
+            />
           ))}
-          {isFetchingNextPage ? <div>Loading...</div> : hasNextPage && <div ref={ref} />}
+          {isFetchingNextPage ? (
+            <div>Loading...</div>
+          ) : (
+            hasNextPage && <div ref={ref} />
+          )}
         </>
       ) : (
         <NoNotesContent />

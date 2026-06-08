@@ -1,14 +1,15 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getNotes } from '../../api/getNotes';
+import type { NotesControllerGetNotesParams } from '../../../../api/generated/data-contracts';
 
-export const useInfiniteNotesQuery = () => {
+export const useInfiniteNotesQuery = (query: NotesControllerGetNotesParams) => {
   return useInfiniteQuery({
     queryKey: ['notes'],
-    queryFn: async ({ pageParam }) => {
+    queryFn: async ({ pageParam }) => { // pageParam - информирует о том с какой заметки начинать загружать данные
       const res = await getNotes({
-        status: 'default',
-        sort: 'created_at',
-        limit: 7,
+        status: query.status,
+        sort: query.sort,
+        limit: query.limit,
         ...(pageParam ? { last_id: pageParam } : {}),
       });
 

@@ -7,7 +7,9 @@ const NotesPage = () => {
   return (
     <>
       <NotesPageHeader />
-      <InfiniteNotesList />
+      <InfiniteNotesList
+        query={{ status: 'default', sort: 'custom', limit: 7 }}
+      />
       <AddNoteBtn />
       <Sidebar />
     </>
