@@ -269,7 +269,7 @@ export class NotesService {
       case SORT_METHODS.CUSTOM:
         // Для custom сортировки у вас должно быть отдельное поле в БД,
         // например orderIndex, которое вы обновляете при drag-n-drop
-        orderBy = { positionNumber: 'asc' };
+        orderBy = { positionNumber: 'desc' };
         break;
     }
 
@@ -292,7 +292,7 @@ export class NotesService {
     // Возвращаем результат и следующий last_id для фронтенда
     return {
       notes: notes,
-      next_last_id: notes.length === limit ? notes[notes.length - 1].id : null, // Если вернулось столько же элементов, 
+      next_last_id: notes.length === limit ? notes[notes.length - 1].id : null, // Если вернулось столько же элементов,
       // сколько мы просили, значит скорее всего есть еще данные
     };
   }
