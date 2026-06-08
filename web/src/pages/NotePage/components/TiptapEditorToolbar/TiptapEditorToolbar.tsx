@@ -16,30 +16,41 @@ const TiptapEditorToolbar = ({ editor }: { editor: Editor | null }) => {
   return (
     <div className={styles.tiptapEditorToolbar}>
       <ToolbarBtn
+        type="button"
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
       >
         <Heading1 />
       </ToolbarBtn>
       <ToolbarBtn
+        type="button"
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
       >
         <Heading2 />
       </ToolbarBtn>
-      <ToolbarBtn onClick={() => editor.chain().focus().toggleBold().run()}>
+      <ToolbarBtn
+        type="button"
+        onClick={() => editor.chain().focus().toggleBold().run()}>
         <Bold />
       </ToolbarBtn>
-      <ToolbarBtn onClick={() => editor.chain().focus().toggleItalic().run()}>
+      <ToolbarBtn
+        type="button"
+        onClick={() => editor.chain().focus().toggleItalic().run()}>
         <Italic />
       </ToolbarBtn>
       <ToolbarBtn
+        type="button"
         onClick={() => editor.chain().focus().toggleUnderline().run()}
       >
         <Underline />
       </ToolbarBtn>
-      <ToolbarBtn onClick={() => editor.chain().focus().toggleStrike().run()}>
+      <ToolbarBtn
+        type="button"
+        onClick={() => editor.chain().focus().toggleStrike().run()}>
         <Strikethrough />
       </ToolbarBtn>
-      <ToolbarBtn onClick={() => editor.chain().focus().unsetAllMarks().run()}>
+      <ToolbarBtn
+        type="button"
+        onClick={() => editor.chain().focus().unsetAllMarks().run()}>
         <RemoveFormatting />
       </ToolbarBtn>
     </div>
