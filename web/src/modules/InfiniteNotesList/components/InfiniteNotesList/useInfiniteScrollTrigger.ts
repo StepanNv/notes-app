@@ -1,24 +1,14 @@
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-type UseInfiniteScrollTriggerOptions = {
-  fetchNextPage: () => Promise<unknown>;
-  hasNextPage: boolean | undefined;
-  isFetchingNextPage: boolean;
-};
-
-export const useInfiniteScrollTrigger = ({
-  fetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
-}: UseInfiniteScrollTriggerOptions) => {
-  const { ref, inView } = useInView();
+export const useInfiniteScrollTrigger = (fetchNextPage: () => void) => {
+  const { ref, inView, entry } = useInView();
 
   useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
-      void fetchNextPage();
+    if (entry && inView) {
+      fetchNextPage();
     }
-  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+  }, [entry]);
 
   return { ref };
 };
