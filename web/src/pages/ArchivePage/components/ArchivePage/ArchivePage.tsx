@@ -6,7 +6,7 @@ const ArchivePage = () => {
   return (
     <>
       <ArchivePageHeader />
-      <InfiniteNotesList />
+      <InfiniteNotesList query={{ status: 'archived', sort: 'custom', limit: 7 }} />
       <Sidebar />
     </>
   );

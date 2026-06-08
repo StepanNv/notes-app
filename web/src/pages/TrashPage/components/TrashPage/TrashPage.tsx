@@ -6,7 +6,9 @@ const TrashPage = () => {
   return (
     <>
       <TrashPageHeader />
-      <InfiniteNotesList />
+      <InfiniteNotesList
+        query={{ status: 'trashed', sort: 'custom', limit: 7 }}
+      />
       <Sidebar />
     </>
   );
