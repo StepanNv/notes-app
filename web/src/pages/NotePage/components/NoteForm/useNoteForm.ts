@@ -22,6 +22,10 @@ export const useNoteForm = (noteId?: string) => {
   >({
     resolver: zodResolver(formSchema),
     mode: 'onChange',
+    defaultValues: {
+      title: '',
+      text: '',
+    },
   });
 
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
