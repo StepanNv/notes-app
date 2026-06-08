@@ -10,8 +10,12 @@ export const privateRoutes = [
   { path: '/notes', element: <NotesPage /> },
   { path: '/archive', element: <ArchivePage /> },
   { path: '/trash', element: <TrashPage /> },
-  { path: '/note/new', element: <NotePage /> },
-  { path: '/note/:id', element: <NotePage /> },
+  { path: '/notes/new', element: <NotePage /> },
+  { path: '/archive/new', element: <NotePage /> },
+  { path: '/trash/new', element: <NotePage /> },
+  { path: '/notes/:id', element: <NotePage /> },
+  { path: '/archive/:id', element: <NotePage /> },
+  { path: '/trash/:id', element: <NotePage /> },
   { path: '/search', element: <SearchPage /> },
 ];
 
