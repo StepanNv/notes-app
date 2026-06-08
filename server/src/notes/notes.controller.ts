@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Post,
   Query,
   UseGuards,
@@ -26,6 +27,7 @@ import { AddNoteResDto } from './dtos/res/add-note-res.dto';
 import { UpdateNotesColorResDto } from './dtos/res/update-notes-color-res.dto';
 import { UpdateNoteContentResDto } from './dtos/res/update-note-content-res.dto';
 import { GetNotesResDto } from './dtos/res/get-notes-res.dto';
+import { GetNoteResDto } from './dtos/res/get-note.res.dto';
 
 @ApiBearerAuth()
 @Controller('notes')
@@ -130,5 +132,15 @@ export class NotesController {
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
   ): Promise<GetNotesResDto> {
     return this.notesService.getNotes(query, accessJwtPayload.userId);
+  }
+
+  @ApiOperation({ summary: 'Получить заметку' })
+  @Get('/:id')
+  @UseGuards(JwtAccessAuthGuard)
+  getNote(
+    @Param('id') id: string,
+    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
+  ): Promise<GetNoteResDto> {
+    return this.notesService.getNote(id, accessJwtPayload.userId);
   }
 }

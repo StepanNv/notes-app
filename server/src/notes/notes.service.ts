@@ -297,6 +297,19 @@ export class NotesService {
     };
   }
 
+  // Получить заметку
+  async getNote(id: string, authorId: User['id']) {
+    const note = await this.prismaService.note.findFirst({
+      where: { id: id, authorId: authorId },
+    });
+
+    if (!note) {
+      throw new NotFoundException();
+    }
+
+    return { note };
+  }
+
   // PRIVATE METHODS
 
   // Сменить статус заметки
