@@ -4,9 +4,8 @@ import TiptapEditorToolbar from '../TiptapEditorToolbar/TiptapEditorToolbar';
 import { useNoteEditor } from './useNoteEditor';
 import { useNoteForm } from './useNoteForm';
 import { useParams } from 'react-router-dom';
-import type { NoteDto } from '../../../../api/generated/data-contracts';
 
-const NoteForm = ({ noteStatus }: { noteStatus: NoteDto['status'] }) => {
+const NoteForm = () => {
   const { id } = useParams();
   const { register, control, saveNote } = useNoteForm(id);
   const editor = useNoteEditor(control);

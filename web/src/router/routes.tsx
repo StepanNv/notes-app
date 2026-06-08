@@ -10,10 +10,10 @@ export const privateRoutes = [
   { path: '/notes', element: <NotesPage /> },
   { path: '/archive', element: <ArchivePage /> },
   { path: '/trash', element: <TrashPage /> },
-  { path: '/notes/new', element: <NotePage noteStatus="default" /> },
-  { path: '/notes/:id', element: <NotePage noteStatus="default" /> },
-  { path: '/archive/:id', element: <NotePage noteStatus="archived" /> },
-  { path: '/trash/:id', element: <NotePage noteStatus="trashed" /> },
+  { path: '/notes/new', element: <NotePage /> },
+  { path: '/notes/:id', element: <NotePage /> },
+  { path: '/archive/:id', element: <NotePage /> },
+  { path: '/trash/:id', element: <NotePage /> },
   { path: '/search', element: <SearchPage /> },
 ];
 
