@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Note } from '../../../../prisma/generated/client';
 import { colorKey, status } from '../../../../prisma/generated/enums';
 
@@ -16,7 +17,9 @@ export class NoteDto implements Pick<
   readonly id: string;
   readonly title: string | null;
   readonly text: string | null;
+  @ApiProperty({ enum: colorKey })
   readonly colorKey: colorKey;
+  @ApiProperty({ enum: status })
   readonly status: status;
   readonly positionNumber: number;
   readonly createdAt: Date;
