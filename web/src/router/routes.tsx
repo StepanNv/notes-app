@@ -11,8 +11,6 @@ export const privateRoutes = [
   { path: '/archive', element: <ArchivePage /> },
   { path: '/trash', element: <TrashPage /> },
   { path: '/notes/new', element: <NotePage /> },
-  { path: '/archive/new', element: <NotePage /> },
-  { path: '/trash/new', element: <NotePage /> },
   { path: '/notes/:id', element: <NotePage /> },
   { path: '/archive/:id', element: <NotePage /> },
   { path: '/trash/:id', element: <NotePage /> },

@@ -8,10 +8,22 @@ const NoteItem = ({
   id,
   title,
   text,
-}: Pick<NoteDto, 'id' | 'title' | 'text'>) => {
+  status,
+}: Pick<NoteDto, 'id' | 'title' | 'text' | 'status'>) => {
   const navigate = useNavigate();
+
+  const openNote = (status: string) => {
+    if (status === 'default') {
+      navigate(`/notes/${id}`);
+    } else if (status === 'archived') {
+      navigate(`/archive/${id}`);
+    } else if (status === 'trashed') {
+      navigate(`/trash/${id}`);
+    }
+  };
+
   return (
-    <div className={styles.noteItem} onClick={() => navigate(`/note/${id}`)}>
+    <div className={styles.noteItem} onClick={() => openNote(status)}>
       <div className={styles.noteContent}>
         <div className={styles.title}>{title}</div>
         <div className={styles.text}>

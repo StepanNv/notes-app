@@ -44,6 +44,7 @@ const InfiniteNotesList = ({
               id={note.id}
               title={note.title}
               text={note.text}
+              status={note.status}
             />
           ))}
           {isFetchingNextPage ? (
