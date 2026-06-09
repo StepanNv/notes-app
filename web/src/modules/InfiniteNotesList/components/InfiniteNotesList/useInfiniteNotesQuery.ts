@@ -4,7 +4,7 @@ import type { NotesControllerGetNotesParams } from '../../../../api/generated/da
 
 export const useInfiniteNotesQuery = (query: NotesControllerGetNotesParams) => {
   return useInfiniteQuery({
-    queryKey: [query.status],
+    queryKey: ['notes'],
     queryFn: async ({ pageParam }) => {
       // pageParam - информирует о том с какой заметки начинать загружать данные
       const res = await getNotes({
@@ -24,6 +24,5 @@ export const useInfiniteNotesQuery = (query: NotesControllerGetNotesParams) => {
 
       return lastPage.next_last_id;
     },
-    staleTime: 1000 * 60 * 5,
   });
 };
