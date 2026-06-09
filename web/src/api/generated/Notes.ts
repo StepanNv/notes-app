@@ -17,6 +17,8 @@ import type {
   NotesControllerAddNoteData,
   NotesControllerArchiveNotesData,
   NotesControllerDeleteNotesData,
+  NotesControllerGetNoteData,
+  NotesControllerGetNoteParams,
   NotesControllerGetNotesData,
   NotesControllerGetNotesParams,
   NotesControllerRestoreTrashedNotesData,
@@ -36,16 +38,17 @@ import { ContentType, HttpClient, type RequestParams } from "./http-client";
 
 export class Notes<SecurityDataType = unknown> {
   static readonly paths = {
-    notesControllerAddNote: `/notes/add`,
-    notesControllerArchiveNotes: `/notes/archive`,
-    notesControllerUnarchiveNotes: `/notes/unarchive`,
-    notesControllerTrashNotes: `/notes/trash`,
-    notesControllerRestoreTrashedNotes: `/notes/restore-trashed`,
-    notesControllerDeleteNotes: `/notes/delete`,
-    notesControllerUpdateNotesColor: `/notes/update-color`,
-    notesControllerUpdateNoteContent: `/notes/update-content`,
-    notesControllerUpdateNotePosition: `/notes/update-position`,
-    notesControllerGetNotes: `/notes`,
+    notesControllerAddNote: "/notes/add",
+    notesControllerArchiveNotes: "/notes/archive",
+    notesControllerUnarchiveNotes: "/notes/unarchive",
+    notesControllerTrashNotes: "/notes/trash",
+    notesControllerRestoreTrashedNotes: "/notes/restore-trashed",
+    notesControllerDeleteNotes: "/notes/delete",
+    notesControllerUpdateNotesColor: "/notes/update-color",
+    notesControllerUpdateNoteContent: "/notes/update-content",
+    notesControllerUpdateNotePosition: "/notes/update-position",
+    notesControllerGetNotes: "/notes",
+    notesControllerGetNote: "/notes/${id}",
   } as const;
 
   http: HttpClient<SecurityDataType>;
@@ -270,6 +273,27 @@ export class Notes<SecurityDataType = unknown> {
       path: `/notes`,
       method: "GET",
       query: query,
+      secure: true,
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Notes
+   * @name NotesControllerGetNote
+   * @summary Получить заметку
+   * @request GET:/notes/{id}
+   * @secure
+   * @response `200` `NotesControllerGetNoteData`
+   */
+  notesControllerGetNote = (
+    params: RequestParams = {},
+    { id }: NotesControllerGetNoteParams,
+  ) =>
+    this.http.request<NotesControllerGetNoteData, any>({
+      path: `/notes/${id}`,
+      method: "GET",
       secure: true,
       format: "json",
       ...params,

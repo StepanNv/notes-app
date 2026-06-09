@@ -15,7 +15,7 @@ import { HttpClient, type RequestParams } from "./http-client";
 
 export class Users<SecurityDataType = unknown> {
   static readonly paths = {
-    usersControllerGetMe: `/users/me`,
+    usersControllerGetMe: "/users/me",
   } as const;
 
   http: HttpClient<SecurityDataType>;

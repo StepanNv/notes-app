@@ -22,10 +22,10 @@ import { ContentType, HttpClient, type RequestParams } from "./http-client";
 
 export class Auth<SecurityDataType = unknown> {
   static readonly paths = {
-    authControllerRegister: `/auth/registration`,
-    authControllerLogin: `/auth/login`,
-    authControllerLogout: `/auth/logout`,
-    authControllerRefresh: `/auth/refresh`,
+    authControllerRegister: "/auth/registration",
+    authControllerLogin: "/auth/login",
+    authControllerLogout: "/auth/logout",
+    authControllerRefresh: "/auth/refresh",
   } as const;
 
   http: HttpClient<SecurityDataType>;

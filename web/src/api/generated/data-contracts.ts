@@ -172,6 +172,10 @@ export interface GetNotesResDto {
   next_last_id: string | null;
 }
 
+export interface GetNoteResDto {
+  note: NoteDto;
+}
+
 export type UsersControllerGetMeData = GetMeResDto;
 
 export type AuthControllerRegisterData = AuthResDto;
@@ -216,3 +220,9 @@ export interface NotesControllerGetNotesParams {
 }
 
 export type NotesControllerGetNotesData = GetNotesResDto;
+
+export interface NotesControllerGetNoteParams {
+  id: string;
+}
+
+export type NotesControllerGetNoteData = GetNoteResDto;
