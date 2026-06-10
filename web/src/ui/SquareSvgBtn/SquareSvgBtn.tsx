@@ -1,17 +1,12 @@
 import styles from './SquareSvgBtn.module.scss';
 
-type TSquareSvgBtnProps = {
-  onClick: () => void;
-  children: React.ReactNode;
-};
-
-const SquareSvgBtn = ({ onClick, children }: TSquareSvgBtnProps) => {
+const SquareSvgBtn = ({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
       type="button"
       className={styles.squareSvgBtn}
       onMouseDown={(event) => event.preventDefault()}
-      onClick={onClick}
+      {...props}
     >
       {children}
     </button>
