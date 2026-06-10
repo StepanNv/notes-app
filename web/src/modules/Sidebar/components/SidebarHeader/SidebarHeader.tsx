@@ -1,17 +1,14 @@
 import styles from './SidebarHeader.module.scss';
-import SquareSvgBtn from '../../../../ui/SquareSvgBtn/SquareSvgBtn';
-import CrossIcon from '/src/assets/icons/cross.svg?react';
 import { useSidebarStore } from '../../stores/useSidebarStore';
 import Logo from '../../../../components/Logo/Logo';
+import CrossBtn from '../../../../components/CrossBtn/CrossBtn';
 
 const SidebarHeader = () => {
   const closeSidebar = useSidebarStore((state) => state.closeSidebar);
 
   return (
     <div className={styles.sidebarHeader}>
-      <SquareSvgBtn onClick={closeSidebar}>
-        <CrossIcon />
-      </SquareSvgBtn>
+      <CrossBtn onClick={closeSidebar} />
       <Logo isAppNameVisible={true} />
     </div>
   );
