@@ -3,6 +3,7 @@ import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import styles from './NoteForm.module.scss';
 import Placeholder from '@tiptap/extension-placeholder';
+import { useEffect } from 'react';
 
 export type NoteFormValues = {
   title: string;
@@ -27,6 +28,12 @@ export const useNoteEditor = (control: Control<NoteFormValues>) => {
       },
     },
   });
+
+  useEffect(() => {
+    if (editor && field.value && editor.getHTML() !== field.value) {
+      editor.commands.setContent(field.value, { emitUpdate: false });
+    }
+  }, [editor, field.value]);
 
   return editor;
 };

@@ -4,11 +4,23 @@ import TiptapEditorToolbar from '../TiptapEditorToolbar/TiptapEditorToolbar';
 import { useNoteEditor } from './useNoteEditor';
 import { useNoteForm } from './useNoteForm';
 import { useParams } from 'react-router-dom';
+import { useGetNote } from './useGetNote';
+import { useEffect } from 'react';
 
 const NoteForm = () => {
   const { id } = useParams();
-  const { register, control, saveNote } = useNoteForm(id);
+  const { register, control, saveNote, reset } = useNoteForm(id);
   const editor = useNoteEditor(control);
+  const { data, isLoading, isError, error } = useGetNote(id);
+
+  useEffect(() => {
+    if (data) {
+      reset({
+        title: data.note.title || '',
+        text: data.note.text || '',
+      });
+    }
+  }, [data, reset]);
 
   return (
     <main className={styles.noteForm}>

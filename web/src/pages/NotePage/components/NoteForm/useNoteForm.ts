@@ -17,7 +17,7 @@ const formSchema = z.object({
 export const useNoteForm = (noteId?: string) => {
   const navigate = useNavigate();
 
-  const { register, handleSubmit, control } = useForm<
+  const { register, handleSubmit, control, reset } = useForm<
     z.infer<typeof formSchema>
   >({
     resolver: zodResolver(formSchema),
@@ -47,5 +47,5 @@ export const useNoteForm = (noteId?: string) => {
 
   const saveNote = handleSubmit(onSubmit);
 
-  return { register, control, saveNote };
+  return { register, control, saveNote, reset };
 };
