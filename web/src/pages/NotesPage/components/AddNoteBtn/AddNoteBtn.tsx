@@ -4,7 +4,10 @@ import { useNavigate } from 'react-router-dom';
 const AddNoteBtn = () => {
   const navigate = useNavigate();
   return (
-    <button className={styles.addNoteBtn} onClick={() => navigate('/note/new')}>
+    <button
+      className={styles.addNoteBtn}
+      onClick={() => navigate('/notes/new')}
+    >
       <span></span>
     </button>
   );
