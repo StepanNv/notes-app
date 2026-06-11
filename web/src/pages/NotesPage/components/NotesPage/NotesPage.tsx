@@ -2,11 +2,14 @@ import NotesPageHeader from '../NotesPageHeader/NotesPageHeader';
 import Sidebar from '../../../../modules/Sidebar/components/Sidebar/Sidebar';
 import InfiniteNotesList from '../../../../modules/InfiniteNotesList/components/InfiniteNotesList/InfiniteNotesList';
 import AddNoteBtn from '../AddNoteBtn/AddNoteBtn';
+import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
+import { EditorHeader } from '../../../../modules/EditorHeader';
 
 const NotesPage = () => {
+  const selectedNotes = useNotesSelectionStore((state) => state.selectedIds);
   return (
     <>
-      <NotesPageHeader />
+      {selectedNotes.size > 0 ? <EditorHeader /> : <NotesPageHeader />}
       <InfiniteNotesList
         query={{ status: 'default', sort: 'custom', limit: 7 }}
       />

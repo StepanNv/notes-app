@@ -4,6 +4,8 @@ import NoteItem from '../NoteItem/NoteItem';
 import { useInfiniteNotesQuery } from './useInfiniteNotesQuery';
 import { useInfiniteScrollTrigger } from './useInfiniteScrollTrigger';
 import type { NotesControllerGetNotesParams } from '../../../../api/generated/data-contracts';
+import { useEffect } from 'react';
+import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
 
 const InfiniteNotesList = ({
   query,
@@ -20,6 +22,11 @@ const InfiniteNotesList = ({
   } = useInfiniteNotesQuery(query);
 
   const { ref } = useInfiniteScrollTrigger(fetchNextPage);
+
+  const selectedNotesIds = useNotesSelectionStore((state) => state.selectedIds);
+  const clearSelectedNotes = useNotesSelectionStore((state) => state.clear);
+
+  useEffect(() => () => clearSelectedNotes(), []);
 
   const notes = data?.pages.flatMap((page) => page.notes) ?? [];
 
@@ -45,6 +52,7 @@ const InfiniteNotesList = ({
               title={note.title}
               text={note.text}
               status={note.status}
+              isSelected={selectedNotesIds.has(note.id)}
             />
           ))}
           {isFetchingNextPage ? (

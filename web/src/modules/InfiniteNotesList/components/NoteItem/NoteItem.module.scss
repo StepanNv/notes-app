@@ -17,14 +17,11 @@
 }
 
 .selected {
-  border: 4px solid var(--active-btn-bg);
-  box-shadow:
-    inset 0 0 10px var(--active-btn-bg),
-    0 0 10px var(--active-btn-bg);
+  border: 4px solid var(--btn-bg);
   border-radius: 14px;
 }
 
-.noteContent {
+.content {
   min-height: 60px;
   max-height: 160px;
   width: 100%;
@@ -45,4 +42,9 @@
     margin-left: 10px;
     padding-left: 10px;
   }
+}
+
+.btnWrapper {
+  flex: 1;
+  @include flex-center;
 }
