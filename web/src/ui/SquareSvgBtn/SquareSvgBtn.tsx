@@ -11,7 +11,10 @@ const SquareSvgBtn = ({ onClick, children }: TSquareSvgBtnProps) => {
       type="button"
       className={styles.squareSvgBtn}
       onMouseDown={(event) => event.preventDefault()}
-      onClick={onClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
     >
       {children}
     </button>
