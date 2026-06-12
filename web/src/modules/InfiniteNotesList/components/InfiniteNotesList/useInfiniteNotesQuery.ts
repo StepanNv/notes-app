@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { getNotes } from '../../api/getNotes';
+import { getNotes } from '../../api/get-notes';
 import type { NotesControllerGetNotesParams } from '../../../../api/generated/data-contracts';
 
 export const useInfiniteNotesQuery = (query: NotesControllerGetNotesParams) => {
