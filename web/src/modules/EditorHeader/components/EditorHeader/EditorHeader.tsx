@@ -1,11 +1,11 @@
 import CrossBtn from '../../../../components/CrossBtn/CrossBtn';
 import Header from '../../../../ui/Header/Header';
-import ArrowDownBtn from '../ArrowDownBtn/ArrowDownBtn';
-import ArrowUpBtn from '../ArrowUpBtn/ArrowUpBtn';
 import PaletteBtn from '../PaletteBtn/PaletteBtn';
 import styles from './EditorHeader.module.scss';
 import MoreBtn from '../MoreBtn/MoreBtn';
 import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
+import UpNoteBtn from '../UpNoteBtn/UpNoteBtn';
+import DownNoteBtn from '../DownNoteBtn/DownNoteBtn';
 
 const EditorHeader = () => {
   const selectedNotes = useNotesSelectionStore((state) => state.selectedIds);
@@ -21,8 +21,8 @@ const EditorHeader = () => {
           </div>
         </div>
         <div className={styles.group}>
-          <ArrowUpBtn onClick={() => {}} />
-          <ArrowDownBtn onClick={() => {}} />
+          <UpNoteBtn onClick={() => {}} />
+          <DownNoteBtn onClick={() => {}} />
           <PaletteBtn onClick={() => {}} />
           <MoreBtn onClick={() => {}} />
         </div>
