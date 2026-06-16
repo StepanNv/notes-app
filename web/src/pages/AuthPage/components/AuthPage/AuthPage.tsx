@@ -15,7 +15,6 @@ const AuthPage = ({
       <main className={styles.main}>
         {selectedAuthMethod === 'sign-in' ? <SignInForm /> : <SignUpForm />}
       </main>
-      <ErrorAlersBox />
     </>
   );
 };
