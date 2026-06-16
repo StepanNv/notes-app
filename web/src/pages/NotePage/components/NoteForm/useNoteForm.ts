@@ -4,6 +4,7 @@ import z from 'zod';
 import { addNote } from '../../api/add-note';
 import { updateContent } from '../../api/update-content';
 import { useNavigate } from 'react-router-dom';
+import { useErrorsStore } from '../../../../modules/ErrorAlertsBox/stores/useErrorsStore';
 
 const formSchema = z.object({
   title: z
@@ -16,6 +17,7 @@ const formSchema = z.object({
 
 export const useNoteForm = (noteId?: string) => {
   const navigate = useNavigate();
+  const addError = useErrorsStore((state) => state.addError);
 
   const { register, handleSubmit, control, reset } = useForm<
     z.infer<typeof formSchema>
@@ -41,7 +43,8 @@ export const useNoteForm = (noteId?: string) => {
       }
       navigate('/notes');
     } catch (error) {
-      console.error(error);
+      addError('Something went wrong. Please try again later.');
+      navigate('/notes');
     }
   };
 
