@@ -9,15 +9,15 @@ type TError = {
 
 type TUseErrorsStore = {
   errors: TError[];
-  addError: (title: string, message: string) => void;
+  addError: (message: string) => void;
   removeError: (errorId: string) => void;
 };
 
 export const useErrorsStore = create<TUseErrorsStore>()((set) => ({
   errors: [],
-  addError: (title: string, message: string) => {
+  addError: (message: string) => {
     set((state) => ({
-      errors: [...state.errors, { id: uuidv4(), title, message }],
+      errors: [...state.errors, { id: uuidv4(), title: 'Error', message }],
     }));
   },
   removeError: (errorId: string) => {
