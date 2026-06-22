@@ -1,19 +1,15 @@
-import UserMenuDropdownItem from '../UserMenuDropdownItem/UserMenuDropdownItem';
-import styles from './UserMenuDropdown.module.scss';
+import Dropdown from '../../../../components/Dropdown/Dropdown';
+import DropdownItem from '../../../../components/DropdownItem/DropdownItem';
 import { useDropdownActions } from './useDropdownActions';
 
 const UserMenuDropdown = ({ isOpen }: { isOpen: boolean }) => {
   const { logout } = useDropdownActions();
 
   return (
-    isOpen && (
-      <div className={`${styles.userMenuDropdown}`}>
-        <div className={styles.dropdownContent}>
-          <UserMenuDropdownItem>Settings</UserMenuDropdownItem>
-          <UserMenuDropdownItem onClick={logout}>Log out</UserMenuDropdownItem>
-        </div>
-      </div>
-    )
+    <Dropdown isOpen={isOpen}>
+      <DropdownItem>Settings</DropdownItem>
+      <DropdownItem onClick={logout}>Log out</DropdownItem>
+    </Dropdown>
   );
 };
 export default UserMenuDropdown;

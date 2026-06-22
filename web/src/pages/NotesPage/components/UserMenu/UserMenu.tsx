@@ -1,16 +1,14 @@
 import styles from './UserMenu.module.scss';
 import Dropdown from '../UserMenuDropdown/UserMenuDropdown';
-import { useDropdownManipulations } from './useDropdownManipulations';
+import { useDropdown } from '../../../../hooks/useDropdown';
 import { useGetMyProfile } from '../../../../hooks/useGetMyProfile';
 
 const UserMenu = () => {
-  const { isDropdownOpen, setDropdownOpen, userMenuRef } =
-    useDropdownManipulations();
-
+  const { isDropdownOpen, setDropdownOpen, menuRef } = useDropdown();
   const { data, isLoading, isError } = useGetMyProfile();
 
   return (
-    <div className={styles.userMenu} ref={userMenuRef}>
+    <div className={styles.userMenu} ref={menuRef}>
       <button
         className={styles.userNameBtn}
         onClick={() => setDropdownOpen(!isDropdownOpen)}
