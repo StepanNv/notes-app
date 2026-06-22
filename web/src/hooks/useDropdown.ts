@@ -3,10 +3,10 @@ import { useClickOutside } from './useClickOutside';
 
 export const useDropdown = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const menuRef= useRef(null);
+  const dropdownRef= useRef(null);
 
-  useClickOutside(menuRef, () => {
+  useClickOutside(dropdownRef, () => {
     if (isDropdownOpen) setDropdownOpen(false);
   });
-  return { isDropdownOpen, setDropdownOpen, menuRef };
+  return { isDropdownOpen, setDropdownOpen, dropdownRef };
 };
