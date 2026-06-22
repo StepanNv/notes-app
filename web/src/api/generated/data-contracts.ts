@@ -54,13 +54,13 @@ export interface AddNoteResDto {
 }
 
 export interface UpdateStatusDto {
+  currentStatus: "default" | "archived" | "trashed";
+  selectedStatus: "default" | "archived" | "trashed";
   /**
    * @minItems 1
    * @uniqueItems true
    */
   noteIds: string[];
-  currentStatus: object;
-  selectedStatus: object;
 }
 
 export interface DeleteNotesDto {
