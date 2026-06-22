@@ -1,9 +1,15 @@
 import SquareSvgBtn from '../../../../ui/SquareSvgBtn/SquareSvgBtn';
 import ArrowDownIcon from '/src/assets/icons/arrow-down.svg?react';
 
-const DownNoteBtn = ({ onClick }: { onClick: () => void }) => {
+const DownNoteBtn = ({
+  onClick,
+  disabled,
+}: {
+  onClick: () => void;
+  disabled?: boolean;
+}) => {
   return (
-    <SquareSvgBtn onClick={onClick}>
+    <SquareSvgBtn onClick={onClick} disabled={disabled}>
       <ArrowDownIcon />
     </SquareSvgBtn>
   );

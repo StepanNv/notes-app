@@ -16,4 +16,13 @@
   &:hover {
     background: var(--bg-color-2-hover);
   }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+
+    &:hover {
+      background: var(--bg-color-2);
+    }
+  }
 }

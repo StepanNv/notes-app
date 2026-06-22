@@ -6,10 +6,12 @@ import MoreBtn from '../MoreBtn/MoreBtn';
 import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
 import UpNoteBtn from '../UpNoteBtn/UpNoteBtn';
 import DownNoteBtn from '../DownNoteBtn/DownNoteBtn';
+import { useNoteMovement } from './useNoteMovement';
 
 const EditorHeader = () => {
   const selectedNotes = useNotesSelectionStore((state) => state.selectedIds);
   const deselectAll = useNotesSelectionStore((state) => state.clear);
+  const { canMoveUp, canMoveDown, moveUp, moveDown } = useNoteMovement();
 
   return (
     <Header>
@@ -21,8 +23,8 @@ const EditorHeader = () => {
           </div>
         </div>
         <div className={styles.group}>
-          <UpNoteBtn onClick={() => {}} />
-          <DownNoteBtn onClick={() => {}} />
+          <UpNoteBtn onClick={moveUp} disabled={!canMoveUp} />
+          <DownNoteBtn onClick={moveDown} disabled={!canMoveDown} />
           <PaletteBtn onClick={() => {}} />
           <MoreBtn onClick={() => {}} />
         </div>
