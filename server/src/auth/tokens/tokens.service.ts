@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { TJwtPayload } from '../types/jwt-payload';
+import { TTokensPayload } from '../types/jwt-payload';
 
 @Injectable()
 export class TokensService {
@@ -10,29 +10,29 @@ export class TokensService {
     private readonly configService: ConfigService,
   ) {}
 
-  async generateJwts(payload: TJwtPayload) {
-    const accessJwt = await this.jwtService.signAsync(payload, {
-      secret: this.configService.get<string>('ACCESS_JWT_SECRET'),
-      expiresIn: this.configService.get<number>('ACCESS_JWT_EXPIRES'),
+  async generateTokens(payload: TTokensPayload) {
+    const accessToken = await this.jwtService.signAsync(payload, {
+      secret: this.configService.get<string>('ACCESS_TOKEN_SECRET'),
+      expiresIn: this.configService.get<number>('ACCESS_TOKEN_EXPIRES'),
     });
 
-    const refreshJwt = await this.jwtService.signAsync(payload, {
-      secret: this.configService.get<string>('REFRESH_JWT_SECRET'),
-      expiresIn: this.configService.get<number>('REFRESH_JWT_EXPIRES'),
+    const refreshToken = await this.jwtService.signAsync(payload, {
+      secret: this.configService.get<string>('REFRESH_TOKEN_SECRET'),
+      expiresIn: this.configService.get<number>('REFRESH_TOKEN_EXPIRES'),
     });
 
-    return { accessJwt, refreshJwt };
+    return { accessToken, refreshToken };
   }
 
-  async verifyAccessJwt(token: string) {
-    return await this.jwtService.verifyAsync<TJwtPayload>(token, {
-      secret: this.configService.get<string>('ACCESS_JWT_SECRET'),
+  async verifyAccessToken(token: string) {
+    return await this.jwtService.verifyAsync<TTokensPayload>(token, {
+      secret: this.configService.get<string>('ACCESS_TOKEN_SECRET'),
     });
   }
 
-  async verifyRefreshJwt(token: string) {
-    return await this.jwtService.verifyAsync<TJwtPayload>(token, {
-      secret: this.configService.get<string>('REFRESH_JWT_SECRET'),
+  async verifyRefreshToken(token: string) {
+    return await this.jwtService.verifyAsync<TTokensPayload>(token, {
+      secret: this.configService.get<string>('REFRESH_TOKEN_SECRET'),
     });
   }
 }

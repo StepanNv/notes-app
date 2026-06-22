@@ -30,7 +30,7 @@ export interface RegisterDto {
 }
 
 export interface AuthResDto {
-  accessJwt: string;
+  accessToken: string;
 }
 
 export interface LoginDto {

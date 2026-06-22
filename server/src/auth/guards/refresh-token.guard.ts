@@ -7,27 +7,23 @@ import {
 import { TokensService } from '../tokens/tokens.service';
 
 @Injectable()
-export class JwtAccessAuthGuard implements CanActivate {
+export class RefreshTokenGuard implements CanActivate {
   constructor(private readonly tokensService: TokensService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();
     try {
-      const authHeader = req.headers?.authorization;
-      if (!authHeader) {
+      const refreshToken = req.cookies?.refreshToken;
+
+      if (!refreshToken) {
         throw new UnauthorizedException({ message: 'User unauthorized' });
       }
 
-      const bearer = authHeader.split(' ')[0];
-      const token = authHeader.split(' ')[1];
+      const verifiedRefreshTokenPayload =
+        await this.tokensService.verifyRefreshToken(refreshToken);
 
-      if (bearer != 'Bearer' || !token) {
-        throw new UnauthorizedException({ message: 'User unauthorized' });
-      }
+      req.refreshTokenPayload = verifiedRefreshTokenPayload;
 
-      const accessTokenPayload =
-        await this.tokensService.verifyAccessJwt(token);
-      req.accessTokenPayload = accessTokenPayload;
       return true;
     } catch (e) {
       console.log(e);

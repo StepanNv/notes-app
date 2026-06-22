@@ -4,13 +4,12 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
-  UnauthorizedException,
 } from '@nestjs/common';
 import bcrypt from 'bcryptjs';
 import { UsersService } from '../users/users.service';
 import { RegisterDto } from './dtos/req/register.dto';
 import { LoginDto } from './dtos/req/login.dto';
-import { TJwtPayload } from './types/jwt-payload';
+import { TTokensPayload } from './types/jwt-payload';
 
 @Injectable()
 export class AuthService {
@@ -52,10 +51,11 @@ export class AuthService {
     return user;
   }
 
-  async refresh(refreshJwtPayload: TJwtPayload) {
+  async refresh(refreshTokenPayload: TTokensPayload) {
     const user = await this.usersService.getOne({
-      id: refreshJwtPayload.userId,
+      id: refreshTokenPayload.userId,
     });
+
     if (!user) {
       throw new ForbiddenException(
         'This account no longer exists. Please log in with a different account.',

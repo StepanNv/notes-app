@@ -13,14 +13,14 @@ export const useSignUpMutation = () => {
     mutationFn: (formData: RegisterDto) =>
       authController.authControllerRegister(formData),
     onSuccess: (data) => {
-      setAccessToken(data.data.accessJwt);
+      setAccessToken(data.data.accessToken);
     },
     onError: (error: AxiosError<{ message: string }>) => {
       const message = error.response?.data?.message;
       if (message) {
-        addError('Error', message);
+        addError(message);
       } else {
-        addError('Error', 'Something went wrong. Please try again later.');
+        addError('Something went wrong. Please try again later.');
       }
     },
   });

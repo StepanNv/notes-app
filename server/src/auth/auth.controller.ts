@@ -2,12 +2,12 @@ import { Body, Controller, Post, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import type { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { JwtRefreshAuthGuard } from './guards/jwt-refresh-auth.guard';
+import { RefreshTokenGuard } from './guards/refresh-token.guard';
 import { GetRefreshTokenPayload } from './decorators/get-rt-payload.decorator';
 import { RegisterDto } from './dtos/req/register.dto';
 import { LoginDto } from './dtos/req/login.dto';
 import { AuthResDto } from './dtos/res/auth-res.dto';
-import type { TJwtPayload } from './types/jwt-payload';
+import type { TTokensPayload } from './types/jwt-payload';
 import { TokensService } from './tokens/tokens.service';
 import { ApiOperation } from '@nestjs/swagger';
 
@@ -26,7 +26,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ): Promise<AuthResDto> {
     const userData = await this.authService.register(dto);
-    return this.giveJwts({ userId: userData.id }, res);
+    return this.giveTokens({ userId: userData.id }, res);
   }
 
   @ApiOperation({ summary: 'Вход в систему' })
@@ -36,38 +36,38 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ): Promise<AuthResDto> {
     const userData = await this.authService.login(dto);
-    return this.giveJwts({ userId: userData.id }, res);
+    return this.giveTokens({ userId: userData.id }, res);
   }
 
   @ApiOperation({ summary: 'Выход из системы' })
   @Post('logout')
   logout(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie('refreshJwt');
+    res.clearCookie('refreshToken');
   }
 
   @ApiOperation({ summary: 'Обновление токенов авторизации' })
   @Post('/refresh')
-  @UseGuards(JwtRefreshAuthGuard)
+  @UseGuards(RefreshTokenGuard)
   async refresh(
-    @GetRefreshTokenPayload() refreshJwtPayload: TJwtPayload,
+    @GetRefreshTokenPayload() refreshTokenPayload: TTokensPayload,
     @Res({ passthrough: true }) res: Response,
   ): Promise<AuthResDto> {
-    const userData = await this.authService.refresh(refreshJwtPayload);
-    return this.giveJwts({ userId: userData.id }, res);
+    const userData = await this.authService.refresh(refreshTokenPayload);
+    return this.giveTokens({ userId: userData.id }, res);
   }
 
-  private async giveJwts(
-    tokenPaylaod: TJwtPayload,
+  private async giveTokens(
+    tokenPaylaod: TTokensPayload,
     res: Response,
   ): Promise<AuthResDto> {
-    const jwts = await this.tokenService.generateJwts(tokenPaylaod);
+    const tokens = await this.tokenService.generateTokens(tokenPaylaod);
 
-    res.cookie('refreshJwt', jwts.refreshJwt, {
+    res.cookie('refreshToken', tokens.refreshToken, {
       httpOnly: true,
       // secure: true,
-      maxAge: this.configService.get<number>('REFRESH_JWT_EXPIRES')! * 1000,
+      maxAge: this.configService.get<number>('REFRESH_TOKEN_EXPIRES')! * 1000,
     });
 
-    return { accessJwt: jwts.accessJwt };
+    return { accessToken: tokens.accessToken };
   }
 }

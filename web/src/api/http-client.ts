@@ -36,21 +36,21 @@ httpClient.instance.interceptors.request.use(async (config) => {
   }
 
   // Если есть access token, то проверяем его срок действия
-  const accessJwt = config.headers.Authorization?.toString().split(' ')[1];
-  const accessJwtExp = jwtDecode<JwtPayload>(accessJwt).exp;
+  const accessToken = config.headers.Authorization?.toString().split(' ')[1];
+  const accessTokenExp = jwtDecode<JwtPayload>(accessToken).exp;
 
   // Если нет срока действия, то удаляем access token из store и выбрасываем ошибку
-  if (!accessJwtExp) {
+  if (!accessTokenExp) {
     useAuthStore.getState().setAccessToken(null);
     throw new Error('Invalide access token, please login again');
   }
 
   // Если срок действия истек, то пробуем сделать ротацию токенов, если не получилось, то удаляем access token из store и выбрасываем ошибку
-  if (accessJwtExp < Date.now() / 1000) {
+  if (accessTokenExp < Date.now() / 1000) {
     try {
       const { data } = await authController.authControllerRefresh();
-      config.headers.Authorization = `Bearer ${data.accessJwt}`;
-      useAuthStore.getState().setAccessToken(data.accessJwt);
+      config.headers.Authorization = `Bearer ${data.accessToken}`;
+      useAuthStore.getState().setAccessToken(data.accessToken);
     } catch (e) {
       if (e instanceof AxiosError) {
         if (e.response?.status === 401) {
@@ -93,8 +93,8 @@ httpClient.instance.interceptors.response.use(
     // если не получилось, то удаляем access token из store и выбрасываем ошибку
     try {
       const { data } = await authController.authControllerRefresh();
-      useAuthStore.getState().setAccessToken(data.accessJwt);
-      error.config.headers.Authorization = `Bearer ${data.accessJwt}`;
+      useAuthStore.getState().setAccessToken(data.accessToken);
+      error.config.headers.Authorization = `Bearer ${data.accessToken}`;
       return httpClient.instance.request(error.config);
     } catch (e) {
       useAuthStore.getState().setAccessToken(null);

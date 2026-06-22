@@ -11,10 +11,10 @@ import Joi from 'joi';
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        ACCESS_JWT_SECRET: Joi.string().required(),
-        REFRESH_JWT_SECRET: Joi.string().required(),
-        ACCESS_JWT_EXPIRES: Joi.number().required(),
-        REFRESH_JWT_EXPIRES: Joi.number().required(),
+        ACCESS_TOKEN_SECRET: Joi.string().required(),
+        REFRESH_TOKEN_SECRET: Joi.string().required(),
+        ACCESS_TOKEN_EXPIRES: Joi.number().required(),
+        REFRESH_TOKEN_EXPIRES: Joi.number().required(),
         POSTGRES_PORT: Joi.number().port().required(),
         POSTGRES_HOST: Joi.string().required(),
         POSTGRES_DB: Joi.string().required(),

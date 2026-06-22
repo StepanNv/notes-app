@@ -1,3 +1,3 @@
 export class AuthResDto {
-  readonly accessJwt: string;
+  readonly accessToken: string;
 }
