@@ -10,10 +10,6 @@ import {
 } from '@nestjs/common';
 import { AddNoteDto } from './dtos/req/add-note.dto';
 import { NotesService } from './notes.service';
-import { ArchiveNotesDto } from './dtos/req/archive-notes.dto';
-import { UnarchiveNotesDto } from './dtos/req/unarchive-notes.dto';
-import { TrashNotesDto } from './dtos/req/trash-notes.dto';
-import { RestoreTrashedNotesDto } from './dtos/req/restore-trashed-notes.dto';
 import { DeleteNotesDto } from './dtos/req/delete-notes.dto';
 import { UpdateNotesColorDto } from './dtos/req/update-notes-color.dto';
 import { UpdateNoteContentDto } from './dtos/req/update-note-content.dto';
@@ -28,6 +24,7 @@ import { UpdateNotesColorResDto } from './dtos/res/update-notes-color-res.dto';
 import { UpdateNoteContentResDto } from './dtos/res/update-note-content-res.dto';
 import { GetNotesResDto } from './dtos/res/get-notes-res.dto';
 import { GetNoteResDto } from './dtos/res/get-note.res.dto';
+import { UpdateStatusDto } from './dtos/req/update-status.dto';
 
 @ApiBearerAuth()
 @Controller('notes')
@@ -45,43 +42,13 @@ export class NotesController {
   }
 
   @ApiOperation({ summary: 'Архивировать заметку' })
-  @Post('/archive')
+  @Post('/update-status')
   @UseGuards(JwtAccessAuthGuard)
-  archiveNotes(
-    @Body() dto: ArchiveNotesDto,
+  updateStatus(
+    @Body() dto: UpdateStatusDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
   ) {
-    return this.notesService.archiveNotes(dto, accessJwtPayload.userId);
-  }
-
-  @ApiOperation({ summary: 'Разрхивировать заметку' })
-  @Post('/unarchive')
-  @UseGuards(JwtAccessAuthGuard)
-  unarchiveNotes(
-    @Body() dto: UnarchiveNotesDto,
-    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
-    return this.notesService.unarchiveNotes(dto, accessJwtPayload.userId);
-  }
-
-  @ApiOperation({ summary: 'Поместить заметку корзину' })
-  @Post('/trash')
-  @UseGuards(JwtAccessAuthGuard)
-  trashNotes(
-    @Body() dto: TrashNotesDto,
-    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
-    return this.notesService.trashNotes(dto, accessJwtPayload.userId);
-  }
-
-  @ApiOperation({ summary: 'Убрать заметку из корзины' })
-  @Post('/restore-trashed')
-  @UseGuards(JwtAccessAuthGuard)
-  restoreTrashedNotes(
-    @Body() dto: RestoreTrashedNotesDto,
-    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
-    return this.notesService.restoreTrashedNotes(dto, accessJwtPayload.userId);
+    return this.notesService.updateStatus(dto, accessJwtPayload.userId);
   }
 
   @ApiOperation({ summary: 'Удалить замтеку' })
