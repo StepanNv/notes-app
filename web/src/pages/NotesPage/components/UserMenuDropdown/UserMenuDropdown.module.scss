@@ -1,8 +1,8 @@
-.userMenu {
+.userMenuDropdown {
   position: relative;
 }
 
-.userNameBtn {
+.dropdownTrigger {
   @include btn-reset;
   font-size: 18px;
   cursor: pointer;

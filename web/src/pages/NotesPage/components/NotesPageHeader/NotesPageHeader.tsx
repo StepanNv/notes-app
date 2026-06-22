@@ -1,7 +1,7 @@
 import styles from './NotesPageHeader.module.scss';
 import Header from '../../../../ui/Header/Header';
 import SearchNotesBox from '../SearchNotesBox/SearchNotesBox';
-import UserMenu from '../UserMenu/UserMenu';
+import UserMenuDropdown from '../UserMenuDropdown/UserMenuDropdown';
 import NavBar from '../../../../components/NavBar/NavBar';
 
 const NotesPageHeader = () => {
@@ -15,7 +15,7 @@ const NotesPageHeader = () => {
           <SearchNotesBox />
         </div>
         <div className={styles.container}>
-          <UserMenu />
+          <UserMenuDropdown />
         </div>
       </div>
     </Header>

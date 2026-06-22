@@ -1,15 +1,22 @@
-import Dropdown from '../../../../components/Dropdown/Dropdown';
-import DropdownItem from '../../../../components/DropdownItem/DropdownItem';
-import { useDropdownActions } from './useDropdownActions';
+import styles from './UserMenuDropdown.module.scss';
+import UserMenuDropdownList from '../UserMenuDropdownList/UserMenuDropdownList';
+import { useDropdown } from '../../../../hooks/useDropdown';
+import { useGetMyProfile } from '../../../../hooks/useGetMyProfile';
 
-const UserMenuDropdown = ({ isOpen }: { isOpen: boolean }) => {
-  const { logout } = useDropdownActions();
+const UserMenuDropdown = () => {
+  const { isDropdownOpen, setDropdownOpen, dropdownRef } = useDropdown();
+  const { data, isLoading, isError } = useGetMyProfile();
 
   return (
-    <Dropdown isOpen={isOpen}>
-      <DropdownItem>Settings</DropdownItem>
-      <DropdownItem onClick={logout}>Log out</DropdownItem>
-    </Dropdown>
+    <div className={styles.userMenuDropdown} ref={dropdownRef}>
+      <button
+        className={styles.dropdownTrigger}
+        onClick={() => setDropdownOpen(!isDropdownOpen)}
+      >
+        {isLoading || isError ? 'Loading...' : data?.data.username}
+      </button>
+      <UserMenuDropdownList isOpen={isDropdownOpen} />
+    </div>
   );
 };
 export default UserMenuDropdown;
