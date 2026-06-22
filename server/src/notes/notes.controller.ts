@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Query,
   UseGuards,
@@ -42,7 +43,7 @@ export class NotesController {
   }
 
   @ApiOperation({ summary: 'Архивировать заметку' })
-  @Post('/update-status')
+  @Patch('/update-status')
   @UseGuards(JwtAccessAuthGuard)
   updateStatus(
     @Body() dto: UpdateStatusDto,
@@ -62,7 +63,7 @@ export class NotesController {
   }
 
   @ApiOperation({ summary: 'Обновить цвет заметки' })
-  @Post('/update-color')
+  @Patch('/update-color')
   @UseGuards(JwtAccessAuthGuard)
   updateNotesColor(
     @Body() dto: UpdateNotesColorDto,
@@ -72,7 +73,7 @@ export class NotesController {
   }
 
   @ApiOperation({ summary: 'Обновить контент заметки (заголовок, текст)' })
-  @Post('/update-content')
+  @Patch('/update-content')
   @UseGuards(JwtAccessAuthGuard)
   updateNoteContent(
     @Body() dto: UpdateNoteContentDto,
@@ -82,7 +83,7 @@ export class NotesController {
   }
 
   @ApiOperation({ summary: 'Изменить позицию заметки' })
-  @Post('/update-position')
+  @Patch('/update-position')
   @UseGuards(JwtAccessAuthGuard)
   updateNotePosition(
     @Body() dto: UpdateNotePositionDto,
