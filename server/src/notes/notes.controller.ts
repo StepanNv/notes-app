@@ -42,7 +42,7 @@ export class NotesController {
     return this.notesService.addNote(dto, accessJwtPayload.userId);
   }
 
-  @ApiOperation({ summary: 'Архивировать заметку' })
+  @ApiOperation({ summary: 'Обновить статус заметки' })
   @Patch('/update-status')
   @UseGuards(JwtAccessAuthGuard)
   updateStatus(
@@ -82,7 +82,7 @@ export class NotesController {
     return this.notesService.updateNoteContent(dto, accessJwtPayload.userId);
   }
 
-  @ApiOperation({ summary: 'Изменить позицию заметки' })
+  @ApiOperation({ summary: 'Обновить позицию заметки' })
   @Patch('/update-position')
   @UseGuards(JwtAccessAuthGuard)
   updateNotePosition(
