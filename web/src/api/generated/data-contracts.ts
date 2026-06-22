@@ -53,37 +53,14 @@ export interface AddNoteResDto {
   updatedAt: string;
 }
 
-export interface ArchiveNotesDto {
+export interface UpdateStatusDto {
   /**
    * @minItems 1
    * @uniqueItems true
    */
   noteIds: string[];
-}
-
-export interface UnarchiveNotesDto {
-  /**
-   * @minItems 1
-   * @uniqueItems true
-   */
-  noteIds: string[];
-}
-
-export interface TrashNotesDto {
-  /**
-   * @minItems 1
-   * @uniqueItems true
-   */
-  noteIds: string[];
-  currentStatus: "default" | "archived";
-}
-
-export interface RestoreTrashedNotesDto {
-  /**
-   * @minItems 1
-   * @uniqueItems true
-   */
-  noteIds: string[];
+  currentStatus: object;
+  selectedStatus: object;
 }
 
 export interface DeleteNotesDto {
@@ -186,25 +163,11 @@ export type AuthControllerLogoutData = any;
 
 export type AuthControllerRefreshData = AuthResDto;
 
-export type NotesControllerAddNoteData = AddNoteResDto;
-
-export type NotesControllerArchiveNotesData = any;
-
-export type NotesControllerUnarchiveNotesData = any;
-
-export type NotesControllerTrashNotesData = any;
-
-export type NotesControllerRestoreTrashedNotesData = any;
+export type NotesControllerAddData = AddNoteResDto;
 
 export type NotesControllerDeleteNotesData = any;
 
-export type NotesControllerUpdateNotesColorData = UpdateNotesColorResDto;
-
-export type NotesControllerUpdateNoteContentData = UpdateNoteContentResDto;
-
-export type NotesControllerUpdateNotePositionData = any;
-
-export interface NotesControllerGetNotesParams {
+export interface NotesControllerGetManyParams {
   status: "default" | "archived" | "trashed";
   /** @default "custom" */
   sort?: "custom" | "created_at" | "updated_at";
@@ -219,10 +182,18 @@ export interface NotesControllerGetNotesParams {
   last_id?: string;
 }
 
-export type NotesControllerGetNotesData = GetNotesResDto;
+export type NotesControllerGetManyData = GetNotesResDto;
 
-export interface NotesControllerGetNoteParams {
+export type NotesControllerUpdateStatusData = any;
+
+export type NotesControllerUpdateColorData = UpdateNotesColorResDto;
+
+export type NotesControllerUpdateContentData = UpdateNoteContentResDto;
+
+export type NotesControllerUpdatePositionData = any;
+
+export interface NotesControllerGetOneParams {
   id: string;
 }
 
-export type NotesControllerGetNoteData = GetNoteResDto;
+export type NotesControllerGetOneData = GetNoteResDto;

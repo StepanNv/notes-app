@@ -1,5 +1,5 @@
-import type { NotesControllerGetNotesParams } from '../../../api/generated/data-contracts';
+import type { NotesControllerGetManyParams } from '../../../api/generated/data-contracts';
 import { notesController } from '../../../api/notes-controller';
 
-export const getNotes = (query: NotesControllerGetNotesParams) =>
-  notesController.notesControllerGetNotes({}, query);
+export const getNotes = (query: NotesControllerGetManyParams) =>
+  notesController.notesControllerGetMany({}, query);

@@ -33,17 +33,17 @@ export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 
   @ApiOperation({ summary: 'Добавить заметку' })
-  @Post('/add')
+  @Post('/')
   @UseGuards(JwtAccessAuthGuard)
-  addNote(
+  add(
     @Body() dto: AddNoteDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
   ): Promise<AddNoteResDto> {
     return this.notesService.addNote(dto, accessJwtPayload.userId);
   }
 
-  @ApiOperation({ summary: 'Обновить статус заметки' })
-  @Patch('/update-status')
+  @ApiOperation({ summary: 'Обновить статус заметок' })
+  @Patch('/status')
   @UseGuards(JwtAccessAuthGuard)
   updateStatus(
     @Body() dto: UpdateStatusDto,
@@ -52,8 +52,8 @@ export class NotesController {
     return this.notesService.updateStatus(dto, accessJwtPayload.userId);
   }
 
-  @ApiOperation({ summary: 'Удалить замтеку' })
-  @Delete('/delete')
+  @ApiOperation({ summary: 'Удалить заметки' })
+  @Delete('/')
   @UseGuards(JwtAccessAuthGuard)
   deleteNotes(
     @Body() dto: DeleteNotesDto,
@@ -62,10 +62,10 @@ export class NotesController {
     return this.notesService.deleteNotes(dto, accessJwtPayload.userId);
   }
 
-  @ApiOperation({ summary: 'Обновить цвет заметки' })
-  @Patch('/update-color')
+  @ApiOperation({ summary: 'Обновить цвет заметок' })
+  @Patch('/color')
   @UseGuards(JwtAccessAuthGuard)
-  updateNotesColor(
+  updateColor(
     @Body() dto: UpdateNotesColorDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
   ): Promise<UpdateNotesColorResDto> {
@@ -73,9 +73,9 @@ export class NotesController {
   }
 
   @ApiOperation({ summary: 'Обновить контент заметки (заголовок, текст)' })
-  @Patch('/update-content')
+  @Patch('/content')
   @UseGuards(JwtAccessAuthGuard)
-  updateNoteContent(
+  updateContent(
     @Body() dto: UpdateNoteContentDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
   ): Promise<UpdateNoteContentResDto> {
@@ -83,9 +83,9 @@ export class NotesController {
   }
 
   @ApiOperation({ summary: 'Обновить позицию заметки' })
-  @Patch('/update-position')
+  @Patch('/position')
   @UseGuards(JwtAccessAuthGuard)
-  updateNotePosition(
+  updatePosition(
     @Body() dto: UpdateNotePositionDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
   ) {
@@ -95,7 +95,7 @@ export class NotesController {
   @ApiOperation({ summary: 'Получить заметки' })
   @Get('/')
   @UseGuards(JwtAccessAuthGuard)
-  getNotes(
+  getMany(
     @Query() query: GetNotesDto,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
   ): Promise<GetNotesResDto> {
@@ -105,7 +105,7 @@ export class NotesController {
   @ApiOperation({ summary: 'Получить заметку' })
   @Get('/:id')
   @UseGuards(JwtAccessAuthGuard)
-  getNote(
+  getOne(
     @Param('id') id: string,
     @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
   ): Promise<GetNoteResDto> {

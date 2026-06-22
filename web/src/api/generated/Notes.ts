@@ -12,43 +12,34 @@
 
 import type {
   AddNoteDto,
-  ArchiveNotesDto,
   DeleteNotesDto,
-  NotesControllerAddNoteData,
-  NotesControllerArchiveNotesData,
+  NotesControllerAddData,
   NotesControllerDeleteNotesData,
-  NotesControllerGetNoteData,
-  NotesControllerGetNoteParams,
-  NotesControllerGetNotesData,
-  NotesControllerGetNotesParams,
-  NotesControllerRestoreTrashedNotesData,
-  NotesControllerTrashNotesData,
-  NotesControllerUnarchiveNotesData,
-  NotesControllerUpdateNoteContentData,
-  NotesControllerUpdateNotePositionData,
-  NotesControllerUpdateNotesColorData,
-  RestoreTrashedNotesDto,
-  TrashNotesDto,
-  UnarchiveNotesDto,
+  NotesControllerGetManyData,
+  NotesControllerGetManyParams,
+  NotesControllerGetOneData,
+  NotesControllerGetOneParams,
+  NotesControllerUpdateColorData,
+  NotesControllerUpdateContentData,
+  NotesControllerUpdatePositionData,
+  NotesControllerUpdateStatusData,
   UpdateNoteContentDto,
   UpdateNotePositionDto,
   UpdateNotesColorDto,
+  UpdateStatusDto,
 } from "./data-contracts";
 import { ContentType, HttpClient, type RequestParams } from "./http-client";
 
 export class Notes<SecurityDataType = unknown> {
   static readonly paths = {
-    notesControllerAddNote: "/notes/add",
-    notesControllerArchiveNotes: "/notes/archive",
-    notesControllerUnarchiveNotes: "/notes/unarchive",
-    notesControllerTrashNotes: "/notes/trash",
-    notesControllerRestoreTrashedNotes: "/notes/restore-trashed",
-    notesControllerDeleteNotes: "/notes/delete",
-    notesControllerUpdateNotesColor: "/notes/update-color",
-    notesControllerUpdateNoteContent: "/notes/update-content",
-    notesControllerUpdateNotePosition: "/notes/update-position",
-    notesControllerGetNotes: "/notes",
-    notesControllerGetNote: "/notes/${id}",
+    notesControllerAdd: "/notes",
+    notesControllerDeleteNotes: "/notes",
+    notesControllerGetMany: "/notes",
+    notesControllerUpdateStatus: "/notes/status",
+    notesControllerUpdateColor: "/notes/color",
+    notesControllerUpdateContent: "/notes/content",
+    notesControllerUpdatePosition: "/notes/position",
+    notesControllerGetOne: "/notes/${id}",
   } as const;
 
   http: HttpClient<SecurityDataType>;
@@ -61,15 +52,15 @@ export class Notes<SecurityDataType = unknown> {
    * No description
    *
    * @tags Notes
-   * @name NotesControllerAddNote
+   * @name NotesControllerAdd
    * @summary Добавить заметку
-   * @request POST:/notes/add
+   * @request POST:/notes
    * @secure
-   * @response `201` `NotesControllerAddNoteData`
+   * @response `201` `NotesControllerAddData`
    */
-  notesControllerAddNote = (data: AddNoteDto, params: RequestParams = {}) =>
-    this.http.request<NotesControllerAddNoteData, any>({
-      path: `/notes/add`,
+  notesControllerAdd = (data: AddNoteDto, params: RequestParams = {}) =>
+    this.http.request<NotesControllerAddData, any>({
+      path: `/notes`,
       method: "POST",
       body: data,
       secure: true,
@@ -81,97 +72,9 @@ export class Notes<SecurityDataType = unknown> {
    * No description
    *
    * @tags Notes
-   * @name NotesControllerArchiveNotes
-   * @summary Архивировать заметку
-   * @request POST:/notes/archive
-   * @secure
-   * @response `201` `NotesControllerArchiveNotesData`
-   */
-  notesControllerArchiveNotes = (
-    data: ArchiveNotesDto,
-    params: RequestParams = {},
-  ) =>
-    this.http.request<NotesControllerArchiveNotesData, any>({
-      path: `/notes/archive`,
-      method: "POST",
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Notes
-   * @name NotesControllerUnarchiveNotes
-   * @summary Разрхивировать заметку
-   * @request POST:/notes/unarchive
-   * @secure
-   * @response `201` `NotesControllerUnarchiveNotesData`
-   */
-  notesControllerUnarchiveNotes = (
-    data: UnarchiveNotesDto,
-    params: RequestParams = {},
-  ) =>
-    this.http.request<NotesControllerUnarchiveNotesData, any>({
-      path: `/notes/unarchive`,
-      method: "POST",
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Notes
-   * @name NotesControllerTrashNotes
-   * @summary Поместить заметку корзину
-   * @request POST:/notes/trash
-   * @secure
-   * @response `201` `NotesControllerTrashNotesData`
-   */
-  notesControllerTrashNotes = (
-    data: TrashNotesDto,
-    params: RequestParams = {},
-  ) =>
-    this.http.request<NotesControllerTrashNotesData, any>({
-      path: `/notes/trash`,
-      method: "POST",
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Notes
-   * @name NotesControllerRestoreTrashedNotes
-   * @summary Убрать заметку из корзины
-   * @request POST:/notes/restore-trashed
-   * @secure
-   * @response `201` `NotesControllerRestoreTrashedNotesData`
-   */
-  notesControllerRestoreTrashedNotes = (
-    data: RestoreTrashedNotesDto,
-    params: RequestParams = {},
-  ) =>
-    this.http.request<NotesControllerRestoreTrashedNotesData, any>({
-      path: `/notes/restore-trashed`,
-      method: "POST",
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Notes
    * @name NotesControllerDeleteNotes
-   * @summary Удалить замтеку
-   * @request DELETE:/notes/delete
+   * @summary Удалить заметки
+   * @request DELETE:/notes
    * @secure
    * @response `200` `NotesControllerDeleteNotesData`
    */
@@ -180,7 +83,7 @@ export class Notes<SecurityDataType = unknown> {
     params: RequestParams = {},
   ) =>
     this.http.request<NotesControllerDeleteNotesData, any>({
-      path: `/notes/delete`,
+      path: `/notes`,
       method: "DELETE",
       body: data,
       secure: true,
@@ -191,85 +94,17 @@ export class Notes<SecurityDataType = unknown> {
    * No description
    *
    * @tags Notes
-   * @name NotesControllerUpdateNotesColor
-   * @summary Обновить цвет заметки
-   * @request POST:/notes/update-color
-   * @secure
-   * @response `201` `NotesControllerUpdateNotesColorData`
-   */
-  notesControllerUpdateNotesColor = (
-    data: UpdateNotesColorDto,
-    params: RequestParams = {},
-  ) =>
-    this.http.request<NotesControllerUpdateNotesColorData, any>({
-      path: `/notes/update-color`,
-      method: "POST",
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      format: "json",
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Notes
-   * @name NotesControllerUpdateNoteContent
-   * @summary Обновить контент заметки (заголовок, текст)
-   * @request POST:/notes/update-content
-   * @secure
-   * @response `201` `NotesControllerUpdateNoteContentData`
-   */
-  notesControllerUpdateNoteContent = (
-    data: UpdateNoteContentDto,
-    params: RequestParams = {},
-  ) =>
-    this.http.request<NotesControllerUpdateNoteContentData, any>({
-      path: `/notes/update-content`,
-      method: "POST",
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      format: "json",
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Notes
-   * @name NotesControllerUpdateNotePosition
-   * @summary Изменить позицию заметки
-   * @request POST:/notes/update-position
-   * @secure
-   * @response `201` `NotesControllerUpdateNotePositionData`
-   */
-  notesControllerUpdateNotePosition = (
-    data: UpdateNotePositionDto,
-    params: RequestParams = {},
-  ) =>
-    this.http.request<NotesControllerUpdateNotePositionData, any>({
-      path: `/notes/update-position`,
-      method: "POST",
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Notes
-   * @name NotesControllerGetNotes
+   * @name NotesControllerGetMany
    * @summary Получить заметки
    * @request GET:/notes
    * @secure
-   * @response `200` `NotesControllerGetNotesData`
+   * @response `200` `NotesControllerGetManyData`
    */
-  notesControllerGetNotes = (
+  notesControllerGetMany = (
     params: RequestParams = {},
-    query: NotesControllerGetNotesParams,
+    query: NotesControllerGetManyParams,
   ) =>
-    this.http.request<NotesControllerGetNotesData, any>({
+    this.http.request<NotesControllerGetManyData, any>({
       path: `/notes`,
       method: "GET",
       query: query,
@@ -281,17 +116,107 @@ export class Notes<SecurityDataType = unknown> {
    * No description
    *
    * @tags Notes
-   * @name NotesControllerGetNote
+   * @name NotesControllerUpdateStatus
+   * @summary Обновить статус заметок
+   * @request PATCH:/notes/status
+   * @secure
+   * @response `200` `NotesControllerUpdateStatusData`
+   */
+  notesControllerUpdateStatus = (
+    data: UpdateStatusDto,
+    params: RequestParams = {},
+  ) =>
+    this.http.request<NotesControllerUpdateStatusData, any>({
+      path: `/notes/status`,
+      method: "PATCH",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Notes
+   * @name NotesControllerUpdateColor
+   * @summary Обновить цвет заметок
+   * @request PATCH:/notes/color
+   * @secure
+   * @response `200` `NotesControllerUpdateColorData`
+   */
+  notesControllerUpdateColor = (
+    data: UpdateNotesColorDto,
+    params: RequestParams = {},
+  ) =>
+    this.http.request<NotesControllerUpdateColorData, any>({
+      path: `/notes/color`,
+      method: "PATCH",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Notes
+   * @name NotesControllerUpdateContent
+   * @summary Обновить контент заметки (заголовок, текст)
+   * @request PATCH:/notes/content
+   * @secure
+   * @response `200` `NotesControllerUpdateContentData`
+   */
+  notesControllerUpdateContent = (
+    data: UpdateNoteContentDto,
+    params: RequestParams = {},
+  ) =>
+    this.http.request<NotesControllerUpdateContentData, any>({
+      path: `/notes/content`,
+      method: "PATCH",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Notes
+   * @name NotesControllerUpdatePosition
+   * @summary Обновить позицию заметки
+   * @request PATCH:/notes/position
+   * @secure
+   * @response `200` `NotesControllerUpdatePositionData`
+   */
+  notesControllerUpdatePosition = (
+    data: UpdateNotePositionDto,
+    params: RequestParams = {},
+  ) =>
+    this.http.request<NotesControllerUpdatePositionData, any>({
+      path: `/notes/position`,
+      method: "PATCH",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Notes
+   * @name NotesControllerGetOne
    * @summary Получить заметку
    * @request GET:/notes/{id}
    * @secure
-   * @response `200` `NotesControllerGetNoteData`
+   * @response `200` `NotesControllerGetOneData`
    */
-  notesControllerGetNote = (
+  notesControllerGetOne = (
     params: RequestParams = {},
-    { id }: NotesControllerGetNoteParams,
+    { id }: NotesControllerGetOneParams,
   ) =>
-    this.http.request<NotesControllerGetNoteData, any>({
+    this.http.request<NotesControllerGetOneData, any>({
       path: `/notes/${id}`,
       method: "GET",
       secure: true,
