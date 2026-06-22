@@ -5,6 +5,7 @@ export const useClickOutside = <T extends HTMLElement>(
   callback: () => void,
 ) => {
   useEffect(() => {
+    // функция объявлена, но не вызвана
     const handleClickOutside = (event: MouseEvent) => {
       if (
         ignoreElementRef.current &&
