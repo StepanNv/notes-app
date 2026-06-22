@@ -1,9 +1,9 @@
 import DropdownList from '../../../../components/DropdownList/DropdownList';
 import DropdownItem from '../../../../components/DropdownItem/DropdownItem';
-import { useDropdownActions } from './useDropdownActions';
+import { useUserMenuActions } from './useUserMenuActions';
 
 const UserMenuDropdownList = ({ isOpen }: { isOpen: boolean }) => {
-  const { logout } = useDropdownActions();
+  const { logout } = useUserMenuActions();
 
   return (
     <DropdownList isOpen={isOpen}>

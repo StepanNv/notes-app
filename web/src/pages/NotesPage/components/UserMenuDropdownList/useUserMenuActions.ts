@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from './useLogoutMutation';
 
-export const useDropdownActions = () => {
+export const useUserMenuActions = () => {
   const navigate = useNavigate();
   const logoutMutation = useLogoutMutation();
 
