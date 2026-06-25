@@ -7,15 +7,15 @@ import {
 } from '@nestjs/common';
 import bcrypt from 'bcryptjs';
 import { UsersService } from '../users/users.service';
-import { RegisterDto } from './dtos/req/register.dto';
-import { LoginDto } from './dtos/req/login.dto';
+import { SignUpDto } from './dtos/req/sign-up.dto';
+import { SignInDto } from './dtos/req/sign-in.dto';
 import { TTokensPayload } from './types/jwt-payload';
 
 @Injectable()
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
-  async register(dto: RegisterDto) {
+  async signUp(dto: SignUpDto) {
     const isUserExists = await this.usersService.getOne({
       email: dto.email,
       username: dto.username,
@@ -32,7 +32,7 @@ export class AuthService {
     return this.usersService.createOne(dto.email, dto.username, hashPassword);
   }
 
-  async login(dto: LoginDto) {
+  async signIn(dto: SignInDto) {
     const user = await this.usersService.getOne({ email: dto.email });
     if (!user) {
       throw new BadRequestException({

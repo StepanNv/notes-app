@@ -6,7 +6,7 @@ import {
   MaxLength,
 } from 'class-validator';
 
-export class RegisterDto {
+export class SignUpDto {
   @IsNotEmpty({ message: 'Email cannot be empty' })
   @IsString({ message: 'Email must be a string' })
   @IsEmail({}, { message: 'Invalid email format' })

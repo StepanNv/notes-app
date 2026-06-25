@@ -11,20 +11,20 @@
  */
 
 import type {
-  AuthControllerLoginData,
-  AuthControllerLogoutData,
   AuthControllerRefreshData,
-  AuthControllerRegisterData,
-  LoginDto,
-  RegisterDto,
+  AuthControllerSignInData,
+  AuthControllerSignOutData,
+  AuthControllerSignUpData,
+  SignInDto,
+  SignUpDto,
 } from "./data-contracts";
 import { ContentType, HttpClient, type RequestParams } from "./http-client";
 
 export class Auth<SecurityDataType = unknown> {
   static readonly paths = {
-    authControllerRegister: "/auth/registration",
-    authControllerLogin: "/auth/login",
-    authControllerLogout: "/auth/logout",
+    authControllerSignUp: "/auth/sign-up",
+    authControllerSignIn: "/auth/sign-in",
+    authControllerSignOut: "/auth/sign-out",
     authControllerRefresh: "/auth/refresh",
   } as const;
 
@@ -38,14 +38,14 @@ export class Auth<SecurityDataType = unknown> {
    * No description
    *
    * @tags Auth
-   * @name AuthControllerRegister
+   * @name AuthControllerSignUp
    * @summary Регистрация в системе
-   * @request POST:/auth/registration
-   * @response `201` `AuthControllerRegisterData`
+   * @request POST:/auth/sign-up
+   * @response `201` `AuthControllerSignUpData`
    */
-  authControllerRegister = (data: RegisterDto, params: RequestParams = {}) =>
-    this.http.request<AuthControllerRegisterData, any>({
-      path: `/auth/registration`,
+  authControllerSignUp = (data: SignUpDto, params: RequestParams = {}) =>
+    this.http.request<AuthControllerSignUpData, any>({
+      path: `/auth/sign-up`,
       method: "POST",
       body: data,
       type: ContentType.Json,
@@ -56,14 +56,14 @@ export class Auth<SecurityDataType = unknown> {
    * No description
    *
    * @tags Auth
-   * @name AuthControllerLogin
+   * @name AuthControllerSignIn
    * @summary Вход в систему
-   * @request POST:/auth/login
-   * @response `201` `AuthControllerLoginData`
+   * @request POST:/auth/sign-in
+   * @response `201` `AuthControllerSignInData`
    */
-  authControllerLogin = (data: LoginDto, params: RequestParams = {}) =>
-    this.http.request<AuthControllerLoginData, any>({
-      path: `/auth/login`,
+  authControllerSignIn = (data: SignInDto, params: RequestParams = {}) =>
+    this.http.request<AuthControllerSignInData, any>({
+      path: `/auth/sign-in`,
       method: "POST",
       body: data,
       type: ContentType.Json,
@@ -74,14 +74,14 @@ export class Auth<SecurityDataType = unknown> {
    * No description
    *
    * @tags Auth
-   * @name AuthControllerLogout
+   * @name AuthControllerSignOut
    * @summary Выход из системы
-   * @request POST:/auth/logout
-   * @response `201` `AuthControllerLogoutData`
+   * @request POST:/auth/sign-out
+   * @response `201` `AuthControllerSignOutData`
    */
-  authControllerLogout = (params: RequestParams = {}) =>
-    this.http.request<AuthControllerLogoutData, any>({
-      path: `/auth/logout`,
+  authControllerSignOut = (params: RequestParams = {}) =>
+    this.http.request<AuthControllerSignOutData, any>({
+      path: `/auth/sign-out`,
       method: "POST",
       ...params,
     });

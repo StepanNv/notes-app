@@ -3,12 +3,12 @@ import DropdownItem from '../../../../components/DropdownItem/DropdownItem';
 import { useUserMenuActions } from './useUserMenuActions';
 
 const UserMenuDropdownList = ({ isOpen }: { isOpen: boolean }) => {
-  const { logout } = useUserMenuActions();
+  const { signOut } = useUserMenuActions();
 
   return (
     <DropdownList isOpen={isOpen}>
       <DropdownItem>Settings</DropdownItem>
-      <DropdownItem onClick={logout}>Log out</DropdownItem>
+      <DropdownItem onClick={signOut}>Sign out</DropdownItem>
     </DropdownList>
   );
 };

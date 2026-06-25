@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
-import type { LoginDto } from '../../../../api/generated/data-contracts';
+import type { SignInDto } from '../../../../api/generated/data-contracts';
 import { useSignInMutation } from './useSignInMutation';
 
 export const useSignInForm = () => {
-  const { register, handleSubmit } = useForm<LoginDto>();
+  const { register, handleSubmit } = useForm<SignInDto>();
   const signInMutation = useSignInMutation();
 
   const submit = handleSubmit((formData) => {

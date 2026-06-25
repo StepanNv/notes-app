@@ -17,7 +17,7 @@ export interface GetMeResDto {
   createdAt: string;
 }
 
-export interface RegisterDto {
+export interface SignUpDto {
   /** @format email */
   email: string;
   /** @maxLength 30 */
@@ -33,7 +33,7 @@ export interface AuthResDto {
   accessToken: string;
 }
 
-export interface LoginDto {
+export interface SignInDto {
   /** @format email */
   email: string;
   password: string;
@@ -155,11 +155,11 @@ export interface GetNoteResDto {
 
 export type UsersControllerGetMeData = GetMeResDto;
 
-export type AuthControllerRegisterData = AuthResDto;
+export type AuthControllerSignUpData = AuthResDto;
 
-export type AuthControllerLoginData = AuthResDto;
+export type AuthControllerSignInData = AuthResDto;
 
-export type AuthControllerLogoutData = any;
+export type AuthControllerSignOutData = any;
 
 export type AuthControllerRefreshData = AuthResDto;
 

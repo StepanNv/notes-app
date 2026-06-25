@@ -3,11 +3,11 @@ import type { AxiosError } from 'axios';
 import { authController } from '../../../../api/auth-controller';
 import { useAuthStore } from '../../../../stores/useAuthStore';
 
-export const useLogoutMutation = () => {
+export const useSignOutMutation = () => {
   const setAccessToken = useAuthStore((state) => state.setAccessToken);
 
   return useMutation({
-    mutationFn: () => authController.authControllerLogout(),
+    mutationFn: () => authController.authControllerSignOut(),
     onSuccess: () => {
       setAccessToken(null);
     },

@@ -4,8 +4,8 @@ import type { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { RefreshTokenGuard } from './guards/refresh-token.guard';
 import { GetRefreshTokenPayload } from './decorators/get-rt-payload.decorator';
-import { RegisterDto } from './dtos/req/register.dto';
-import { LoginDto } from './dtos/req/login.dto';
+import { SignUpDto } from './dtos/req/sign-up.dto';
+import { SignInDto } from './dtos/req/sign-in.dto';
 import { AuthResDto } from './dtos/res/auth-res.dto';
 import type { TTokensPayload } from './types/jwt-payload';
 import { TokensService } from './tokens/tokens.service';
@@ -20,28 +20,28 @@ export class AuthController {
   ) {}
 
   @ApiOperation({ summary: 'Регистрация в системе' })
-  @Post('/registration')
-  async register(
-    @Body() dto: RegisterDto,
+  @Post('/sign-up')
+  async signUp(
+    @Body() dto: SignUpDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<AuthResDto> {
-    const userData = await this.authService.register(dto);
+    const userData = await this.authService.signUp(dto);
     return this.giveTokens({ userId: userData.id }, res);
   }
 
   @ApiOperation({ summary: 'Вход в систему' })
-  @Post('/login')
-  async login(
-    @Body() dto: LoginDto,
+  @Post('/sign-in')
+  async signIn(
+    @Body() dto: SignInDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<AuthResDto> {
-    const userData = await this.authService.login(dto);
+    const userData = await this.authService.signIn(dto);
     return this.giveTokens({ userId: userData.id }, res);
   }
 
   @ApiOperation({ summary: 'Выход из системы' })
-  @Post('logout')
-  logout(@Res({ passthrough: true }) res: Response) {
+  @Post('sign-out')
+  signOut(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('refreshToken');
   }
 

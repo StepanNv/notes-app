@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { useLogoutMutation } from './useLogoutMutation';
+import { useSignOutMutation } from './useSignOutMutation';
 
 export const useUserMenuActions = () => {
   const navigate = useNavigate();
-  const logoutMutation = useLogoutMutation();
+  const signOutMutation = useSignOutMutation();
 
-  const logout = () => {
-    logoutMutation.mutate();
+  const signOut = () => {
+    signOutMutation.mutate();
     navigate('/');
   };
 
-  return { logout };
+  return { signOut };
 };

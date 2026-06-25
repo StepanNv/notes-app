@@ -1,19 +1,18 @@
 import { useMutation } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
-import type { SignInDto } from '../../../../api/generated/data-contracts';
-import { authController } from '../../../../api/auth-controller';
-import { useAuthStore } from '../../../../stores/useAuthStore';
+import type { UpdateStatusDto } from '../../../../api/generated/data-contracts';
 import { useErrorsStore } from '../../../../modules/ErrorAlertsBox/stores/useErrorsStore';
+import { updateNoteStatus } from '../../api/update-note-status';
+import { useQueryClient } from '@tanstack/react-query';
 
-export const useSignInMutation = () => {
-  const setAccessToken = useAuthStore((state) => state.setAccessToken);
+export const useUpdateStatusMutation = () => {
+  const queryClient = useQueryClient();
   const addError = useErrorsStore((state) => state.addError);
 
   return useMutation({
-    mutationFn: (formData: SignInDto) =>
-      authController.authControllerSignIn(formData),
-    onSuccess: (data) => {
-      setAccessToken(data.data.accessToken);
+    mutationFn: (data: UpdateStatusDto) => updateNoteStatus(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notes'] });
     },
     onError: (error: AxiosError<{ message: string }>) => {
       const message = error.response?.data?.message;
