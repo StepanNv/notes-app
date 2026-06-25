@@ -3,14 +3,14 @@ import NoNotesContent from '../NoNotesContent/NoNotesContent';
 import NoteItem from '../NoteItem/NoteItem';
 import { useInfiniteNotesQuery } from './useInfiniteNotesQuery';
 import { useInfiniteScrollTrigger } from './useInfiniteScrollTrigger';
-import type { NotesControllerGetNotesParams } from '../../../../api/generated/data-contracts';
+import type { NotesControllerGetManyParams } from '../../../../api/generated/data-contracts';
 import { useEffect } from 'react';
 import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
 
 const InfiniteNotesList = ({
   query,
 }: {
-  query: NotesControllerGetNotesParams;
+  query: NotesControllerGetManyParams;
 }) => {
   const {
     data,

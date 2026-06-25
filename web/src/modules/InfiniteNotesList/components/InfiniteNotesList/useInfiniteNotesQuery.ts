@@ -1,8 +1,8 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getNotes } from '../../api/get-notes';
-import type { NotesControllerGetNotesParams } from '../../../../api/generated/data-contracts';
+import type { NotesControllerGetManyParams } from '../../../../api/generated/data-contracts';
 
-export const useInfiniteNotesQuery = (query: NotesControllerGetNotesParams) => {
+export const useInfiniteNotesQuery = (query: NotesControllerGetManyParams) => {
   return useInfiniteQuery({
     queryKey: ['notes'],
     queryFn: async ({ pageParam }) => {
