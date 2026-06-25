@@ -1,4 +1,3 @@
-import type { UpdateStatusDto } from '../../../../api/generated/data-contracts';
 import DropdownItem from '../../../../components/DropdownItem/DropdownItem';
 import DropdownList from '../../../../components/DropdownList/DropdownList';
 import { useUpdateStatusMutation } from './useUpdateStatusMutation';
@@ -8,23 +7,17 @@ const UpdateStatusDropdownList = ({ isOpen }: { isOpen: boolean }) => {
   const updateStatusMutation = useUpdateStatusMutation();
   const selectedIds = useNotesSelectionStore((state) => state.selectedIds);
 
-  const handleUpdateStatus = (data: UpdateStatusDto) => {
-    updateStatusMutation.mutate(data);
+  const handleUpdateStatus = () => {
+    updateStatusMutation.mutate({
+      currentStatus: 'default',
+      selectedStatus: 'archived',
+      noteIds: Array.from(selectedIds),
+    });
   };
 
   return (
     <DropdownList isOpen={isOpen}>
-      <DropdownItem
-        onClick={() =>
-          handleUpdateStatus({
-            currentStatus: 'default',
-            selectedStatus: 'archived',
-            noteIds: Array.from(selectedIds),
-          })
-        }
-      >
-        Archive
-      </DropdownItem>
+      <DropdownItem onClick={handleUpdateStatus}>Archive</DropdownItem>
       <DropdownItem>Trash</DropdownItem>
     </DropdownList>
   );
