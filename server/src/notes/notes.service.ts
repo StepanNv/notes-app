@@ -58,7 +58,7 @@ export class NotesService {
 
       if (notesToChange.length < dto.noteIds.length) {
         throw new ForbiddenException(
-          'Failed to archive notes due to their current status or access restrictions.',
+          'Failed to change notes status due to their current status or access restrictions.',
         );
       }
 
