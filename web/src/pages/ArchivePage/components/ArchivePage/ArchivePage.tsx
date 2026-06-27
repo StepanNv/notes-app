@@ -8,7 +8,7 @@ const ArchivePage = () => {
   const selectedNotes = useNotesSelectionStore((state) => state.selectedIds);
   return (
     <>
-      {selectedNotes.size > 0 ? <EditorHeader /> : <ArchivePageHeader />}
+      {selectedNotes.size > 0 ? <EditorHeader currentPage="archive" /> : <ArchivePageHeader />}
       <InfiniteNotesList
         query={{ status: 'archived', sort: 'custom', limit: 7 }}
       />

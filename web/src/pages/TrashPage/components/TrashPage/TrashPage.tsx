@@ -8,7 +8,7 @@ const TrashPage = () => {
   const selectedNotes = useNotesSelectionStore((state) => state.selectedIds);
   return (
     <>
-      {selectedNotes.size > 0 ? <EditorHeader /> : <TrashPageHeader />}
+      {selectedNotes.size > 0 ? <EditorHeader currentPage="trash" /> : <TrashPageHeader />}
       <InfiniteNotesList
         query={{ status: 'trashed', sort: 'custom', limit: 7 }}
       />

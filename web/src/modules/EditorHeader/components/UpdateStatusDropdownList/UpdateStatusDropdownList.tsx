@@ -1,24 +1,47 @@
 import DropdownItem from '../../../../components/DropdownItem/DropdownItem';
 import DropdownList from '../../../../components/DropdownList/DropdownList';
-import { useUpdateStatusMutation } from './useUpdateStatusMutation';
-import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
+import { useUpdateStatus } from './useUpdateStatus';
 
-const UpdateStatusDropdownList = ({ isOpen }: { isOpen: boolean }) => {
-  const updateStatusMutation = useUpdateStatusMutation();
-  const selectedIds = useNotesSelectionStore((state) => state.selectedIds);
+type UpdateStatusDropdownListProps = {
+  isOpen: boolean;
+  currentPage: 'notes' | 'archive' | 'trash';
+};
 
-  const handleUpdateStatus = () => {
-    updateStatusMutation.mutate({
-      currentStatus: 'default',
-      selectedStatus: 'archived',
-      noteIds: Array.from(selectedIds),
-    });
-  };
+const UpdateStatusDropdownList = ({
+  isOpen,
+  currentPage,
+}: UpdateStatusDropdownListProps) => {
+  const { updateStatus } = useUpdateStatus();
 
   return (
     <DropdownList isOpen={isOpen}>
-      <DropdownItem onClick={handleUpdateStatus}>Archive</DropdownItem>
-      <DropdownItem>Trash</DropdownItem>
+      {currentPage === 'notes' && (
+        <>
+          <DropdownItem onClick={() => updateStatus({ currentPage: 'notes', action: 'archive' })}>
+            Archive
+          </DropdownItem>
+          <DropdownItem onClick={() => updateStatus({ currentPage: 'notes', action: 'trash' })}>
+            Trash
+          </DropdownItem>
+        </>
+      )}
+      {currentPage === 'archive' && (
+        <>
+          <DropdownItem onClick={() => updateStatus({ currentPage: 'archive', action: 'unarchive' })}>
+            Unarchive
+          </DropdownItem>
+          <DropdownItem onClick={() => updateStatus({ currentPage: 'archive', action: 'trash' })}>
+            Trash
+          </DropdownItem>
+        </>
+      )}
+      {currentPage === 'trash' && (
+        <>
+          <DropdownItem onClick={() => updateStatus({ currentPage: 'trash', action: 'restore' })}>
+            Restore
+          </DropdownItem>
+        </>
+      )}
     </DropdownList>
   );
 };

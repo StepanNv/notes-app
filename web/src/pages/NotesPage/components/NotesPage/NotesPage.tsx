@@ -9,7 +9,11 @@ const NotesPage = () => {
   const selectedNotes = useNotesSelectionStore((state) => state.selectedIds);
   return (
     <>
-      {selectedNotes.size > 0 ? <EditorHeader /> : <NotesPageHeader />}
+      {selectedNotes.size > 0 ? (
+        <EditorHeader currentPage="notes" />
+      ) : (
+        <NotesPageHeader />
+      )}
       <InfiniteNotesList
         query={{ status: 'default', sort: 'custom', limit: 7 }}
       />

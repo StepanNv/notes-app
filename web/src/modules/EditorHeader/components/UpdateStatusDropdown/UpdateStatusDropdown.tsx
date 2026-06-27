@@ -3,13 +3,13 @@ import { useDropdown } from '../../../../hooks/useDropdown';
 import UpdateStatusDropdownList from '../UpdateStatusDropdownList/UpdateStatusDropdownList';
 import MoreBtn from '../MoreBtn/MoreBtn';
 
-const UpdateStatusDropdown = () => {
+const UpdateStatusDropdown = ({ currentPage }: { currentPage: 'notes' | 'archive' | 'trash' }) => {
   const { isDropdownOpen, setDropdownOpen, dropdownRef } = useDropdown();
 
   return (
     <div className={styles.updateStatusDropdown} ref={dropdownRef}>
       <MoreBtn onClick={() => setDropdownOpen(!isDropdownOpen)} />
-      <UpdateStatusDropdownList isOpen={isDropdownOpen} />
+      <UpdateStatusDropdownList isOpen={isDropdownOpen} currentPage={currentPage} />
     </div>
   );
 };

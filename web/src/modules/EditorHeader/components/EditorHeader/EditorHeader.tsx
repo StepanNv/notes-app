@@ -7,7 +7,11 @@ import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStor
 // import DownNoteBtn from '../DownNoteBtn/DownNoteBtn';
 import UpdateStatusDropdown from '../UpdateStatusDropdown/UpdateStatusDropdown';
 
-const EditorHeader = () => {
+const EditorHeader = ({
+  currentPage,
+}: {
+  currentPage: 'notes' | 'archive' | 'trash';
+}) => {
   const selectedNotes = useNotesSelectionStore((state) => state.selectedIds);
   const deselectAll = useNotesSelectionStore((state) => state.clear);
 
@@ -23,8 +27,8 @@ const EditorHeader = () => {
         <div className={styles.group}>
           {/* <UpNoteBtn onClick={() => {}}/>
           <DownNoteBtn onClick={() => {}} /> */}
-          <PaletteBtn onClick={() => {}} />
-          <UpdateStatusDropdown />
+          {currentPage !== 'trash' && <PaletteBtn onClick={() => {}} />}
+          <UpdateStatusDropdown currentPage={currentPage} />
         </div>
       </div>
     </Header>
