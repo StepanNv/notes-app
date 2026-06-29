@@ -10,14 +10,16 @@ type TModalProps = {
 };
 
 const Modal = ({ children, isOpen }: TModalProps) => {
-  const { closeModal } = useModalStore();
+  const closeModal = useModalStore((state) => state.closeModal);
   const modalRef = useRef<HTMLDivElement>(null);
 
   useClickOutside(modalRef, () => closeModal());
 
   return (
     <Backdrop isOpen={isOpen}>
-      <div className={styles.modal} ref={modalRef}>{children}</div>
+      <div className={styles.modal} ref={modalRef}>
+        {children}
+      </div>
     </Backdrop>
   );
 };
