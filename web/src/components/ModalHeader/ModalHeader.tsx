@@ -6,7 +6,7 @@ const ModalHeader = ({ title }: { title: string }) => {
   const { closeModal } = useModalStore();
   return (
     <div className={styles.modalHeader}>
-      <h2 className={styles.modalHeaderTitle}>{title}</h2>
+      <span className={styles.modalHeaderTitle}>{title}</span>
       <CrossBtn onClick={closeModal} />
     </div>
   );
