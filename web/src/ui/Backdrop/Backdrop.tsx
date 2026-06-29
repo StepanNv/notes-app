@@ -3,15 +3,14 @@ import styles from './Backdrop.module.scss';
 
 type TBackdropProps = {
   isOpen: boolean;
-  onClose: () => void;
   children: ReactNode;
-}
+};
 
-const Backdrop = ({isOpen, onClose, children}: TBackdropProps) => {
+const Backdrop = ({ isOpen, children }: TBackdropProps) => {
   return (
-    <div className={`${styles.backdrop} ${isOpen ? styles.visible : ''}`} onClick={onClose}>
+    <div className={`${styles.backdrop} ${isOpen ? styles.visible : ''}`}>
       {children}
     </div>
-  )
-}
+  );
+};
 export default Backdrop;
