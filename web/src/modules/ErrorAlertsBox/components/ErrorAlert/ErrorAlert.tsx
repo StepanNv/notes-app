@@ -1,6 +1,5 @@
 import styles from './ErrorAlert.module.scss';
 import CrossSvg from '../../../../assets/icons/cross.svg?react';
-import { useEffect } from 'react';
 import { useErrorsStore } from '../../stores/useErrorsStore';
 
 const ErrorAlert = ({
@@ -13,16 +12,6 @@ const ErrorAlert = ({
   message: string;
 }) => {
   const removeError = useErrorsStore((state) => state.removeError);
-
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     removeError(id);
-  //   }, 2900);
-
-  //   return () => {
-  //     clearTimeout(timeout);
-  //   };
-  // }, []);
 
   return (
     <div className={styles.errorAlert} onAnimationEnd={() => removeError(id)}>
