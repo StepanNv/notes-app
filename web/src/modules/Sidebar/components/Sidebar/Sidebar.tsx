@@ -19,7 +19,11 @@ const Sidebar = () => {
     }
   }, [location.pathname]);
 
-  useClickOutside(sidebarRef, () => closeSidebar());
+  useClickOutside({
+    ignoreElementRef: sidebarRef,
+    isActive: isSidebarOpened,
+    callback: () => closeSidebar(),
+  });
 
   return (
     <Backdrop isOpen={isSidebarOpened}>
