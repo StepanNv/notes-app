@@ -13,7 +13,11 @@ const Modal = ({ children, isOpen }: TModalProps) => {
   const closeModal = useModalStore((state) => state.closeModal);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  useClickOutside(modalRef, () => closeModal());
+  useClickOutside({
+    ignoreElementRef: modalRef,
+    isActive: isOpen,
+    callback: () => closeModal(),
+  });
 
   return (
     <Backdrop isOpen={isOpen}>

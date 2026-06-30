@@ -1,13 +1,21 @@
 import { useEffect } from 'react';
 
-export const useClickOutside = <T extends HTMLElement>(
-  ignoreElementRef: React.RefObject<T | null>,
-  callback: () => void,
-) => {
+type TUseClickOutsideProps = {
+  ignoreElementRef: React.RefObject<HTMLElement | null>;
+  isActive: boolean;
+  callback: () => void;
+};
+
+export const useClickOutside = ({
+  ignoreElementRef,
+  isActive,
+  callback,
+}: TUseClickOutsideProps) => {
   useEffect(() => {
     // функция объявлена, но не вызвана
     const handleClickOutside = (event: MouseEvent) => {
       if (
+        isActive &&
         ignoreElementRef.current &&
         !ignoreElementRef.current.contains(event.target as Node)
       ) {
