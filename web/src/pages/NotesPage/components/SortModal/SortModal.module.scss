@@ -1,0 +1,7 @@
+.content {
+  @include flex-center;
+  flex-direction: column;
+  flex: 1;
+  padding: 10px;
+  gap: 5px;
+}

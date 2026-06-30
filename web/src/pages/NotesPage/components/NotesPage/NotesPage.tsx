@@ -4,6 +4,7 @@ import InfiniteNotesList from '../../../../modules/InfiniteNotesList/components/
 import AddNoteBtn from '../AddNoteBtn/AddNoteBtn';
 import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
 import { EditorHeader } from '../../../../modules/EditorHeader';
+import SortModal from '../SortModal/SortModal';
 
 const NotesPage = () => {
   const selectedNotes = useNotesSelectionStore((state) => state.selectedIds);
@@ -19,6 +20,7 @@ const NotesPage = () => {
       />
       <AddNoteBtn />
       <Sidebar />
+      <SortModal />
     </>
   );
 };
