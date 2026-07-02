@@ -21,7 +21,7 @@ export const colorKey = {
   NINTH: 'NINTH',
   TENTH: 'TENTH',
   ELEVENTH: 'ELEVENTH',
-  TWELVEFTH: 'TWELVEFTH'
+  TWELFTH: 'TWELFTH'
 } as const
 
 export type colorKey = (typeof colorKey)[keyof typeof colorKey]

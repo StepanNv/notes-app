@@ -56,7 +56,7 @@ enum colorKey {
   NINTH
   TENTH
   ELEVENTH
-  TWELVEFTH
+  TWELFTH
 }
 
 enum status {
