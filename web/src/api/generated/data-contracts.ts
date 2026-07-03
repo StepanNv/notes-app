@@ -89,7 +89,7 @@ export interface UpdateNotesColorDto {
     | "NINTH"
     | "TENTH"
     | "ELEVENTH"
-    | "TWELVEFTH";
+    | "TWELFTH";
 }
 
 export interface UpdateNotesColorResDto {
@@ -131,7 +131,7 @@ export interface NoteDto {
     | "NINTH"
     | "TENTH"
     | "ELEVENTH"
-    | "TWELVEFTH";
+    | "TWELFTH";
   status: "default" | "archived" | "trashed";
   id: string;
   title: string | null;
