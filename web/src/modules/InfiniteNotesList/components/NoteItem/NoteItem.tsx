@@ -5,18 +5,28 @@ import type { NoteDto } from '../../../../api/generated/data-contracts';
 import { useNavigate } from 'react-router-dom';
 import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
 import SelectNoteBtn from '../SelectNoteBtn/SelectNoteBtn';
+import { NOTE_COLORS } from '../../../../consts/noteColors';
 
 type NoteItemProps = {
   id: NoteDto['id'];
   title: NoteDto['title'];
   text: NoteDto['text'];
   status: NoteDto['status'];
+  colorKey: NoteDto['colorKey'];
   isSelected: boolean;
 };
 
-const NoteItem = ({ id, title, text, status, isSelected }: NoteItemProps) => {
+const NoteItem = ({
+  id,
+  title,
+  text,
+  status,
+  isSelected,
+  colorKey,
+}: NoteItemProps) => {
   const navigate = useNavigate();
-  const toggleNoteSelection = useNotesSelectionStore((state) => state.toggle);
+  const addNoteSelection = useNotesSelectionStore((state) => state.add);
+  const removeNoteSelection = useNotesSelectionStore((state) => state.remove);
 
   const openNote = (status: string) => {
     if (status === 'default') {
@@ -28,10 +38,19 @@ const NoteItem = ({ id, title, text, status, isSelected }: NoteItemProps) => {
     }
   };
 
+  const toggleNoteSelection = () => {
+    if (isSelected) {
+      removeNoteSelection(id);
+    } else {
+      addNoteSelection({ id, colorKey });
+    }
+  };
+
   return (
     <div
-      className={`${styles.noteItem} ${isSelected ? styles.selected : ''}`}
+      className={`${styles.noteItem} ${isSelected ? styles.selected : ''} ${colorKey !== 'FIRST' ? styles.colorable : ''}`}
       onClick={() => openNote(status)}
+      style={{ backgroundColor: NOTE_COLORS[colorKey] }}
     >
       <div className={styles.content}>
         <div className={styles.title}>{title}</div>
@@ -40,7 +59,7 @@ const NoteItem = ({ id, title, text, status, isSelected }: NoteItemProps) => {
         </div>
       </div>
       <div className={styles.btnWrapper}>
-        <SelectNoteBtn onClick={() => toggleNoteSelection(id)} />
+        <SelectNoteBtn onClick={toggleNoteSelection} />
       </div>
     </div>
   );

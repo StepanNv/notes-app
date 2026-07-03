@@ -5,7 +5,7 @@ import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStor
 import { EditorHeader } from '../../../../modules/EditorHeader';
 
 const ArchivePage = () => {
-  const selectedNotes = useNotesSelectionStore((state) => state.selectedIds);
+  const selectedNotes = useNotesSelectionStore((state) => state.selectedNotes);
   return (
     <>
       {selectedNotes.size > 0 ? <EditorHeader currentPage="archive" /> : <ArchivePageHeader />}

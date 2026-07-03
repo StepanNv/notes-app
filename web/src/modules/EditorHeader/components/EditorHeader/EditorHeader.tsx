@@ -6,14 +6,16 @@ import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStor
 // import UpNoteBtn from '../UpNoteBtn/UpNoteBtn';
 // import DownNoteBtn from '../DownNoteBtn/DownNoteBtn';
 import UpdateStatusDropdown from '../UpdateStatusDropdown/UpdateStatusDropdown';
+import { useModalStore } from '../../../../stores/useModalStore';
 
 const EditorHeader = ({
   currentPage,
 }: {
   currentPage: 'notes' | 'archive' | 'trash';
 }) => {
-  const selectedNotes = useNotesSelectionStore((state) => state.selectedIds);
+  const selectedNotes = useNotesSelectionStore((state) => state.selectedNotes);
   const deselectAll = useNotesSelectionStore((state) => state.clear);
+  const openModal = useModalStore((state) => state.openModal);
 
   return (
     <Header>
@@ -27,7 +29,9 @@ const EditorHeader = ({
         <div className={styles.group}>
           {/* <UpNoteBtn onClick={() => {}}/>
           <DownNoteBtn onClick={() => {}} /> */}
-          {currentPage !== 'trash' && <PaletteBtn onClick={() => {}} />}
+          {currentPage !== 'trash' && (
+            <PaletteBtn onClick={() => openModal('updateNotesColor')} />
+          )}
           <UpdateStatusDropdown currentPage={currentPage} />
         </div>
       </div>

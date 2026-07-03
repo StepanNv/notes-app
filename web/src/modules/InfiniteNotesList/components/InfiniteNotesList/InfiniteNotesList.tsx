@@ -20,10 +20,8 @@ const InfiniteNotesList = ({
     isFetchingNextPage,
     hasNextPage,
   } = useInfiniteNotesQuery(query);
-
   const { ref } = useInfiniteScrollTrigger(fetchNextPage);
-
-  const selectedNotesIds = useNotesSelectionStore((state) => state.selectedIds);
+  const isSelected = useNotesSelectionStore((state) => state.isSelected);
   const clearSelectedNotes = useNotesSelectionStore((state) => state.clear);
 
   useEffect(() => () => clearSelectedNotes(), []);
@@ -52,7 +50,8 @@ const InfiniteNotesList = ({
               title={note.title}
               text={note.text}
               status={note.status}
-              isSelected={selectedNotesIds.has(note.id)}
+              colorKey={note.colorKey}
+              isSelected={isSelected(note.id)}
             />
           ))}
           {isFetchingNextPage ? (

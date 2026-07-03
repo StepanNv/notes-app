@@ -22,13 +22,13 @@ const SELECTED_STATUS_FROM_ACTION: Record<string, NoteDto['status']> = {
 
 export const useUpdateStatus = () => {
   const updateStatusMutation = useUpdateStatusMutation();
-  const selectedIds = useNotesSelectionStore((state) => state.selectedIds);
+  const selectedNotes = useNotesSelectionStore((state) => state.selectedNotes);
 
   const updateStatus = ({ currentPage, action }: UpdateStatusParams) => {
     const currentStatus = CURRENT_STATUS_FROM_PAGE[currentPage];
     const selectedStatus = SELECTED_STATUS_FROM_ACTION[action];
     updateStatusMutation.mutate({
-      noteIds: Array.from(selectedIds),
+      noteIds: Array.from(selectedNotes).map((note) => note.id),
       currentStatus,
       selectedStatus,
     });

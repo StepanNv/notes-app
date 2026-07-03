@@ -1,0 +1,24 @@
+.colorPickerBtn {
+  @include btn-reset;
+  @include flex-center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid var(--mark-up);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  svg {
+    width: 40px;
+    height: 40px;
+    color: var(--btn-bg);
+  }
+
+  &:hover {
+    background-color: var(--mark-up);
+  }
+}
+
+.selected {
+  border: 3px solid var(--btn-bg);
+}
