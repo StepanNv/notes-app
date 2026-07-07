@@ -5,7 +5,7 @@ const LandingContent = () => {
   return (
     <>
       <div className={styles.content}>
-        <h1>Stay organized with My Notes</h1>
+        <h1>Stay organized with Notes app</h1>
         <p className={styles.subtitle}>
           Keep track of your tasks and ideas in one place
         </p>
