@@ -1,5 +1,4 @@
 .main {
   flex: 1;
   @include flex-center;
-  padding-top: var(--header-height);
 }
