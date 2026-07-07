@@ -1,3 +1,3 @@
-import ErrorAlersBox from './components/ErrorAlersBox/ErrorAlersBox';
+import ErrorAlertsBox from './components/ErrorAlersBox/ErrorAlertsBox';
 import { useErrorsStore } from './stores/useErrorsStore';
-export { ErrorAlersBox, useErrorsStore };
+export { ErrorAlertsBox, useErrorsStore };
