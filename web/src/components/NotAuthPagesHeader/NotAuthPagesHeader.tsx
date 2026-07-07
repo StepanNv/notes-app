@@ -17,7 +17,7 @@ const NotAuthPagesHeader = ({
             to="/sign-in"
             className={`${styles.link} ${selectedAuthMethod === 'sign-in' ? styles.opened : ''}`}
           >
-            Login
+            Sign in
           </Link>
           <Link
             to="/sign-up"
