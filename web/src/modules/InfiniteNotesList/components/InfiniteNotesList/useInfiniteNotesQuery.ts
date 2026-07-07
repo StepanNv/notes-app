@@ -8,7 +8,7 @@ export const useInfiniteNotesQuery = (query: NotesControllerGetManyParams) => {
   return useInfiniteQuery({
     queryKey: [
       'notes',
-      { status: query.status, sort: sort, limit: query.limit },
+      { status: query.status, sort: sort, limit: query.limit, search: query.search },
     ],
     queryFn: async ({ pageParam }) => {
       // pageParam - информирует о том с какой заметки начинать загружать данные
@@ -16,6 +16,7 @@ export const useInfiniteNotesQuery = (query: NotesControllerGetManyParams) => {
         status: query.status,
         sort: sort,
         limit: query.limit,
+        search: query.search,
         ...(pageParam ? { last_id: pageParam } : {}),
       });
 
