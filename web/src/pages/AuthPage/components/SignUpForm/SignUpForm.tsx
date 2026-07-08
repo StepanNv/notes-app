@@ -4,7 +4,7 @@ import FormCardFooter from '../../ui/FormCardFooter/FormCardFooter';
 import FormCardHeader from '../../ui/FormCardHeader/FormCardHeader';
 import FormInput from '../../ui/FormInput/FormInput';
 import SubmitFormBtn from '../../ui/SubmitFormBtn/SubmitFormBtn';
-import styles from './SignUpForm.module.scss';
+import Form from '../../ui/Form/Form';
 import { useSignUpForm } from './useSignUpForm';
 
 const SignUpForm = () => {
@@ -16,7 +16,7 @@ const SignUpForm = () => {
         title="Create an account"
         subtitle="Sign up to get started"
       />
-      <form className={styles.signUpForm} onSubmit={submit}>
+      <Form onSubmit={submit}>
         <FormInput
           type="email"
           placeholder="Email address"
@@ -33,7 +33,7 @@ const SignUpForm = () => {
           {...register('password', { required: true })}
         />
         <SubmitFormBtn>Sign Up</SubmitFormBtn>
-      </form>
+      </Form>
       <FormCardFooter>
         <span>
           Already have an account? <Link to="/sign-in">Sign in</Link>

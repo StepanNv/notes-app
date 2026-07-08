@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
+import Form from '../../ui/Form/Form';
 import FormCard from '../../ui/FormCard/AuthFormCard';
 import FormInput from '../../ui/FormInput/FormInput';
 import SubmitFormBtn from '../../ui/SubmitFormBtn/SubmitFormBtn';
-import styles from './SignInForm.module.scss';
 import { useSignInForm } from './useSignInForm';
 import FormCardFooter from '../../ui/FormCardFooter/FormCardFooter';
 import FormCardHeader from '../../ui/FormCardHeader/FormCardHeader';
@@ -16,7 +16,7 @@ const SignInForm = () => {
         title="Welcome back!"
         subtitle="Sign in to your account"
       />
-      <form className={styles.signInForm} onSubmit={submit}>
+      <Form onSubmit={submit}>
         <FormInput
           type="email"
           placeholder="Email address"
@@ -28,11 +28,9 @@ const SignInForm = () => {
           {...register('password', { required: true })}
         />
         <SubmitFormBtn>Sign In</SubmitFormBtn>
-      </form>
+      </Form>
       <FormCardFooter>
-        <Link to="/account-recovery" className={styles.accountRecoveryLink}>
-          Forgot password?
-        </Link>
+        <Link to="/account-recovery">Forgot password?</Link>
         <span>
           Don't have an account? <Link to="/sign-up">Sign up</Link>
         </span>
