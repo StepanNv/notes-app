@@ -33,7 +33,9 @@ const SignInForm = () => {
         <Link to="/account-recovery" className={styles.accountRecoveryLink}>
           Forgot password?
         </Link>
-        <span>Don't have an account? <Link to="/sign-up">Sign up</Link></span>
+        <span>
+          Don't have an account? <Link to="/sign-up">Sign up</Link>
+        </span>
       </FormCardFooter>
     </FormCard>
   );
