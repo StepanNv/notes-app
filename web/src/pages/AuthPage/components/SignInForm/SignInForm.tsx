@@ -30,7 +30,7 @@ const SignInForm = () => {
         <SubmitFormBtn>Sign In</SubmitFormBtn>
       </Form>
       <FormCardFooter>
-        <Link to="/account-recovery">Forgot password?</Link>
+        <Link to="/sign-in/new-pass">Forgot password?</Link>
         <span>
           Don't have an account? <Link to="/sign-up">Sign up</Link>
         </span>

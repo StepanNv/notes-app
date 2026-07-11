@@ -15,6 +15,8 @@ import type {
   AuthControllerSignInData,
   AuthControllerSignOutData,
   AuthControllerSignUpData,
+  ConfirmationDto,
+  EmailConfirmationControllerNewVerificationData,
   SignInDto,
   SignUpDto,
 } from "./data-contracts";
@@ -26,6 +28,7 @@ export class Auth<SecurityDataType = unknown> {
     authControllerSignIn: "/auth/sign-in",
     authControllerSignOut: "/auth/sign-out",
     authControllerRefresh: "/auth/refresh",
+    emailConfirmationControllerNewVerification: "/auth/email-confirmation",
   } as const;
 
   http: HttpClient<SecurityDataType>;
@@ -49,7 +52,6 @@ export class Auth<SecurityDataType = unknown> {
       method: "POST",
       body: data,
       type: ContentType.Json,
-      format: "json",
       ...params,
     });
   /**
@@ -99,6 +101,25 @@ export class Auth<SecurityDataType = unknown> {
       path: `/auth/refresh`,
       method: "POST",
       format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags EmailConfirmation
+   * @name EmailConfirmationControllerNewVerification
+   * @request POST:/auth/email-confirmation
+   * @response `200` `EmailConfirmationControllerNewVerificationData`
+   */
+  emailConfirmationControllerNewVerification = (
+    data: ConfirmationDto,
+    params: RequestParams = {},
+  ) =>
+    this.http.request<EmailConfirmationControllerNewVerificationData, any>({
+      path: `/auth/email-confirmation`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
       ...params,
     });
 }

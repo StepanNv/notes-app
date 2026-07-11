@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const NotAuthPagesHeader = ({
   selectedAuthMethod,
 }: {
-  selectedAuthMethod?: 'sign-in' | 'sign-up';
+  selectedAuthMethod?: 'sign-in' | 'sign-up' | 'new-pass' | 'confirm-code';
 }) => {
   return (
     <Header>

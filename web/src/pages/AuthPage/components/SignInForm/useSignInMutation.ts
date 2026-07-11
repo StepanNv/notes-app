@@ -2,20 +2,20 @@ import { useMutation } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import type { SignInDto } from '../../../../api/generated/data-contracts';
 import { authController } from '../../../../api/auth-controller';
-import { useAuthStore } from '../../../../stores/useAuthStore';
 import { useErrorsStore } from '../../../../modules/ErrorAlertsBox/stores/useErrorsStore';
 
+type AuthErrorResponse = {
+  code?: string;
+  message?: string;
+};
+
 export const useSignInMutation = () => {
-  const setAccessToken = useAuthStore((state) => state.setAccessToken);
   const addError = useErrorsStore((state) => state.addError);
 
   return useMutation({
     mutationFn: (formData: SignInDto) =>
       authController.authControllerSignIn(formData),
-    onSuccess: (data) => {
-      setAccessToken(data.data.accessToken);
-    },
-    onError: (error: AxiosError<{ message: string }>) => {
+    onError: (error: AxiosError<AuthErrorResponse>) => {
       const message = error.response?.data?.message;
       if (message) {
         addError(message);

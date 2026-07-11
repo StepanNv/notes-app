@@ -34,3 +34,11 @@ export const status = {
 } as const
 
 export type status = (typeof status)[keyof typeof status]
+
+
+export const ConfirmationCodeType = {
+  VERIFICATION: 'VERIFICATION',
+  PASSWORD_RESET: 'PASSWORD_RESET'
+} as const
+
+export type ConfirmationCodeType = (typeof ConfirmationCodeType)[keyof typeof ConfirmationCodeType]

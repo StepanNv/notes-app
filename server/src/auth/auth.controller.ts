@@ -24,9 +24,8 @@ export class AuthController {
   async signUp(
     @Body() dto: SignUpDto,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<AuthResDto> {
-    const userData = await this.authService.signUp(dto);
-    return this.giveTokens({ userId: userData.id }, res);
+  ): Promise<{ message: string }> {
+    return await this.authService.signUp(dto);
   }
 
   @ApiOperation({ summary: 'Вход в систему' })

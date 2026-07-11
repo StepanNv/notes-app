@@ -385,7 +385,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Note: 'Note'
+  Note: 'Note',
+  ConfirmationCode: 'ConfirmationCode'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +402,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "note"
+    modelProps: "user" | "note" | "confirmationCode"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -553,6 +554,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ConfirmationCode: {
+      payload: Prisma.$ConfirmationCodePayload<ExtArgs>
+      fields: Prisma.ConfirmationCodeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ConfirmationCodeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfirmationCodePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ConfirmationCodeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfirmationCodePayload>
+        }
+        findFirst: {
+          args: Prisma.ConfirmationCodeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfirmationCodePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ConfirmationCodeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfirmationCodePayload>
+        }
+        findMany: {
+          args: Prisma.ConfirmationCodeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfirmationCodePayload>[]
+        }
+        create: {
+          args: Prisma.ConfirmationCodeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfirmationCodePayload>
+        }
+        createMany: {
+          args: Prisma.ConfirmationCodeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ConfirmationCodeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfirmationCodePayload>[]
+        }
+        delete: {
+          args: Prisma.ConfirmationCodeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfirmationCodePayload>
+        }
+        update: {
+          args: Prisma.ConfirmationCodeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfirmationCodePayload>
+        }
+        deleteMany: {
+          args: Prisma.ConfirmationCodeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ConfirmationCodeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ConfirmationCodeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfirmationCodePayload>[]
+        }
+        upsert: {
+          args: Prisma.ConfirmationCodeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfirmationCodePayload>
+        }
+        aggregate: {
+          args: Prisma.ConfirmationCodeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateConfirmationCode>
+        }
+        groupBy: {
+          args: Prisma.ConfirmationCodeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConfirmationCodeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ConfirmationCodeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConfirmationCodeCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -597,6 +672,7 @@ export const UserScalarFieldEnum = {
   email: 'email',
   username: 'username',
   hashedPassword: 'hashedPassword',
+  isVerified: 'isVerified',
   createdAt: 'createdAt'
 } as const
 
@@ -616,6 +692,19 @@ export const NoteScalarFieldEnum = {
 } as const
 
 export type NoteScalarFieldEnum = (typeof NoteScalarFieldEnum)[keyof typeof NoteScalarFieldEnum]
+
+
+export const ConfirmationCodeScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  confirmationCode: 'confirmationCode',
+  type: 'type',
+  expiresIn: 'expiresIn',
+  attempts: 'attempts',
+  createdAt: 'createdAt'
+} as const
+
+export type ConfirmationCodeScalarFieldEnum = (typeof ConfirmationCodeScalarFieldEnum)[keyof typeof ConfirmationCodeScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -659,6 +748,13 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'String[]'
  */
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -715,6 +811,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ConfirmationCodeType'
+ */
+export type EnumConfirmationCodeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConfirmationCodeType'>
+    
+
+
+/**
+ * Reference to a field of type 'ConfirmationCodeType[]'
+ */
+export type ListEnumConfirmationCodeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConfirmationCodeType[]'>
     
 
 
@@ -843,6 +953,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   note?: Prisma.NoteOmit
+  confirmationCode?: Prisma.ConfirmationCodeOmit
 }
 
 /* Types for Logging */

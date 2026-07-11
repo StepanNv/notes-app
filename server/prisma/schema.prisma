@@ -20,6 +20,8 @@ model User {
   username       String @unique
   hashedPassword String @map("hashed_password")
 
+  isVerified Boolean @default(false) @map("is_verified")
+
   createdAt DateTime @default(now()) @map("created_at")
   notes     Note[]
 
@@ -44,6 +46,20 @@ model Note {
   @@map("notes")
 }
 
+model ConfirmationCode {
+  id String @id @default(uuid())
+
+  email            String
+  confirmationCode String               @unique @map("confirmation_code")
+  type             ConfirmationCodeType
+  expiresIn        DateTime             @map("expires_in")
+  attempts         Int                  @default(0)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("confirmation_codes")
+}
+
 enum colorKey {
   FIRST
   SECOND
@@ -63,4 +79,9 @@ enum status {
   default
   archived
   trashed
+}
+
+enum ConfirmationCodeType {
+  VERIFICATION
+  PASSWORD_RESET
 }

@@ -29,6 +29,11 @@ export type StringFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringFilter<$PrismaModel> | string
 }
 
+export type BoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
 export type DateTimeFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>
@@ -56,6 +61,14 @@ export type StringWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedStringFilter<$PrismaModel>
   _max?: Prisma.NestedStringFilter<$PrismaModel>
+}
+
+export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -171,6 +184,23 @@ export type IntWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntFilter<$PrismaModel>
 }
 
+export type EnumConfirmationCodeTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ConfirmationCodeType | Prisma.EnumConfirmationCodeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ConfirmationCodeType[] | Prisma.ListEnumConfirmationCodeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ConfirmationCodeType[] | Prisma.ListEnumConfirmationCodeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumConfirmationCodeTypeFilter<$PrismaModel> | $Enums.ConfirmationCodeType
+}
+
+export type EnumConfirmationCodeTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ConfirmationCodeType | Prisma.EnumConfirmationCodeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ConfirmationCodeType[] | Prisma.ListEnumConfirmationCodeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ConfirmationCodeType[] | Prisma.ListEnumConfirmationCodeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumConfirmationCodeTypeWithAggregatesFilter<$PrismaModel> | $Enums.ConfirmationCodeType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumConfirmationCodeTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumConfirmationCodeTypeFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -183,6 +213,11 @@ export type NestedStringFilter<$PrismaModel = never> = {
   startsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>
   endsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>
   not?: Prisma.NestedStringFilter<$PrismaModel> | string
+}
+
+export type NestedBoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
 export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -222,6 +257,14 @@ export type NestedIntFilter<$PrismaModel = never> = {
   gt?: number | Prisma.IntFieldRefInput<$PrismaModel>
   gte?: number | Prisma.IntFieldRefInput<$PrismaModel>
   not?: Prisma.NestedIntFilter<$PrismaModel> | number
+}
+
+export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -339,6 +382,23 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
+}
+
+export type NestedEnumConfirmationCodeTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ConfirmationCodeType | Prisma.EnumConfirmationCodeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ConfirmationCodeType[] | Prisma.ListEnumConfirmationCodeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ConfirmationCodeType[] | Prisma.ListEnumConfirmationCodeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumConfirmationCodeTypeFilter<$PrismaModel> | $Enums.ConfirmationCodeType
+}
+
+export type NestedEnumConfirmationCodeTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ConfirmationCodeType | Prisma.EnumConfirmationCodeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ConfirmationCodeType[] | Prisma.ListEnumConfirmationCodeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ConfirmationCodeType[] | Prisma.ListEnumConfirmationCodeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumConfirmationCodeTypeWithAggregatesFilter<$PrismaModel> | $Enums.ConfirmationCodeType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumConfirmationCodeTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumConfirmationCodeTypeFilter<$PrismaModel>
 }
 
 

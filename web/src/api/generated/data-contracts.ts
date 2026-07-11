@@ -29,14 +29,20 @@ export interface SignUpDto {
   password: string;
 }
 
-export interface AuthResDto {
-  accessToken: string;
-}
-
 export interface SignInDto {
   /** @format email */
   email: string;
   password: string;
+}
+
+export interface AuthResDto {
+  accessToken: string;
+}
+
+export interface ConfirmationDto {
+  /** @format email */
+  confirmationEmail: string;
+  confirmationCode: string;
 }
 
 export interface AddNoteDto {
@@ -155,13 +161,15 @@ export interface GetNoteResDto {
 
 export type UsersControllerGetMeData = GetMeResDto;
 
-export type AuthControllerSignUpData = AuthResDto;
+export type AuthControllerSignUpData = any;
 
 export type AuthControllerSignInData = AuthResDto;
 
 export type AuthControllerSignOutData = any;
 
 export type AuthControllerRefreshData = AuthResDto;
+
+export type EmailConfirmationControllerNewVerificationData = any;
 
 export type NotesControllerAddData = AddNoteResDto;
 
