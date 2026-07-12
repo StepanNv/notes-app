@@ -6,16 +6,18 @@ const MessageAlert = ({
   id,
   title,
   message,
+  isClosing,
 }: {
   id: string;
   title: string;
   message: string;
+  isClosing?: boolean;
 }) => {
   const removeMessage = useMessagesStore((state) => state.removeMessage);
 
   return (
     <div
-      className={styles.messageAlert}
+      className={`${styles.messageAlert} ${isClosing ? styles.closing : ''}`}
       onAnimationEnd={() => removeMessage(id)}
     >
       <div className={styles.iconWrapper}>

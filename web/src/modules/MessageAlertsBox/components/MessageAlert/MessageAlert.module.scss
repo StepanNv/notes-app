@@ -16,8 +16,12 @@ $alert-text-color: #ffffff;
     sans-serif;
   max-width: 380px;
   gap: 12px;
-  animation: slideAndFade 6s ease-in-out;
+  animation: slideAndFade 4s ease-in-out;
   margin-bottom: 10px;
+}
+
+.closing {
+  animation: fadeOut 450ms ease-in-out forwards;
 }
 
 .iconWrapper {
@@ -75,6 +79,18 @@ $alert-text-color: #ffffff;
     opacity: 1;
   }
   100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
     transform: translateY(0);
     opacity: 0;
   }

@@ -6,15 +6,20 @@ const ErrorAlert = ({
   id,
   title,
   message,
+  isClosing,
 }: {
   id: string;
   title: string;
   message: string;
+  isClosing?: boolean;
 }) => {
   const removeError = useErrorsStore((state) => state.removeError);
 
   return (
-    <div className={styles.errorAlert} onAnimationEnd={() => removeError(id)}>
+    <div
+      className={`${styles.errorAlert} ${isClosing ? styles.closing : ''}`}
+      onAnimationEnd={() => removeError(id)}
+    >
       <div className={styles.iconWrapper}>
         <CrossSvg />
       </div>
