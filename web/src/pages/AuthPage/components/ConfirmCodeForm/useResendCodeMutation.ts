@@ -9,12 +9,11 @@ type AuthErrorResponse = {
   message?: string;
 };
 
-export const useSignInMutation = () => {
+export const useResendCodeMutation = () => {
   const addError = useErrorsStore((state) => state.addError);
 
   return useMutation({
-    mutationFn: (formData: SignInDto) =>
-      signIn(formData.email, formData.password),
+    mutationFn: (data: SignInDto) => signIn(data.email, data.password),
     onError: (error: AxiosError<AuthErrorResponse>) => {
       const message = error.response?.data?.message;
       if (message) {

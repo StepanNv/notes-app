@@ -18,6 +18,9 @@ export const useSignInForm = () => {
   const setConfirmationEmail = useConfirmationEmailStore(
     (state) => state.setConfirmationEmail,
   );
+  const setTrueEnteredPassword = useConfirmationEmailStore(
+    (state) => state.setTrueEnteredPassword,
+  );
   const navigate = useNavigate();
 
   const submit = handleSubmit((formData) => {
@@ -28,6 +31,7 @@ export const useSignInForm = () => {
       onError: (error: AxiosError<AuthErrorResponse>) => {
         if (error.response?.data?.code === 'EMAIL_NOT_VERIFIED') {
           setConfirmationEmail(formData.email);
+          setTrueEnteredPassword(formData.password);
           navigate('/sign-in/confirm-code');
         }
       },

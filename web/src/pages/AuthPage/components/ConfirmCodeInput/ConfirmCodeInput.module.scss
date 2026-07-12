@@ -1,0 +1,21 @@
+.confirmCodeInput {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.resendCodeBtn {
+  height: 40px;
+  padding: 0 10px;
+  @include btn-reset;
+  background-color: var(--btn-bg);
+  color: var(--btn-text-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 14px;
+
+  &:hover {
+    background-color: var(--active-btn-bg);
+  }
+}

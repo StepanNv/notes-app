@@ -1,17 +1,16 @@
 import { useMutation } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import type { SignUpDto } from '../../../../api/generated/data-contracts';
-import { authController } from '../../../../api/auth-controller';
 import { useErrorsStore } from '../../../../modules/ErrorAlertsBox/stores/useErrorsStore';
 import { useMessagesStore } from '../../../../modules/MessageAlertsBox/index';
+import { signUp } from '../../api/sign-up';
 
 export const useSignUpMutation = () => {
   const addError = useErrorsStore((state) => state.addError);
   const addMessage = useMessagesStore((state) => state.addMessage);
 
   return useMutation({
-    mutationFn: (formData: SignUpDto) =>
-      authController.authControllerSignUp(formData),
+    mutationFn: (formData: SignUpDto) => signUp(formData),
     onSuccess: (data) => {
       addMessage(data.data.message);
     },
