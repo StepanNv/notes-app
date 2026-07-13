@@ -6,7 +6,7 @@ import { Prisma } from '../../prisma/generated/client';
 export class UsersService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  createOne(email: string, username: string, hashedPassword: string) {
+  public createOne(email: string, username: string, hashedPassword: string) {
     return this.prismaService.user.create({
       data: {
         email,
@@ -16,7 +16,7 @@ export class UsersService {
     });
   }
 
-  async getOne(args: { id?: string; email?: string; username?: string }) {
+  public async getOne(args: { id?: string; email?: string; username?: string }) {
     const orConditions: Prisma.UserWhereInput[] = [];
 
     if (args.id) orConditions.push({ id: args.id });

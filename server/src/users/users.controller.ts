@@ -15,7 +15,7 @@ export class UsersController {
   @ApiResponse({ status: 200, type: GetMeResDto })
   @Get('/me')
   @UseGuards(AccessTokenGuard)
-  async getMe(
+  public async getMe(
     @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
   ): Promise<GetMeResDto> {
     const user = await this.usersService.getOne({

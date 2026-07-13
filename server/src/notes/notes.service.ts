@@ -19,7 +19,7 @@ export class NotesService {
   constructor(private readonly prismaService: PrismaService) {}
 
   // Добавить заметку
-  addNote(dto: AddNoteDto, authorId: User['id']) {
+  public addNote(dto: AddNoteDto, authorId: User['id']) {
     return this.prismaService.$transaction(async (prisma) => {
       const lastDefaultNote = await prisma.note.findFirst({
         where: { status: 'default', authorId: authorId },
@@ -44,7 +44,7 @@ export class NotesService {
   }
 
   // Сменить статус заметки
-  updateStatus(dto: UpdateStatusDto, authorId: User['id']) {
+  public updateStatus(dto: UpdateStatusDto, authorId: User['id']) {
     return this.prismaService.$transaction(async (prisma) => {
       // Получение и проверка на существование в этом статусе заметок которые прислал юзер.
       const notesToChange = await this.prismaService.note.findMany({
@@ -109,7 +109,7 @@ export class NotesService {
   }
 
   // Удалить заметки
-  deleteNotes(dto: DeleteNotesDto, authorId: User['id']) {
+  public deleteNotes(dto: DeleteNotesDto, authorId: User['id']) {
     return this.prismaService.$transaction(async (prisma) => {
       const notesToDelete = await prisma.note.findMany({
         where: {
@@ -147,7 +147,10 @@ export class NotesService {
   }
 
   // Обновить цвет заметки
-  async updateNotesColor(dto: UpdateNotesColorDto, authorId: User['id']) {
+  public async updateNotesColor(
+    dto: UpdateNotesColorDto,
+    authorId: User['id'],
+  ) {
     await this.prismaService.note.updateMany({
       where: {
         id: { in: dto.noteIds },
@@ -175,7 +178,10 @@ export class NotesService {
   }
 
   // Обновить контент заметки
-  async updateNoteContent(dto: UpdateNoteContentDto, authorId: User['id']) {
+  public async updateNoteContent(
+    dto: UpdateNoteContentDto,
+    authorId: User['id'],
+  ) {
     const updateResult = await this.prismaService.note.updateMany({
       where: {
         id: dto.noteId,
@@ -200,7 +206,7 @@ export class NotesService {
   }
 
   // Сменить позицию заметки
-  updateNotePosition(dto: UpdateNotePositionDto, authorId: User['id']) {
+  public updateNotePosition(dto: UpdateNotePositionDto, authorId: User['id']) {
     return this.prismaService.$transaction(async (prisma) => {
       const currentNote = await prisma.note.findFirst({
         where: { id: dto.noteId, authorId: authorId },
@@ -261,7 +267,7 @@ export class NotesService {
   }
 
   // Получить заметки
-  async getNotes(query: GetNotesDto, authorId: User['id']) {
+  public async getNotes(query: GetNotesDto, authorId: User['id']) {
     const { status, sort, search, limit, last_id } = query;
 
     // Формируем условия фильтрации (WHERE)
@@ -320,7 +326,7 @@ export class NotesService {
   }
 
   // Получить заметку
-  async getNote(id: string, authorId: User['id']) {
+  public async getNote(id: string, authorId: User['id']) {
     const note = await this.prismaService.note.findFirst({
       where: { id: id, authorId: authorId },
     });

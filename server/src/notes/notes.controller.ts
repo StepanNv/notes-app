@@ -35,7 +35,7 @@ export class NotesController {
   @ApiOperation({ summary: 'Добавить заметку' })
   @Post('/')
   @UseGuards(AccessTokenGuard)
-  add(
+  public add(
     @Body() dto: AddNoteDto,
     @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
   ): Promise<AddNoteResDto> {
@@ -45,7 +45,7 @@ export class NotesController {
   @ApiOperation({ summary: 'Обновить статус заметок' })
   @Patch('/status')
   @UseGuards(AccessTokenGuard)
-  updateStatus(
+  public updateStatus(
     @Body() dto: UpdateStatusDto,
     @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
   ) {
@@ -55,7 +55,7 @@ export class NotesController {
   @ApiOperation({ summary: 'Удалить заметки' })
   @Delete('/')
   @UseGuards(AccessTokenGuard)
-  deleteNotes(
+  public deleteNotes(
     @Body() dto: DeleteNotesDto,
     @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
   ) {
@@ -65,7 +65,7 @@ export class NotesController {
   @ApiOperation({ summary: 'Обновить цвет заметок' })
   @Patch('/color')
   @UseGuards(AccessTokenGuard)
-  updateColor(
+  public updateColor(
     @Body() dto: UpdateNotesColorDto,
     @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
   ): Promise<UpdateNotesColorResDto> {
@@ -75,7 +75,7 @@ export class NotesController {
   @ApiOperation({ summary: 'Обновить контент заметки (заголовок, текст)' })
   @Patch('/content')
   @UseGuards(AccessTokenGuard)
-  updateContent(
+  public updateContent(
     @Body() dto: UpdateNoteContentDto,
     @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
   ): Promise<UpdateNoteContentResDto> {
@@ -85,7 +85,7 @@ export class NotesController {
   @ApiOperation({ summary: 'Обновить позицию заметки' })
   @Patch('/position')
   @UseGuards(AccessTokenGuard)
-  updatePosition(
+  public updatePosition(
     @Body() dto: UpdateNotePositionDto,
     @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
   ) {
@@ -95,7 +95,7 @@ export class NotesController {
   @ApiOperation({ summary: 'Получить заметки' })
   @Get('/')
   @UseGuards(AccessTokenGuard)
-  getMany(
+  public getMany(
     @Query() query: GetNotesDto,
     @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
   ): Promise<GetNotesResDto> {
@@ -105,7 +105,7 @@ export class NotesController {
   @ApiOperation({ summary: 'Получить заметку' })
   @Get('/:id')
   @UseGuards(AccessTokenGuard)
-  getOne(
+  public getOne(
     @Param('id') id: string,
     @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
   ): Promise<GetNoteResDto> {
