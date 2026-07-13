@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma } from '../../prisma/generated/client';
 
@@ -24,7 +24,7 @@ export class UsersService {
     if (args.username) orConditions.push({ username: args.username });
 
     if (orConditions.length === 0) {
-      return null;
+      throw new BadRequestException('No arguments provided');
     }
 
     const user = await this.prismaService.user.findFirst({
@@ -34,7 +34,7 @@ export class UsersService {
     });
 
     if (!user) {
-      return null;
+      throw new NotFoundException('User not found');
     }
 
     return user;
