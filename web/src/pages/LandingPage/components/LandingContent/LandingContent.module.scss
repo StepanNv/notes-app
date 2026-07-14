@@ -5,17 +5,32 @@
   justify-content: center;
   align-items: center;
 
+  @include mobile {
+    padding: 0 20px;
+    text-align: center;
+  }
+
   h1 {
     font-size: 60px;
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 20px;
+
+    @include mobile {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
   }
 }
 
 .subtitle {
   font-size: 20px;
   margin-bottom: 40px;
+
+  @include mobile {
+    font-size: 16px;
+    margin-bottom: 28px;
+  }
 }
 
 .button {
@@ -30,6 +45,15 @@
   transition:
     background-color 0.2s,
     box-shadow 0.3s ease-out;
+
+  @include mobile {
+    width: 100%;
+    max-width: 280px;
+    padding: 14px 20px;
+    font-size: 16px;
+    text-align: center;
+  }
+
   &:hover {
     background-color: #5596f6;
     box-shadow: 0 4px 15px rgba(#5596f6, 0.4);

@@ -9,4 +9,9 @@
   background-color: var(--bg-color-1);
   border-radius: 10px;
   cursor: default;
+
+  @include mobile {
+    width: calc(100% - 32px);
+    max-width: 500px;
+  }
 }

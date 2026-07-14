@@ -12,4 +12,19 @@
     display: flex;
     justify-content: flex-end;
   }
+
+  @include mobile {
+    &:first-child {
+      flex: 0 0 auto;
+    }
+
+    &:nth-child(2) {
+      flex: 2;
+      padding: 10px;
+    }
+
+    &:last-child {
+      flex: 0 0 auto;
+    }
+  }
 }
