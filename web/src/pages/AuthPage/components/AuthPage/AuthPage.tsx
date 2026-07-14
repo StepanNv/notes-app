@@ -1,5 +1,5 @@
 import NotAuthPagesHeader from '../../../../components/NotAuthPagesHeader/NotAuthPagesHeader';
-import ConfirmCodeForm from '../VerifyEmailForm/VerifyEmailForm';
+import VerifyEmailForm from '../VerifyEmailForm/VerifyEmailForm';
 import NewPassForm from '../NewPasswdForm/NewPasswdForm';
 import ResetPasswdEmailForm from '../PasswdResetEmailForm/PasswdResetEmailForm';
 import SignInForm from '../SignInForm/SignInForm';
