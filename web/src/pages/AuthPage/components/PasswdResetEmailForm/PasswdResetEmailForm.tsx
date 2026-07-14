@@ -5,33 +5,26 @@ import FormInput from '../../ui/FormInput/FormInput';
 import FormCardFooter from '../../ui/FormCardFooter/FormCardFooter';
 import SubmitFormBtn from '../../ui/SubmitFormBtn/SubmitFormBtn';
 import { Link } from 'react-router-dom';
+import { usePasswdResetForm } from './usePasswdResetForm';
 
-const NewPassForm = () => {
+const PasswdResetEmailForm = () => {
+  const { register, submit } = usePasswdResetForm();
+
   return (
     <FormCard>
       <FormCardHeader
-        title="Create New Password"
-        subtitle="Please enter a strong password"
+        title="Reset password"
+        subtitle="Please enter your email to reset your password"
       />
-      <Form onSubmit={() => {}}>
+      <Form onSubmit={submit}>
         <FormInput
           type="email"
           placeholder="Your email"
-          // {...register('email', { required: true })}
+          {...register('email', { required: true })}
         />
-        <FormInput
-          type="password"
-          placeholder="New password"
-          // {...register('password', { required: true })}
-        />
-        <FormInput
-          type="password"
-          placeholder="Confirm password"
-          // {...register('confirmPassword', { required: true })}
-        />
+        <SubmitFormBtn>Continue</SubmitFormBtn>
       </Form>
       <FormCardFooter>
-        <SubmitFormBtn>Update password</SubmitFormBtn>
         <span>
           Back to <Link to="/sign-in">Sign In</Link>
         </span>
@@ -39,4 +32,4 @@ const NewPassForm = () => {
     </FormCard>
   );
 };
-export default NewPassForm;
+export default PasswdResetEmailForm;

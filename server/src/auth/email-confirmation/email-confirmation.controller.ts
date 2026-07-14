@@ -1,6 +1,7 @@
 import { Controller, HttpStatus, HttpCode, Post, Body } from '@nestjs/common';
 import { EmailConfirmationService } from './email-confirmation.service';
-import { ConfirmationDto } from './dtos/confirmation.dto';
+import { ConfirmEmailVerificationDto } from './dtos/confirm-email-verification.dto';
+import { ConfirmPasswdResetDto } from './dtos/confirm-passwd-reset.dto';
 
 @Controller('auth/email-confirmation')
 export class EmailConfirmationController {
@@ -8,9 +9,15 @@ export class EmailConfirmationController {
     private readonly emailConfirmationService: EmailConfirmationService,
   ) {}
 
-  @Post()
+  @Post('/verification')
   @HttpCode(HttpStatus.OK)
-  public async newVerification(@Body() dto: ConfirmationDto) {
+  public newVerification(@Body() dto: ConfirmEmailVerificationDto) {
     return this.emailConfirmationService.newVerification(dto);
+  }
+
+  @Post('/password-reset')
+  @HttpCode(HttpStatus.OK)
+  public newPasswordReset(@Body() dto: ConfirmPasswdResetDto) {
+    return this.emailConfirmationService.newPasswordReset(dto);
   }
 }

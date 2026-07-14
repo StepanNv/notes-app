@@ -4,7 +4,6 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
-  UnauthorizedException,
 } from '@nestjs/common';
 import bcrypt from 'bcryptjs';
 import { UsersService } from '../users/users.service';
@@ -12,6 +11,8 @@ import { SignUpDto } from './dtos/req/sign-up.dto';
 import { SignInDto } from './dtos/req/sign-in.dto';
 import { TTokensPayload } from './types/jwt-payload';
 import { EmailConfirmationService } from './email-confirmation/email-confirmation.service';
+import { PasswdResetDto } from './dtos/req/passwd-reset.dto';
+import { ConfirmationCodeType } from '../../prisma/generated/enums';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,7 @@ export class AuthService {
     private readonly emailConfirmationService: EmailConfirmationService,
   ) {}
 
-  async signUp(dto: SignUpDto) {
+  public async signUp(dto: SignUpDto) {
     const isUserExists = await this.usersService.getOne({
       email: dto.email,
       username: dto.username,
@@ -41,7 +42,10 @@ export class AuthService {
       hashPassword,
     );
 
-    await this.emailConfirmationService.sendVerificationCode(newUser);
+    await this.emailConfirmationService.sendConfirmationCode(
+      newUser,
+      ConfirmationCodeType.VERIFICATION,
+    );
 
     return {
       message:
@@ -49,7 +53,7 @@ export class AuthService {
     };
   }
 
-  async signIn(dto: SignInDto) {
+  public async signIn(dto: SignInDto) {
     const user = await this.usersService.getOne({ email: dto.email });
     if (!user) {
       throw new BadRequestException({
@@ -67,7 +71,10 @@ export class AuthService {
     }
 
     if (!user.isVerified) {
-      await this.emailConfirmationService.sendVerificationCode(user);
+      await this.emailConfirmationService.sendConfirmationCode(
+        user,
+        ConfirmationCodeType.VERIFICATION,
+      );
       throw new ForbiddenException({
         code: 'EMAIL_NOT_VERIFIED',
         message: 'Please confirm your email address',
@@ -77,7 +84,7 @@ export class AuthService {
     return user;
   }
 
-  async refresh(refreshTokenPayload: TTokensPayload) {
+  public async refresh(refreshTokenPayload: TTokensPayload) {
     const user = await this.usersService.getOne({
       id: refreshTokenPayload.userId,
     });
@@ -89,5 +96,25 @@ export class AuthService {
     }
 
     return user;
+  }
+
+  public async passwordReset(dto: PasswdResetDto) {
+    const user = await this.usersService.getOne({ email: dto.email });
+
+    if (!user) {
+      throw new BadRequestException({
+        message: 'User with this email is not exists',
+      });
+    }
+
+    await this.emailConfirmationService.sendConfirmationCode(
+      user,
+      ConfirmationCodeType.PASSWORD_RESET,
+    );
+
+    return {
+      message:
+        'A confirmation code has been sent to your email address. Please enter the code to reset your password.',
+    };
   }
 }

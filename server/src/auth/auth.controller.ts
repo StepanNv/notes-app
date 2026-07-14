@@ -10,6 +10,7 @@ import { AuthResDto } from './dtos/res/auth-res.dto';
 import type { TTokensPayload } from './types/jwt-payload';
 import { TokensService } from './tokens/tokens.service';
 import { ApiOperation } from '@nestjs/swagger';
+import { PasswdResetDto } from './dtos/req/passwd-reset.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -21,16 +22,13 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Регистрация в системе' })
   @Post('/sign-up')
-  async signUp(
-    @Body() dto: SignUpDto,
-    @Res({ passthrough: true }) res: Response,
-  ): Promise<{ message: string }> {
+  public async signUp(@Body() dto: SignUpDto): Promise<{ message: string }> {
     return await this.authService.signUp(dto);
   }
 
   @ApiOperation({ summary: 'Вход в систему' })
   @Post('/sign-in')
-  async signIn(
+  public async signIn(
     @Body() dto: SignInDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<AuthResDto> {
@@ -40,19 +38,27 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Выход из системы' })
   @Post('sign-out')
-  signOut(@Res({ passthrough: true }) res: Response) {
+  public signOut(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('refreshToken');
   }
 
   @ApiOperation({ summary: 'Обновление токенов авторизации' })
   @Post('/refresh')
   @UseGuards(RefreshTokenGuard)
-  async refresh(
+  public async refresh(
     @GetRefreshTokenPayload() refreshTokenPayload: TTokensPayload,
     @Res({ passthrough: true }) res: Response,
   ): Promise<AuthResDto> {
     const userData = await this.authService.refresh(refreshTokenPayload);
     return this.giveTokens({ userId: userData.id }, res);
+  }
+
+  @ApiOperation({ summary: 'Сброс пароля' })
+  @Post('/password-reset')
+  public async passwordReset(
+    @Body() dto: PasswdResetDto,
+  ): Promise<{ message: string }> {
+    return await this.authService.passwordReset(dto);
   }
 
   private async giveTokens(

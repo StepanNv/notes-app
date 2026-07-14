@@ -4,15 +4,15 @@ import FormCard from '../../ui/FormCard/AuthFormCard';
 import FormCardFooter from '../../ui/FormCardFooter/FormCardFooter';
 import FormCardHeader from '../../ui/FormCardHeader/FormCardHeader';
 import SubmitFormBtn from '../../ui/SubmitFormBtn/SubmitFormBtn';
-import { useConfirmCodeForm } from './useConfirmCodeForm';
+import { useVerifyEmailForm } from './useVerifyEmailForm';
 import { useConfirmationEmailStore } from '../../stores/useConfirmationEmailStore';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useResendCodeMutation } from './useResendCodeMutation';
 import ConfirmCodeInput from '../ConfirmCodeInput/ConfirmCodeInput';
 
-const ConfirmCodeForm = () => {
-  const { register, submit } = useConfirmCodeForm();
+const VerifyEmailForm = () => {
+  const { register, submit } = useVerifyEmailForm();
   const confimationEmail = useConfirmationEmailStore(
     (state) => state.confirmationEmail,
   );
@@ -56,4 +56,4 @@ const ConfirmCodeForm = () => {
     </FormCard>
   );
 };
-export default ConfirmCodeForm;
+export default VerifyEmailForm;

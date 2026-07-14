@@ -1,12 +1,12 @@
 import { authController } from '../../../api/auth-controller';
 
-export const confirmEmail = (
+export const verifyEmail = (
   confirmationEmail: string,
   confirmationCode: string,
 ) =>
   authController.emailConfirmationControllerNewVerification(
     {
-      confirmationEmail: confirmationEmail,
+      email: confirmationEmail,
       confirmationCode: confirmationCode,
     },
     {},

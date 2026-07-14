@@ -22,11 +22,15 @@ export const publicRoutes = [
   { path: '/sign-in', element: <AuthPage selectedAuthMethod="sign-in" /> },
   { path: '/sign-up', element: <AuthPage selectedAuthMethod="sign-up" /> },
   {
-    path: '/sign-in/new-pass',
-    element: <AuthPage selectedAuthMethod="new-pass" />,
+    path: '/sign-in/reset-password',
+    element: <AuthPage selectedAuthMethod="reset-passwd" />,
   },
   {
-    path: '/sign-in/confirm-code',
-    element: <AuthPage selectedAuthMethod="confirm-code" />,
+    path: '/sign-in/new-password',
+    element: <AuthPage selectedAuthMethod="new-passwd" />,
+  },
+  {
+    path: '/sign-in/verify-email',
+    element: <AuthPage selectedAuthMethod="verify-email" />,
   },
 ];

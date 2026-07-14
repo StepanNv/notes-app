@@ -11,12 +11,16 @@
  */
 
 import type {
+  AuthControllerPasswordResetData,
   AuthControllerRefreshData,
   AuthControllerSignInData,
   AuthControllerSignOutData,
   AuthControllerSignUpData,
-  ConfirmationDto,
+  ConfirmEmailVerificationDto,
+  ConfirmPasswdResetDto,
+  EmailConfirmationControllerNewPasswordResetData,
   EmailConfirmationControllerNewVerificationData,
+  PasswdResetDto,
   SignInDto,
   SignUpDto,
 } from "./data-contracts";
@@ -28,7 +32,11 @@ export class Auth<SecurityDataType = unknown> {
     authControllerSignIn: "/auth/sign-in",
     authControllerSignOut: "/auth/sign-out",
     authControllerRefresh: "/auth/refresh",
-    emailConfirmationControllerNewVerification: "/auth/email-confirmation",
+    authControllerPasswordReset: "/auth/password-reset",
+    emailConfirmationControllerNewVerification:
+      "/auth/email-confirmation/verification",
+    emailConfirmationControllerNewPasswordReset:
+      "/auth/email-confirmation/password-reset",
   } as const;
 
   http: HttpClient<SecurityDataType>;
@@ -106,20 +114,60 @@ export class Auth<SecurityDataType = unknown> {
   /**
    * No description
    *
-   * @tags EmailConfirmation
-   * @name EmailConfirmationControllerNewVerification
-   * @request POST:/auth/email-confirmation
-   * @response `200` `EmailConfirmationControllerNewVerificationData`
+   * @tags Auth
+   * @name AuthControllerPasswordReset
+   * @summary Сброс пароля
+   * @request POST:/auth/password-reset
+   * @response `201` `AuthControllerPasswordResetData`
    */
-  emailConfirmationControllerNewVerification = (
-    data: ConfirmationDto,
+  authControllerPasswordReset = (
+    data: PasswdResetDto,
     params: RequestParams = {},
   ) =>
-    this.http.request<EmailConfirmationControllerNewVerificationData, any>({
-      path: `/auth/email-confirmation`,
+    this.http.request<AuthControllerPasswordResetData, any>({
+      path: `/auth/password-reset`,
       method: "POST",
       body: data,
       type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags EmailConfirmation
+   * @name EmailConfirmationControllerNewVerification
+   * @request POST:/auth/email-confirmation/verification
+   * @response `200` `EmailConfirmationControllerNewVerificationData`
+   */
+  emailConfirmationControllerNewVerification = (
+    data: ConfirmEmailVerificationDto,
+    params: RequestParams = {},
+  ) =>
+    this.http.request<EmailConfirmationControllerNewVerificationData, any>({
+      path: `/auth/email-confirmation/verification`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags EmailConfirmation
+   * @name EmailConfirmationControllerNewPasswordReset
+   * @request POST:/auth/email-confirmation/password-reset
+   * @response `200` `EmailConfirmationControllerNewPasswordResetData`
+   */
+  emailConfirmationControllerNewPasswordReset = (
+    data: ConfirmPasswdResetDto,
+    params: RequestParams = {},
+  ) =>
+    this.http.request<EmailConfirmationControllerNewPasswordResetData, any>({
+      path: `/auth/email-confirmation/password-reset`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
       ...params,
     });
 }

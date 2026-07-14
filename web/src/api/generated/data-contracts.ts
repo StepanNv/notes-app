@@ -39,9 +39,21 @@ export interface AuthResDto {
   accessToken: string;
 }
 
-export interface ConfirmationDto {
+export interface PasswdResetDto {
   /** @format email */
-  confirmationEmail: string;
+  email: string;
+}
+
+export interface ConfirmEmailVerificationDto {
+  /** @format email */
+  email: string;
+  confirmationCode: string;
+}
+
+export interface ConfirmPasswdResetDto {
+  /** @format email */
+  email: string;
+  newPassword: string;
   confirmationCode: string;
 }
 
@@ -169,7 +181,11 @@ export type AuthControllerSignOutData = any;
 
 export type AuthControllerRefreshData = AuthResDto;
 
+export type AuthControllerPasswordResetData = any;
+
 export type EmailConfirmationControllerNewVerificationData = any;
+
+export type EmailConfirmationControllerNewPasswordResetData = boolean;
 
 export type NotesControllerAddData = AddNoteResDto;
 

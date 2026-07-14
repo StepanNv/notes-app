@@ -1,6 +1,10 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma } from '../../prisma/generated/client';
+import { UserUpdateInput, UserWhereInput } from '../../prisma/generated/models';
 
 @Injectable()
 export class UsersService {
@@ -16,8 +20,12 @@ export class UsersService {
     });
   }
 
-  public async getOne(args: { id?: string; email?: string; username?: string }) {
-    const orConditions: Prisma.UserWhereInput[] = [];
+  public async getOne(args: {
+    id?: string;
+    email?: string;
+    username?: string;
+  }) {
+    const orConditions: UserWhereInput[] = [];
 
     if (args.id) orConditions.push({ id: args.id });
     if (args.email) orConditions.push({ email: args.email });
@@ -38,5 +46,13 @@ export class UsersService {
     }
 
     return user;
+  }
+
+  public async updateOne(id: string, data: UserUpdateInput) {
+    const existingUser = await this.getOne({ id: id });
+    return this.prismaService.user.update({
+      where: { id: existingUser.id },
+      data,
+    });
   }
 }

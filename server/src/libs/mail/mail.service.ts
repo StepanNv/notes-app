@@ -1,15 +1,20 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
+import { ConfirmationCodeType } from '../../../prisma/generated/enums';
 
 @Injectable()
 export class MailService {
   public constructor(private readonly mailerService: MailerService) {}
 
-  public async sendConfirmationEmail(email: string, code: string) {
+  public async sendConfirmationEmail(
+    email: string,
+    code: string,
+    confirmationCodeType: ConfirmationCodeType,
+  ) {
     const html = `
       <div style="font-family: Arial, sans-serif; padding: 20px; text-align: center;">
-        <h2>Подтверждение регистрации</h2>
-        <p>Вы запросили код для подтверждения почты.</p>
+        <h2>${confirmationCodeType === ConfirmationCodeType.VERIFICATION ? 'Подтверждение регистрации' : 'Сброс пароля'}</h2>
+        <p>Вы запросили код для ${confirmationCodeType === ConfirmationCodeType.VERIFICATION ? 'подтверждения почты' : 'сброса пароля'}.</p>
         <div style="background-color: #f4f4f4; padding: 15px; font-size: 24px; font-weight: bold; letter-spacing: 5px; border-radius: 8px; margin: 20px auto; width: fit-content;">
           ${code}
         </div>
@@ -17,7 +22,11 @@ export class MailService {
       </div>
     `;
 
-    return this.sendMail(email, 'Код подтверждения почты', html);
+    return this.sendMail(
+      email,
+      `${confirmationCodeType === ConfirmationCodeType.VERIFICATION ? 'Код подтверждения почты' : 'Код для сброса пароля'}`,
+      html,
+    );
   }
 
   private sendMail(email: string, subject: string, html: string) {

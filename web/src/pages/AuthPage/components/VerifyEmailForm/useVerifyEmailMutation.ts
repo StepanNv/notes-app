@@ -1,15 +1,15 @@
 import { useErrorsStore } from '../../../../modules/ErrorAlertsBox/stores/useErrorsStore';
-import { confirmEmail } from '../../api/confirm-email';
+import { verifyEmail } from '../../api/verify-email';
 import { useMutation } from '@tanstack/react-query';
-import type { ConfirmationDto } from '../../../../api/generated/data-contracts';
+import type { ConfirmEmailVerificationDto } from '../../../../api/generated/data-contracts';
 import type { AxiosError } from 'axios';
 
-export const useConfirmCodeMutation = () => {
+export const useVerifyEmailMutation = () => {
   const addError = useErrorsStore((state) => state.addError);
 
   return useMutation({
-    mutationFn: (data: ConfirmationDto) =>
-      confirmEmail(data.confirmationEmail, data.confirmationCode),
+    mutationFn: (data: ConfirmEmailVerificationDto) =>
+      verifyEmail(data.email, data.confirmationCode),
     onError: (error: AxiosError<{ message: string }>) => {
       const message = error.response?.data?.message;
       if (message) {
