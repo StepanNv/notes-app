@@ -1,11 +1,11 @@
 import NotAuthPagesHeader from '../../../../components/NotAuthPagesHeader/NotAuthPagesHeader';
-import LandingContent from '../LandingContent/LandingContent';
+import LandingPageMain from '../LandingPageMain/LandingPageMain';
 
 const LandingPage = () => {
   return (
     <>
       <NotAuthPagesHeader />
-      <LandingContent />
+      <LandingPageMain />
     </>
   );
 };

@@ -1,0 +1,18 @@
+import { Link } from 'react-router-dom';
+import styles from './LandingContent.module.scss';
+
+const LandingPageMain = () => {
+  return (
+    <main className={styles.landingPageMain}>
+      <h1>Stay organized with Notes app</h1>
+      <p className={styles.subtitle}>
+        Keep track of your tasks and ideas in one place
+      </p>
+      <Link to={'/sign-up'} className={styles.button}>
+        Get started
+      </Link>
+    </main>
+  );
+};
+
+export default LandingPageMain;
