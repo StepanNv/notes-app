@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Header from '../../../../ui/Header/Header';
 import styles from './NotePageHeader.module.scss';
+import BlueHeaderBtn from '../../../../ui/BlueHeaderBtn/BlueHeaderBtn';
 
 const NotePageHeader = () => {
   return (
@@ -9,9 +10,9 @@ const NotePageHeader = () => {
         <Link className={styles.headerBtn} to={'/notes'}>
           Back
         </Link>
-        <button className={styles.headerBtn} type="submit" form="note-form">
+        <BlueHeaderBtn type="submit" form="note-form">
           Save
-        </button>
+        </BlueHeaderBtn>
       </div>
     </Header>
   );
