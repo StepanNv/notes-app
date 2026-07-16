@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import type { UpdateStatusDto } from '../../../../api/generated/data-contracts';
 import { useErrorsStore } from '../../../../modules/ErrorAlertsBox/stores/useErrorsStore';
-import { updateNoteStatus } from '../../api/update-note-status';
+import { updateNoteStatus } from '../../api/update-notes-status';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
 
