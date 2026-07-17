@@ -47,7 +47,7 @@ const NoteItem = ({
   };
 
   return (
-    <div
+    <li
       className={`${styles.noteItem} ${isSelected ? styles.selected : ''} ${colorKey !== 'FIRST' ? styles.colorable : ''}`}
       onClick={() => openNote(status)}
       style={{ backgroundColor: NOTE_COLORS[colorKey] }}
@@ -61,7 +61,7 @@ const NoteItem = ({
       <div className={styles.btnWrapper}>
         <SelectNoteBtn onClick={toggleNoteSelection} />
       </div>
-    </div>
+    </li>
   );
 };
 export default NoteItem;
