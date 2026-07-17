@@ -1,10 +1,9 @@
 import styles from './ConfirmCodeInput.module.scss';
 import type { UseFormRegister } from 'react-hook-form';
 import FormInput from '../../ui/FormInput/FormInput';
-import type { ConfirmEmailVerificationDto } from '../../../../api/generated/data-contracts';
 
 type TConfirmCodeInputProps = {
-  register: UseFormRegister<ConfirmEmailVerificationDto>;
+  register: UseFormRegister<{ confirmationCode: string }>;
   handleResendCode: () => void;
 };
 
