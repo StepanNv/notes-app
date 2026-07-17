@@ -23,7 +23,7 @@ const NoteForm = () => {
   }, [data, reset]);
 
   return (
-    <main className={styles.noteForm}>
+    <div className={styles.noteForm}>
       <form
         id="note-form"
         className={styles.noteFormContent}
@@ -41,7 +41,7 @@ const NoteForm = () => {
         </div>
         <TiptapEditorToolbar editor={editor} />
       </form>
-    </main>
+    </div>
   );
 };
 

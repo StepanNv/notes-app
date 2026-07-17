@@ -1,3 +1,9 @@
+.main {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
 .emptySearchQuery {
   flex: 1;
   @include flex-center;

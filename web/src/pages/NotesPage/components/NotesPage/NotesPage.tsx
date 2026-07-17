@@ -1,3 +1,4 @@
+import styles from './NotesPage.module.scss';
 import NotesPageHeader from '../NotesPageHeader/NotesPageHeader';
 import Sidebar from '../../../../modules/Sidebar/components/Sidebar/Sidebar';
 import InfiniteNotesList from '../../../../modules/InfiniteNotesList/components/InfiniteNotesList/InfiniteNotesList';
@@ -16,10 +17,12 @@ const NotesPage = () => {
       ) : (
         <NotesPageHeader />
       )}
-      <InfiniteNotesList
-        query={{ status: 'default', sort: 'custom', limit: 7 }}
-      />
-      <AddNoteBtn />
+      <main className={styles.main}>
+        <InfiniteNotesList
+          query={{ status: 'default', sort: 'custom', limit: 7 }}
+        />
+        <AddNoteBtn />
+      </main>
       <Sidebar />
       <SortModal />
       <UpdateColorModal />

@@ -40,7 +40,7 @@ const InfiniteNotesList = ({
   }
 
   return (
-    <div className={styles.infiniteNotesList}>
+    <ul className={styles.infiniteNotesList}>
       {notes.length ? (
         <>
           {notes.map((note) => (
@@ -63,7 +63,7 @@ const InfiniteNotesList = ({
       ) : (
         <NoNotesContent />
       )}
-    </div>
+    </ul>
   );
 };
 export default InfiniteNotesList;

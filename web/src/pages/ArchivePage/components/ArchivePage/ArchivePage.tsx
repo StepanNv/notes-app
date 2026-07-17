@@ -1,3 +1,4 @@
+import styles from './ArchivePage.module.scss';
 import ArchivePageHeader from '../ArchivePageHeader/ArchivePageHeader';
 import Sidebar from '../../../../modules/Sidebar/components/Sidebar/Sidebar';
 import InfiniteNotesList from '../../../../modules/InfiniteNotesList/components/InfiniteNotesList/InfiniteNotesList';
@@ -14,9 +15,11 @@ const ArchivePage = () => {
       ) : (
         <ArchivePageHeader />
       )}
-      <InfiniteNotesList
-        query={{ status: 'archived', sort: 'custom', limit: 7 }}
-      />
+      <main className={styles.main}>
+        <InfiniteNotesList
+          query={{ status: 'archived', sort: 'custom', limit: 7 }}
+        />
+      </main>
       <Sidebar />
       <UpdateColorModal />
     </>

@@ -22,13 +22,15 @@ const SearchPage = () => {
         />
       )}
 
-      {debouncedSearchQuery ? (
-        <InfiniteNotesList
-          query={{ status: 'default', search: debouncedSearchQuery, limit: 7 }}
-        />
-      ) : (
-        <div className={styles.emptySearchQuery}>Enter something to search</div>
-      )}
+      <main className={styles.main}>
+        {debouncedSearchQuery ? (
+          <InfiniteNotesList
+            query={{ status: 'default', search: debouncedSearchQuery, limit: 7 }}
+          />
+        ) : (
+          <div className={styles.emptySearchQuery}>Enter something to search</div>
+        )}
+      </main>
 
       <UpdateColorModal />
     </>
