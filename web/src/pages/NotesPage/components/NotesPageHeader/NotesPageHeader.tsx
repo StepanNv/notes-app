@@ -8,15 +8,9 @@ const NotesPageHeader = () => {
   return (
     <Header>
       <div className={styles.content}>
-        <div className={styles.container}>
-          <NavBar currentPage="Notes" />
-        </div>
-        <div className={styles.container}>
-          <SearchNotesBox />
-        </div>
-        <div className={styles.container}>
-          <UserMenuDropdown />
-        </div>
+        <NavBar currentPage="Notes" />
+        <SearchNotesBox />
+        <UserMenuDropdown />
       </div>
     </Header>
   );
