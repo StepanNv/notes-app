@@ -1,12 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-type TUseAuthStore = {
+type TAuthStore = {
   accessToken: string | null;
   setAccessToken: (accessToken: string | null) => void;
 };
 
-export const useAuthStore = create<TUseAuthStore>()(
+export const useAuthStore = create<TAuthStore>()(
   persist(
     (set) => ({
       accessToken: null,
