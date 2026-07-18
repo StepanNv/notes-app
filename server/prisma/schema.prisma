@@ -22,6 +22,9 @@ model User {
 
   isVerified Boolean @default(false) @map("is_verified")
 
+  theme theme @default(light)
+  language language @default(en)
+
   createdAt DateTime @default(now()) @map("created_at")
   notes     Note[]
 
@@ -84,4 +87,14 @@ enum status {
 enum ConfirmationCodeType {
   VERIFICATION
   PASSWORD_RESET
+}
+
+enum theme {
+  light
+  dark
+}
+
+enum language {
+  en
+  ru
 }

@@ -1,0 +1,29 @@
+.settings {
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.icon {
+  color: var(--btn-bg);
+}
+
+.settingItemContent {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.settingItemText {
+  flex: 1;
+}

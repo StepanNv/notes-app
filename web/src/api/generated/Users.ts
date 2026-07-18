@@ -10,12 +10,17 @@
  * ---------------------------------------------------------------
  */
 
-import type { UsersControllerGetMeData } from "./data-contracts";
-import { HttpClient, type RequestParams } from "./http-client";
+import type {
+  UpdateMeDto,
+  UsersControllerGetMeData,
+  UsersControllerUpdateMeData,
+} from "./data-contracts";
+import { ContentType, HttpClient, type RequestParams } from "./http-client";
 
 export class Users<SecurityDataType = unknown> {
   static readonly paths = {
     usersControllerGetMe: "/users/me",
+    usersControllerUpdateMe: "/users/me",
   } as const;
 
   http: HttpClient<SecurityDataType>;
@@ -40,6 +45,25 @@ export class Users<SecurityDataType = unknown> {
       method: "GET",
       secure: true,
       format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Users
+   * @name UsersControllerUpdateMe
+   * @summary Обновить информацию о себе
+   * @request PATCH:/users/me
+   * @secure
+   * @response `200` `UsersControllerUpdateMeData`
+   */
+  usersControllerUpdateMe = (data: UpdateMeDto, params: RequestParams = {}) =>
+    this.http.request<UsersControllerUpdateMeData, any>({
+      path: `/users/me`,
+      method: "PATCH",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
       ...params,
     });
 }

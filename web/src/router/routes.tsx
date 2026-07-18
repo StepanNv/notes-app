@@ -5,6 +5,7 @@ import { ArchivePage } from '../pages/ArchivePage/index';
 import { TrashPage } from '../pages/TrashPage/index';
 import { SearchPage } from '../pages/SearchPage/index';
 import { NotePage } from '../pages/NotePage/index';
+import { SettingsPage } from '../pages/SettingsPage/index';
 
 export const privateRoutes = [
   { path: '/notes', element: <NotesPage /> },
@@ -15,6 +16,7 @@ export const privateRoutes = [
   { path: '/archive/:id', element: <NotePage /> },
   { path: '/trash/:id', element: <NotePage /> },
   { path: '/search', element: <SearchPage /> },
+  { path: '/settings', element: <SettingsPage /> },
 ];
 
 export const publicRoutes = [

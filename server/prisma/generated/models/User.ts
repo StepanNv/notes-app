@@ -30,6 +30,8 @@ export type UserMinAggregateOutputType = {
   username: string | null
   hashedPassword: string | null
   isVerified: boolean | null
+  theme: $Enums.theme | null
+  language: $Enums.language | null
   createdAt: Date | null
 }
 
@@ -39,6 +41,8 @@ export type UserMaxAggregateOutputType = {
   username: string | null
   hashedPassword: string | null
   isVerified: boolean | null
+  theme: $Enums.theme | null
+  language: $Enums.language | null
   createdAt: Date | null
 }
 
@@ -48,6 +52,8 @@ export type UserCountAggregateOutputType = {
   username: number
   hashedPassword: number
   isVerified: number
+  theme: number
+  language: number
   createdAt: number
   _all: number
 }
@@ -59,6 +65,8 @@ export type UserMinAggregateInputType = {
   username?: true
   hashedPassword?: true
   isVerified?: true
+  theme?: true
+  language?: true
   createdAt?: true
 }
 
@@ -68,6 +76,8 @@ export type UserMaxAggregateInputType = {
   username?: true
   hashedPassword?: true
   isVerified?: true
+  theme?: true
+  language?: true
   createdAt?: true
 }
 
@@ -77,6 +87,8 @@ export type UserCountAggregateInputType = {
   username?: true
   hashedPassword?: true
   isVerified?: true
+  theme?: true
+  language?: true
   createdAt?: true
   _all?: true
 }
@@ -159,6 +171,8 @@ export type UserGroupByOutputType = {
   username: string
   hashedPassword: string
   isVerified: boolean
+  theme: $Enums.theme
+  language: $Enums.language
   createdAt: Date
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
@@ -189,6 +203,8 @@ export type UserWhereInput = {
   username?: Prisma.StringFilter<"User"> | string
   hashedPassword?: Prisma.StringFilter<"User"> | string
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  theme?: Prisma.EnumthemeFilter<"User"> | $Enums.theme
+  language?: Prisma.EnumlanguageFilter<"User"> | $Enums.language
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   notes?: Prisma.NoteListRelationFilter
 }
@@ -199,6 +215,8 @@ export type UserOrderByWithRelationInput = {
   username?: Prisma.SortOrder
   hashedPassword?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  theme?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   notes?: Prisma.NoteOrderByRelationAggregateInput
 }
@@ -212,6 +230,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   hashedPassword?: Prisma.StringFilter<"User"> | string
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  theme?: Prisma.EnumthemeFilter<"User"> | $Enums.theme
+  language?: Prisma.EnumlanguageFilter<"User"> | $Enums.language
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   notes?: Prisma.NoteListRelationFilter
 }, "id" | "email" | "username">
@@ -222,6 +242,8 @@ export type UserOrderByWithAggregationInput = {
   username?: Prisma.SortOrder
   hashedPassword?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  theme?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -237,6 +259,8 @@ export type UserScalarWhereWithAggregatesInput = {
   username?: Prisma.StringWithAggregatesFilter<"User"> | string
   hashedPassword?: Prisma.StringWithAggregatesFilter<"User"> | string
   isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  theme?: Prisma.EnumthemeWithAggregatesFilter<"User"> | $Enums.theme
+  language?: Prisma.EnumlanguageWithAggregatesFilter<"User"> | $Enums.language
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
@@ -246,6 +270,8 @@ export type UserCreateInput = {
   username: string
   hashedPassword: string
   isVerified?: boolean
+  theme?: $Enums.theme
+  language?: $Enums.language
   createdAt?: Date | string
   notes?: Prisma.NoteCreateNestedManyWithoutAuthorInput
 }
@@ -256,6 +282,8 @@ export type UserUncheckedCreateInput = {
   username: string
   hashedPassword: string
   isVerified?: boolean
+  theme?: $Enums.theme
+  language?: $Enums.language
   createdAt?: Date | string
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutAuthorInput
 }
@@ -266,6 +294,8 @@ export type UserUpdateInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  theme?: Prisma.EnumthemeFieldUpdateOperationsInput | $Enums.theme
+  language?: Prisma.EnumlanguageFieldUpdateOperationsInput | $Enums.language
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NoteUpdateManyWithoutAuthorNestedInput
 }
@@ -276,6 +306,8 @@ export type UserUncheckedUpdateInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  theme?: Prisma.EnumthemeFieldUpdateOperationsInput | $Enums.theme
+  language?: Prisma.EnumlanguageFieldUpdateOperationsInput | $Enums.language
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NoteUncheckedUpdateManyWithoutAuthorNestedInput
 }
@@ -286,6 +318,8 @@ export type UserCreateManyInput = {
   username: string
   hashedPassword: string
   isVerified?: boolean
+  theme?: $Enums.theme
+  language?: $Enums.language
   createdAt?: Date | string
 }
 
@@ -295,6 +329,8 @@ export type UserUpdateManyMutationInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  theme?: Prisma.EnumthemeFieldUpdateOperationsInput | $Enums.theme
+  language?: Prisma.EnumlanguageFieldUpdateOperationsInput | $Enums.language
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -304,6 +340,8 @@ export type UserUncheckedUpdateManyInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  theme?: Prisma.EnumthemeFieldUpdateOperationsInput | $Enums.theme
+  language?: Prisma.EnumlanguageFieldUpdateOperationsInput | $Enums.language
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -313,6 +351,8 @@ export type UserCountOrderByAggregateInput = {
   username?: Prisma.SortOrder
   hashedPassword?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  theme?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -322,6 +362,8 @@ export type UserMaxOrderByAggregateInput = {
   username?: Prisma.SortOrder
   hashedPassword?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  theme?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -331,6 +373,8 @@ export type UserMinOrderByAggregateInput = {
   username?: Prisma.SortOrder
   hashedPassword?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  theme?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -345,6 +389,14 @@ export type StringFieldUpdateOperationsInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type EnumthemeFieldUpdateOperationsInput = {
+  set?: $Enums.theme
+}
+
+export type EnumlanguageFieldUpdateOperationsInput = {
+  set?: $Enums.language
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -371,6 +423,8 @@ export type UserCreateWithoutNotesInput = {
   username: string
   hashedPassword: string
   isVerified?: boolean
+  theme?: $Enums.theme
+  language?: $Enums.language
   createdAt?: Date | string
 }
 
@@ -380,6 +434,8 @@ export type UserUncheckedCreateWithoutNotesInput = {
   username: string
   hashedPassword: string
   isVerified?: boolean
+  theme?: $Enums.theme
+  language?: $Enums.language
   createdAt?: Date | string
 }
 
@@ -405,6 +461,8 @@ export type UserUpdateWithoutNotesInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  theme?: Prisma.EnumthemeFieldUpdateOperationsInput | $Enums.theme
+  language?: Prisma.EnumlanguageFieldUpdateOperationsInput | $Enums.language
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -414,6 +472,8 @@ export type UserUncheckedUpdateWithoutNotesInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  theme?: Prisma.EnumthemeFieldUpdateOperationsInput | $Enums.theme
+  language?: Prisma.EnumlanguageFieldUpdateOperationsInput | $Enums.language
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -454,6 +514,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   username?: boolean
   hashedPassword?: boolean
   isVerified?: boolean
+  theme?: boolean
+  language?: boolean
   createdAt?: boolean
   notes?: boolean | Prisma.User$notesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -465,6 +527,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   username?: boolean
   hashedPassword?: boolean
   isVerified?: boolean
+  theme?: boolean
+  language?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -474,6 +538,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   username?: boolean
   hashedPassword?: boolean
   isVerified?: boolean
+  theme?: boolean
+  language?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -483,10 +549,12 @@ export type UserSelectScalar = {
   username?: boolean
   hashedPassword?: boolean
   isVerified?: boolean
+  theme?: boolean
+  language?: boolean
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "hashedPassword" | "isVerified" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "hashedPassword" | "isVerified" | "theme" | "language" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   notes?: boolean | Prisma.User$notesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -505,6 +573,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     username: string
     hashedPassword: string
     isVerified: boolean
+    theme: $Enums.theme
+    language: $Enums.language
     createdAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -935,6 +1005,8 @@ export interface UserFieldRefs {
   readonly username: Prisma.FieldRef<"User", 'String'>
   readonly hashedPassword: Prisma.FieldRef<"User", 'String'>
   readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly theme: Prisma.FieldRef<"User", 'theme'>
+  readonly language: Prisma.FieldRef<"User", 'language'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     

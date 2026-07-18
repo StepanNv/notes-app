@@ -34,6 +34,20 @@ export type BoolFilter<$PrismaModel = never> = {
   not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
+export type EnumthemeFilter<$PrismaModel = never> = {
+  equals?: $Enums.theme | Prisma.EnumthemeFieldRefInput<$PrismaModel>
+  in?: $Enums.theme[] | Prisma.ListEnumthemeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.theme[] | Prisma.ListEnumthemeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumthemeFilter<$PrismaModel> | $Enums.theme
+}
+
+export type EnumlanguageFilter<$PrismaModel = never> = {
+  equals?: $Enums.language | Prisma.EnumlanguageFieldRefInput<$PrismaModel>
+  in?: $Enums.language[] | Prisma.ListEnumlanguageFieldRefInput<$PrismaModel>
+  notIn?: $Enums.language[] | Prisma.ListEnumlanguageFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumlanguageFilter<$PrismaModel> | $Enums.language
+}
+
 export type DateTimeFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>
@@ -69,6 +83,26 @@ export type BoolWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedBoolFilter<$PrismaModel>
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type EnumthemeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.theme | Prisma.EnumthemeFieldRefInput<$PrismaModel>
+  in?: $Enums.theme[] | Prisma.ListEnumthemeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.theme[] | Prisma.ListEnumthemeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumthemeWithAggregatesFilter<$PrismaModel> | $Enums.theme
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumthemeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumthemeFilter<$PrismaModel>
+}
+
+export type EnumlanguageWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.language | Prisma.EnumlanguageFieldRefInput<$PrismaModel>
+  in?: $Enums.language[] | Prisma.ListEnumlanguageFieldRefInput<$PrismaModel>
+  notIn?: $Enums.language[] | Prisma.ListEnumlanguageFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumlanguageWithAggregatesFilter<$PrismaModel> | $Enums.language
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumlanguageFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumlanguageFilter<$PrismaModel>
 }
 
 export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -220,6 +254,20 @@ export type NestedBoolFilter<$PrismaModel = never> = {
   not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
+export type NestedEnumthemeFilter<$PrismaModel = never> = {
+  equals?: $Enums.theme | Prisma.EnumthemeFieldRefInput<$PrismaModel>
+  in?: $Enums.theme[] | Prisma.ListEnumthemeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.theme[] | Prisma.ListEnumthemeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumthemeFilter<$PrismaModel> | $Enums.theme
+}
+
+export type NestedEnumlanguageFilter<$PrismaModel = never> = {
+  equals?: $Enums.language | Prisma.EnumlanguageFieldRefInput<$PrismaModel>
+  in?: $Enums.language[] | Prisma.ListEnumlanguageFieldRefInput<$PrismaModel>
+  notIn?: $Enums.language[] | Prisma.ListEnumlanguageFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumlanguageFilter<$PrismaModel> | $Enums.language
+}
+
 export type NestedDateTimeFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>
@@ -265,6 +313,26 @@ export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedBoolFilter<$PrismaModel>
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type NestedEnumthemeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.theme | Prisma.EnumthemeFieldRefInput<$PrismaModel>
+  in?: $Enums.theme[] | Prisma.ListEnumthemeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.theme[] | Prisma.ListEnumthemeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumthemeWithAggregatesFilter<$PrismaModel> | $Enums.theme
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumthemeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumthemeFilter<$PrismaModel>
+}
+
+export type NestedEnumlanguageWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.language | Prisma.EnumlanguageFieldRefInput<$PrismaModel>
+  in?: $Enums.language[] | Prisma.ListEnumlanguageFieldRefInput<$PrismaModel>
+  notIn?: $Enums.language[] | Prisma.ListEnumlanguageFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumlanguageWithAggregatesFilter<$PrismaModel> | $Enums.language
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumlanguageFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumlanguageFilter<$PrismaModel>
 }
 
 export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {

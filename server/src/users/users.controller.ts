@@ -1,10 +1,18 @@
-import { Controller, Get, NotFoundException, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import type { TTokensPayload } from '../auth/types/jwt-payload';
 import { GetAccessTokenPayload } from '../auth/decorators/get-at-payload.decorator';
 import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { GetMeResDto } from './dtos/res/get-me-res.dto';
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
+import { UpdateMeDto } from './dtos/req/update-me.dto';
 
 @ApiBearerAuth()
 @Controller('users')
@@ -25,5 +33,15 @@ export class UsersController {
       throw new NotFoundException();
     }
     return user;
+  }
+
+  @ApiOperation({ summary: 'Обновить информацию о себе' })
+  @Patch('/me')
+  @UseGuards(AccessTokenGuard)
+  public async updateMe(
+    @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
+    @Body() updateMeDto: UpdateMeDto,
+  ) {
+    return this.usersService.updateOne(accessTokenPayload.userId, updateMeDto);
   }
 }

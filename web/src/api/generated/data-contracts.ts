@@ -17,6 +17,16 @@ export interface GetMeResDto {
   createdAt: string;
 }
 
+export interface UpdateMeDto {
+  /**
+   * @minLength 3
+   * @maxLength 30
+   */
+  username?: string;
+  theme?: object;
+  language?: object;
+}
+
 export interface SignUpDto {
   /** @format email */
   email: string;
@@ -172,6 +182,8 @@ export interface GetNoteResDto {
 }
 
 export type UsersControllerGetMeData = GetMeResDto;
+
+export type UsersControllerUpdateMeData = any;
 
 export type AuthControllerSignUpData = any;
 

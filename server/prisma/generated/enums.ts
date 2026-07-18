@@ -42,3 +42,19 @@ export const ConfirmationCodeType = {
 } as const
 
 export type ConfirmationCodeType = (typeof ConfirmationCodeType)[keyof typeof ConfirmationCodeType]
+
+
+export const theme = {
+  light: 'light',
+  dark: 'dark'
+} as const
+
+export type theme = (typeof theme)[keyof typeof theme]
+
+
+export const language = {
+  en: 'en',
+  ru: 'ru'
+} as const
+
+export type language = (typeof language)[keyof typeof language]
