@@ -4,10 +4,15 @@ import styles from './Settings.module.scss';
 import { ChevronRight, Globe, Lock, Sun, UserCircle } from 'lucide-react';
 import { useModalStore } from '../../../../stores/useModalStore';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
+import { useUpdateTheme } from './useUpdateTheme';
+import { useUpdateLanguage } from './useUpdateLanguage';
 
 const Settings = () => {
   const openModal = useModalStore((state) => state.openModal);
   const language = useAppSettingsStore((state) => state.language);
+  const currentTheme = useAppSettingsStore((state) => state.theme);
+  const updateTheme = useUpdateTheme();
+  const updateLanguage = useUpdateLanguage();
 
   return (
     <div className={styles.settings}>
@@ -47,22 +52,30 @@ const Settings = () => {
         </SettingItem>
       </SettingsBlock>
       <SettingsBlock title={language === 'en' ? 'App' : 'Приложение'}>
-        <SettingItem>
+        <SettingItem onClick={() => updateTheme()}>
           <div className={styles.settingItemContent}>
             <Sun className={styles.icon} />
             <span className={styles.settingItemText}>
               {language === 'en' ? 'Theme' : 'Тема'}
             </span>
-            <ChevronRight />
+            <span>
+              {currentTheme === 'light'
+                ? language === 'en'
+                  ? 'Light'
+                  : 'Светлая'
+                : language === 'en'
+                  ? 'Dark'
+                  : 'Тёмная'}
+            </span>
           </div>
         </SettingItem>
-        <SettingItem>
+        <SettingItem onClick={() => updateLanguage()}>
           <div className={styles.settingItemContent}>
             <Globe className={styles.icon} />
             <span className={styles.settingItemText}>
               {language === 'en' ? 'Language' : 'Язык'}
             </span>
-            <ChevronRight />
+            <span>{language === 'en' ? 'English' : 'Русский'}</span>
           </div>
         </SettingItem>
       </SettingsBlock>

@@ -18,13 +18,13 @@ export interface GetMeResDto {
 }
 
 export interface UpdateMeDto {
+  theme?: "light" | "dark";
+  language?: "en" | "ru";
   /**
    * @minLength 3
    * @maxLength 30
    */
   username?: string;
-  theme?: object;
-  language?: object;
 }
 
 export interface SignUpDto {
