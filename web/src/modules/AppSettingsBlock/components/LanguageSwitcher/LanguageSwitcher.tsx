@@ -9,8 +9,6 @@ const LanguageSwitcher = () => {
     setLanguage(language);
   };
 
-  console.log(language);
-
   return (
     <div className={styles.languageSwitcher}>
       <button
