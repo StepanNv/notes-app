@@ -6,6 +6,7 @@ import FormCardHeader from '../../ui/FormCardHeader/FormCardHeader';
 import SubmitFormBtn from '../../ui/SubmitFormBtn/SubmitFormBtn';
 import { useVerifyEmailForm } from './useVerifyEmailForm';
 import { useConfirmationEmailStore } from '../../stores/useConfirmationEmailStore';
+import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useResendCodeMutation } from './useResendCodeMutation';
@@ -13,6 +14,7 @@ import ConfirmCodeInput from '../ConfirmCodeInput/ConfirmCodeInput';
 
 const VerifyEmailForm = () => {
   const { register, submit } = useVerifyEmailForm();
+  const language = useAppSettingsStore((state) => state.language);
   const confimationEmail = useConfirmationEmailStore(
     (state) => state.confirmationEmail,
   );
@@ -38,22 +40,30 @@ const VerifyEmailForm = () => {
   return (
     <FormCard>
       <FormCardHeader
-        title="Check your email"
-        subtitle={`We sent a 6-digit verification code to ${confimationEmail}`}
+        title={language === 'en' ? 'Check your email' : 'Проверьте вашу почту'}
+        subtitle={
+          language === 'en'
+            ? `We sent a 6-digit verification code to ${confimationEmail}`
+            : `Мы отправили 6-значный код подтверждения на ${confimationEmail}`
+        }
       />
       <Form onSubmit={submit}>
         <ConfirmCodeInput
           register={register}
           handleResendCode={handleResendCode}
         />
-        <SubmitFormBtn>Confirm</SubmitFormBtn>
+        <SubmitFormBtn>
+          {language === 'en' ? 'Confirm' : 'Подтвердить'}
+        </SubmitFormBtn>
       </Form>
       <FormCardFooter>
         <span>
-          Back to <Link to="/sign-in">Sign In</Link>
+          {language === 'en' ? 'Back to ' : 'Вернуться к '}
+          <Link to="/sign-in">{language === 'en' ? 'Sign In' : 'Входу'}</Link>
         </span>
       </FormCardFooter>
     </FormCard>
   );
 };
+
 export default VerifyEmailForm;

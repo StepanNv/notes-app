@@ -6,8 +6,10 @@ import { useNoteForm } from './useNoteForm';
 import { useParams } from 'react-router-dom';
 import { useGetNote } from './useGetNote';
 import { useEffect } from 'react';
+import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
 const NoteForm = () => {
+  const language = useAppSettingsStore((state) => state.language);
   const { id } = useParams();
   const { register, control, saveNote, reset } = useNoteForm(id);
   const editor = useNoteEditor(control);
@@ -33,7 +35,7 @@ const NoteForm = () => {
           <input
             className={styles.titleInput}
             type="text"
-            placeholder="Title"
+            placeholder={language === 'en' ? 'Title' : 'Заголовок'}
             {...register('title')}
             autoFocus
           />

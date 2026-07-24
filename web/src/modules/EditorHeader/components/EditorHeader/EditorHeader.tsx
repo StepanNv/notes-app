@@ -3,6 +3,7 @@ import Header from '../../../../ui/Header/Header';
 import PaletteBtn from '../PaletteBtn/PaletteBtn';
 import styles from './EditorHeader.module.scss';
 import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
+import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 // import UpNoteBtn from '../UpNoteBtn/UpNoteBtn';
 // import DownNoteBtn from '../DownNoteBtn/DownNoteBtn';
 import UpdateStatusDropdown from '../UpdateStatusDropdown/UpdateStatusDropdown';
@@ -16,6 +17,7 @@ const EditorHeader = ({
   const selectedNotes = useNotesSelectionStore((state) => state.selectedNotes);
   const deselectAll = useNotesSelectionStore((state) => state.clear);
   const openModal = useModalStore((state) => state.openModal);
+  const language = useAppSettingsStore((state) => state.language);
 
   return (
     <Header>
@@ -23,7 +25,8 @@ const EditorHeader = ({
         <div className={styles.group}>
           <CrossBtn onClick={() => deselectAll()} />
           <div className={styles.selectedNotesCounter}>
-            Selected: {selectedNotes.size}
+            {language === 'en' ? 'Selected: ' : 'Выбрано: '}
+            {selectedNotes.size}
           </div>
         </div>
         <div className={styles.group}>
@@ -38,4 +41,5 @@ const EditorHeader = ({
     </Header>
   );
 };
+
 export default EditorHeader;

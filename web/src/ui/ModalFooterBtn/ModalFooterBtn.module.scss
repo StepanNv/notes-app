@@ -1,8 +1,7 @@
 .modalFooterBtn {
   @include btn-reset;
   @include flex-center;
-  width: 70px;
-  height: 35px;
+  padding: 8px 8px;
   text-decoration: none;
   background-color: var(--btn-bg);
   color: var(--btn-text-color);

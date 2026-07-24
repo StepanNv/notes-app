@@ -6,12 +6,14 @@ import { useInfiniteScrollTrigger } from './useInfiniteScrollTrigger';
 import type { NotesControllerGetManyParams } from '../../../../api/generated/data-contracts';
 import { useEffect } from 'react';
 import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
+import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
 const InfiniteNotesList = ({
   query,
 }: {
   query: NotesControllerGetManyParams;
 }) => {
+  const language = useAppSettingsStore((state) => state.language);
   const {
     data,
     fetchNextPage,
@@ -29,12 +31,18 @@ const InfiniteNotesList = ({
   const notes = data?.pages.flatMap((page) => page.notes) ?? [];
 
   if (isLoading) {
-    return <div className={styles.loading}>Loading...</div>;
+    return (
+      <div className={styles.loading}>
+        {language === 'en' ? 'Loading...' : 'Загрузка...'}
+      </div>
+    );
   }
   if (isError) {
     return (
       <div className={styles.error}>
-        Something went wrong. Please try again later.
+        {language === 'en'
+          ? 'Something went wrong. Please try again later.'
+          : 'Что-то пошло не так. Пожалуйста, попробуйте позже.'}
       </div>
     );
   }
@@ -55,7 +63,7 @@ const InfiniteNotesList = ({
             />
           ))}
           {isFetchingNextPage ? (
-            <div>Loading...</div>
+            <div>{language === 'en' ? 'Loading...' : 'Загрузка...'}</div>
           ) : (
             hasNextPage && <div ref={ref} />
           )}
@@ -66,4 +74,5 @@ const InfiniteNotesList = ({
     </ul>
   );
 };
+
 export default InfiniteNotesList;

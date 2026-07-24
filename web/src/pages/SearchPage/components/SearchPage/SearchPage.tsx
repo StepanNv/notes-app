@@ -5,8 +5,10 @@ import { useDebouncedSearchQuery } from './useDebouncedSearchQuery';
 import { EditorHeader } from '../../../../modules/EditorHeader';
 import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
 import { UpdateColorModal } from '../../../../modules/UpdateColorModal';
+import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
 const SearchPage = () => {
+  const language = useAppSettingsStore((state) => state.language);
   const { searchQuery, setSearchQuery, debouncedSearchQuery } =
     useDebouncedSearchQuery();
   const selectedNotes = useNotesSelectionStore((state) => state.selectedNotes);
@@ -25,10 +27,18 @@ const SearchPage = () => {
       <main className={styles.main}>
         {debouncedSearchQuery ? (
           <InfiniteNotesList
-            query={{ status: 'default', search: debouncedSearchQuery, limit: 7 }}
+            query={{
+              status: 'default',
+              search: debouncedSearchQuery,
+              limit: 7,
+            }}
           />
         ) : (
-          <div className={styles.emptySearchQuery}>Enter something to search</div>
+          <div className={styles.emptySearchQuery}>
+            {language === 'en'
+              ? 'Enter something to search'
+              : 'Введите запрос для поиска'}
+          </div>
         )}
       </main>
 
@@ -36,4 +46,5 @@ const SearchPage = () => {
     </>
   );
 };
+
 export default SearchPage;

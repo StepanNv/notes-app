@@ -24,8 +24,7 @@
     position: relative;
     @include btn-reset;
     @include flex-center;
-    width: 90px;
-    height: 38px;
+    padding: 10px 16px;
     text-decoration: none;
     font-size: 18px;
     margin-left: 20px;
@@ -36,11 +35,8 @@
     color: var(--btn-text-color);
 
     @include mobile {
-      width: 100%;
-      max-width: 90px;
-      min-width: 72px;
+      padding: 10px 16px;
       margin-left: 0;
-      padding: 0 10px;
       font-size: 16px;
     }
   }

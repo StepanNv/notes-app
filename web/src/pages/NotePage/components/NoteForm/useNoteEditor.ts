@@ -4,6 +4,7 @@ import StarterKit from '@tiptap/starter-kit';
 import styles from './NoteForm.module.scss';
 import Placeholder from '@tiptap/extension-placeholder';
 import { useEffect } from 'react';
+import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
 export type NoteFormValues = {
   title: string;
@@ -11,12 +12,15 @@ export type NoteFormValues = {
 };
 
 export const useNoteEditor = (control: Control<NoteFormValues>) => {
+  const language = useAppSettingsStore((state) => state.language);
   const { field } = useController({ control, name: 'text' });
 
   const editor = useEditor({
     extensions: [
       StarterKit.configure(),
-      Placeholder.configure({ placeholder: 'Note' }),
+      Placeholder.configure({
+        placeholder: language === 'en' ? 'Note' : 'Заметка',
+      }),
     ],
     content: field.value,
     onUpdate: ({ editor }) => {

@@ -7,43 +7,55 @@ import ColorSelector from '../ColorSelector/ColorSelector';
 import { useColorSelection } from './useColorSelection';
 import { useUpdateColorMutation } from './useUpdateColorMutation';
 import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
+import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 import type { NoteColorKey } from '../../../../consts/noteColors';
 
 const UpdateColorModal = () => {
   const isOpen = useModalStore(
     (state) => state.openedModal === 'updateNotesColor',
   );
+  const language = useAppSettingsStore((state) => state.language);
   const { selectedColor, setSelectedColor } = useColorSelection();
   const updateColorMutation = useUpdateColorMutation();
   const selectedNotes = useNotesSelectionStore((state) => state.selectedNotes);
   const closeModal = useModalStore((state) => state.closeModal);
 
   const handleSave = () => {
-    updateColorMutation.mutate({
-      ids: Array.from(selectedNotes).map((note) => note.id),
-      colorKey: selectedColor as NoteColorKey,
-    }, {
-      onSuccess: () => {
-        clearSelectedNotes();
-        closeModal();
+    updateColorMutation.mutate(
+      {
+        ids: Array.from(selectedNotes).map((note) => note.id),
+        colorKey: selectedColor as NoteColorKey,
       },
-    });
+      {
+        onSuccess: () => {
+          clearSelectedNotes();
+          closeModal();
+        },
+      },
+    );
   };
 
   const clearSelectedNotes = useNotesSelectionStore((state) => state.clear);
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalHeader title="Update Color" />
+      <ModalHeader
+        title={language === 'en' ? 'Update Color' : 'Изменить цвет'}
+      />
       <ColorSelector
         selectedColor={selectedColor}
         setSelectedColor={setSelectedColor}
       />
       <ModalFooter>
-        <ModalFooterBtn onClick={closeModal}>Cancel</ModalFooterBtn>
-        <ModalFooterBtn onClick={handleSave}>Save</ModalFooterBtn>
+        <ModalFooterBtn onClick={closeModal}>
+          {language === 'en' ? 'Cancel' : 'Отмена'}
+        </ModalFooterBtn>
+        <ModalFooterBtn onClick={handleSave}>
+          {language === 'en' ? 'Save' : 'Сохранить'}
+        </ModalFooterBtn>
       </ModalFooter>
     </Modal>
   );
 };
+
 export default UpdateColorModal;

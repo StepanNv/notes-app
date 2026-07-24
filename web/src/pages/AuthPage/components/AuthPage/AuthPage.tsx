@@ -5,6 +5,7 @@ import ResetPasswdEmailForm from '../PasswdResetEmailForm/PasswdResetEmailForm';
 import SignInForm from '../SignInForm/SignInForm';
 import SignUpForm from '../SignUpForm/SignUpForm';
 import styles from './AuthPage.module.scss';
+import { AppSettingsBlock } from '../../../../modules/AppSettingsBlock';
 
 const AuthPage = ({
   selectedAuthMethod,
@@ -25,6 +26,7 @@ const AuthPage = ({
         {selectedAuthMethod === 'new-passwd' && <NewPassForm />}
         {selectedAuthMethod === 'reset-passwd' && <ResetPasswdEmailForm />}
         {selectedAuthMethod === 'verify-email' && <VerifyEmailForm />}
+        <AppSettingsBlock />
       </main>
     </>
   );

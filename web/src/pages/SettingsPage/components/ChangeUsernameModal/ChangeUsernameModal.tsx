@@ -4,8 +4,10 @@ import ModalHeader from '../../../../components/ModalHeader/ModalHeader';
 import { useModalStore } from '../../../../stores/useModalStore';
 import { useGetMyProfile } from '../../../../hooks/useGetMyProfile';
 import { useChangeUsernameForm } from './useChangeUsernameForm';
+import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
 const ChangeUsernameModal = () => {
+  const language = useAppSettingsStore((state) => state.language);
   const openedModal = useModalStore((state) => state.openedModal);
   const { data } = useGetMyProfile();
   const { register, submit } = useChangeUsernameForm(data?.data.username);
@@ -14,21 +16,28 @@ const ChangeUsernameModal = () => {
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalHeader title="Change username" />
+      <ModalHeader
+        title={
+          language === 'en' ? 'Change username' : 'Сменить имя пользователя'
+        }
+      />
       <form className={styles.content} onSubmit={submit}>
         <input
           className={styles.input}
           type="text"
-          placeholder="New username"
+          placeholder={
+            language === 'en' ? 'New username' : 'Новое имя пользователя'
+          }
           minLength={3}
           maxLength={30}
           {...register('username', { required: true })}
         />
         <button className={styles.submitBtn} type="submit">
-          Save
+          {language === 'en' ? 'Save' : 'Сохранить'}
         </button>
       </form>
     </Modal>
   );
 };
+
 export default ChangeUsernameModal;

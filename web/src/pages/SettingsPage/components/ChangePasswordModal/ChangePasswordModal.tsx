@@ -6,8 +6,10 @@ import { useModalStore } from '../../../../stores/useModalStore';
 import { useGetMyProfile } from '../../../../hooks/useGetMyProfile';
 import { useRequestResetCodeMutation } from './useRequestResetCodeMutation';
 import { useChangePasswordForm } from './useChangePasswordForm';
+import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
 const ChangePasswordModal = () => {
+  const language = useAppSettingsStore((state) => state.language);
   const openedModal = useModalStore((state) => state.openedModal);
   const { data } = useGetMyProfile();
   const email = data?.data.email ?? '';
@@ -36,12 +38,17 @@ const ChangePasswordModal = () => {
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalHeader title="Change password" />
+      <ModalHeader
+        title={language === 'en' ? 'Change password' : 'Сменить пароль'}
+      />
       <div className={styles.content}>
         {step === 'request' ? (
           <>
             <p className={styles.hint}>
-              We'll send a 6-digit confirmation code to <b>{email}</b>.
+              {language === 'en'
+                ? "We'll send a 6-digit confirmation code to "
+                : 'Мы отправим 6-значный код подтверждения на '}
+              <b>{email}</b>.
             </p>
             <button
               className={styles.submitBtn}
@@ -49,7 +56,13 @@ const ChangePasswordModal = () => {
               onClick={handleSendCode}
               disabled={requestResetCodeMutation.isPending || !email}
             >
-              {requestResetCodeMutation.isPending ? 'Sending...' : 'Send code'}
+              {requestResetCodeMutation.isPending
+                ? language === 'en'
+                  ? 'Sending...'
+                  : 'Отправка...'
+                : language === 'en'
+                  ? 'Send code'
+                  : 'Отправить код'}
             </button>
           </>
         ) : (
@@ -57,7 +70,7 @@ const ChangePasswordModal = () => {
             <input
               className={styles.input}
               type="password"
-              placeholder="New password"
+              placeholder={language === 'en' ? 'New password' : 'Новый пароль'}
               {...register('newPassword', { required: true })}
             />
             <input
@@ -67,7 +80,9 @@ const ChangePasswordModal = () => {
               pattern="[0-9]*"
               minLength={6}
               maxLength={6}
-              placeholder="Confirmation code"
+              placeholder={
+                language === 'en' ? 'Confirmation code' : 'Код подтверждения'
+              }
               {...register('confirmationCode', { required: true })}
             />
             <button
@@ -75,10 +90,10 @@ const ChangePasswordModal = () => {
               type="button"
               onClick={handleSendCode}
             >
-              Resend code
+              {language === 'en' ? 'Resend code' : 'Отправить код повторно'}
             </button>
             <button className={styles.submitBtn} type="submit">
-              Update password
+              {language === 'en' ? 'Update password' : 'Обновить пароль'}
             </button>
           </form>
         )}
@@ -86,4 +101,5 @@ const ChangePasswordModal = () => {
     </Modal>
   );
 };
+
 export default ChangePasswordModal;

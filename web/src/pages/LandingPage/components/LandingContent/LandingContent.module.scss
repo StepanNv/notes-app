@@ -1,3 +1,19 @@
+.landingContent {
+  @include flex-center;
+  flex: 1;
+  flex-direction: column;
+  text-align: center;
+}
+
+.title {
+  font-size: 48px;
+  margin-bottom: 10px;
+
+  @include mobile {
+    font-size: 32px;
+  }
+}
+
 .subtitle {
   font-size: 20px;
   margin-bottom: 40px;
@@ -9,17 +25,14 @@
 }
 
 .button {
-  display: inline-block;
   padding: 15px 30px;
-  background-color: #5596f6;
-  color: white;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
   text-decoration: none;
   font-weight: 600;
   border-radius: 8px;
   font-size: 18px;
-  transition:
-    background-color 0.2s,
-    box-shadow 0.3s ease-out;
+  transition: background-color 0.2s;
 
   @include mobile {
     width: 100%;
@@ -30,7 +43,6 @@
   }
 
   &:hover {
-    background-color: #5596f6;
-    box-shadow: 0 4px 15px rgba(#5596f6, 0.4);
+    background-color: var(--active-btn-bg);
   }
 }

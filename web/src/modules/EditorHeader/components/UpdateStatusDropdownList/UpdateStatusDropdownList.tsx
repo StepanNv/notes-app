@@ -1,6 +1,7 @@
 import DropdownItem from '../../../../components/DropdownItem/DropdownItem';
 import DropdownList from '../../../../components/DropdownList/DropdownList';
 import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
+import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 import { useUpdateStatus } from './useUpdateStatus';
 import { useDeleteMutation } from './useDeleteMutation';
 
@@ -16,6 +17,7 @@ const UpdateStatusDropdownList = ({
   const { updateStatus } = useUpdateStatus();
   const deleteMutation = useDeleteMutation();
   const selectedNotes = useNotesSelectionStore((state) => state.selectedNotes);
+  const language = useAppSettingsStore((state) => state.language);
 
   return (
     <DropdownList isOpen={isOpen}>
@@ -26,14 +28,14 @@ const UpdateStatusDropdownList = ({
               updateStatus({ currentPage: 'notes', action: 'archive' })
             }
           >
-            Archive
+            {language === 'en' ? 'Archive' : 'Архивировать'}
           </DropdownItem>
           <DropdownItem
             onClick={() =>
               updateStatus({ currentPage: 'notes', action: 'trash' })
             }
           >
-            Trash
+            {language === 'en' ? 'Trash' : 'В корзину'}
           </DropdownItem>
         </>
       )}
@@ -44,14 +46,14 @@ const UpdateStatusDropdownList = ({
               updateStatus({ currentPage: 'archive', action: 'unarchive' })
             }
           >
-            Unarchive
+            {language === 'en' ? 'Unarchive' : 'Разархивировать'}
           </DropdownItem>
           <DropdownItem
             onClick={() =>
               updateStatus({ currentPage: 'archive', action: 'trash' })
             }
           >
-            Trash
+            {language === 'en' ? 'Trash' : 'В корзину'}
           </DropdownItem>
         </>
       )}
@@ -62,12 +64,21 @@ const UpdateStatusDropdownList = ({
               updateStatus({ currentPage: 'trash', action: 'restore' })
             }
           >
-            Restore
+            {language === 'en' ? 'Restore' : 'Восстановить'}
           </DropdownItem>
-          <DropdownItem onClick={() => deleteMutation.mutate(Array.from(selectedNotes).map((note) => note.id))}>Delete</DropdownItem>
+          <DropdownItem
+            onClick={() =>
+              deleteMutation.mutate(
+                Array.from(selectedNotes).map((note) => note.id)
+              )
+            }
+          >
+            {language === 'en' ? 'Delete' : 'Удалить'}
+          </DropdownItem>
         </>
       )}
     </DropdownList>
   );
 };
+
 export default UpdateStatusDropdownList;

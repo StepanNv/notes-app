@@ -2,6 +2,7 @@ import Header from '../../ui/Header/Header';
 import Logo from '../Logo/Logo';
 import styles from './NotAuthPagesHeader.module.scss';
 import { Link } from 'react-router-dom';
+import { useAppSettingsStore } from '../../stores/useAppSettingsStore';
 
 const NotAuthPagesHeader = ({
   selectedAuthMethod,
@@ -13,6 +14,8 @@ const NotAuthPagesHeader = ({
     | 'reset-passwd'
     | 'verify-email';
 }) => {
+  const language = useAppSettingsStore((state) => state.language);
+
   return (
     <Header>
       <div className={styles.content}>
@@ -22,17 +25,18 @@ const NotAuthPagesHeader = ({
             to="/sign-in"
             className={`${styles.link} ${selectedAuthMethod === 'sign-in' ? styles.opened : ''}`}
           >
-            Sign in
+            {language === 'en' ? 'Sign in' : 'Вход'}
           </Link>
           <Link
             to="/sign-up"
             className={`${styles.link} ${selectedAuthMethod === 'sign-up' ? styles.opened : ''}`}
           >
-            Sign up
+            {language === 'en' ? 'Sign up' : 'Регистрация'}
           </Link>
         </nav>
       </div>
     </Header>
   );
 };
+
 export default NotAuthPagesHeader;
