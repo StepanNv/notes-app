@@ -6,6 +6,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { language, theme } from '../../../../prisma/generated/client';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateMeDto {
   @IsOptional()
@@ -14,10 +15,12 @@ export class UpdateMeDto {
   @MaxLength(30, { message: 'Username cannot be longer than 30 characters' })
   readonly username?: string;
 
+  @ApiProperty({ enum: theme })
   @IsOptional()
   @IsEnum(theme, { message: 'Invalid theme' })
   readonly theme?: theme;
 
+  @ApiProperty({ enum: language })
   @IsOptional()
   @IsEnum(language, { message: 'Invalid language' })
   readonly language?: language;
