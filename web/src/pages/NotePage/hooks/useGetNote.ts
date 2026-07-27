@@ -3,8 +3,8 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import { getNote } from '../../api/get-note';
-import type { GetNotesResDto } from '../../../../api/generated/data-contracts';
+import { getNote } from '../api/get-note';
+import type { GetNotesResDto } from '../../../api/generated/data-contracts';
 
 export const useGetNote = (id?: string) => {
   const queryClient = useQueryClient();
@@ -19,7 +19,6 @@ export const useGetNote = (id?: string) => {
 
       return hashedNote ? { note: hashedNote } : undefined;
     },
-    staleTime: Infinity,
     enabled: !!id, // запрос не будет выполняться, если id falsy
   });
 

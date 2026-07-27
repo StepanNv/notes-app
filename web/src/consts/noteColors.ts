@@ -8,7 +8,7 @@ export const NOTE_COLORS = {
   FIFTH: 'rgba(43, 146, 77, 1)',
   SIXTH: 'rgba(72, 156, 122, 1)',
   SEVENTH: 'rgba(118, 154, 183, 1)',
-  EIGHTH: 'rgba(67, 101, 129, 1)',
+  EIGHTH: 'rgb(46, 77, 102)',
   NINTH: 'rgba(129, 76, 117, 1)',
   TENTH: 'rgba(184, 121, 142, 1)',
   ELEVENTH: 'rgba(145, 121, 85, 1)',

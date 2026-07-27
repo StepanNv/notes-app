@@ -4,7 +4,7 @@ import TiptapEditorToolbar from '../TiptapEditorToolbar/TiptapEditorToolbar';
 import { useNoteEditor } from './useNoteEditor';
 import { useNoteForm } from './useNoteForm';
 import { useParams } from 'react-router-dom';
-import { useGetNote } from './useGetNote';
+import { useGetNote } from '../../hooks/useGetNote';
 import { useEffect } from 'react';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
@@ -24,7 +24,7 @@ const NoteForm = () => {
   const { id } = useParams();
   const { register, control, saveNote, reset } = useNoteForm(id);
   const editor = useNoteEditor(control);
-  const { data, isLoading, isError, error } = useGetNote(id);
+  const { data } = useGetNote(id);
 
   useEffect(() => {
     if (data) {

@@ -16,9 +16,9 @@
   --header-height: 60px;
   --bg-color-2-text: rgba(128, 128, 128, 0.6);
   --btn-bg: #5596f6;
-  --btn-text-color: #ffffff;
   --active-btn-bg: #0f70ee;
-  --mark-up: rgba(192, 192, 192, 0.5);
+  --btn-text-color: #ffffff;
+  --mark-up: rgba(192, 192, 192, 0.4);
   --scrollbar-thumb: #9f9f9f;
   --scrollbar-thumb-accent: #5596f6;
 }
@@ -26,8 +26,9 @@
 // Dark theme
 :root[data-theme='dark'] {
   --bg-color-1: #262626;
-  --bg-color-2: rgba(130, 130, 130, 0.4);
-  --bg-color-2-hover: rgba(130, 130, 130, 0.6);
+  --bg-color-2: rgba(100, 100, 100, 0.4);
+  --bg-color-2-hover: rgba(100, 100, 100, 0.6);
+  --mark-up: rgba(100, 100, 100, 0.4);
   --text-color: #ffffff;
   --scrollbar-thumb: #747474;
   --scrollbar-thumb-accent: #5596f6;
