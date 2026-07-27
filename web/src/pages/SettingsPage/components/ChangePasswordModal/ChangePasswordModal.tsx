@@ -8,8 +8,33 @@ import { useRequestResetCodeMutation } from './useRequestResetCodeMutation';
 import { useChangePasswordForm } from './useChangePasswordForm';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
+const contentTranlations = {
+  en: {
+    title: 'Change password',
+    hintText: "We'll send a 6-digit confirmation code to ",
+    sendingBtn: 'Sending...',
+    sendCodeBtn: 'Send code',
+    newPasswordPlaceholder: 'New password',
+    confirmationCodePlaceholder: 'Confirmation code',
+    resendCodeBtn: 'Resend code',
+    updatePasswordBtn: 'Update password',
+  },
+  ru: {
+    title: 'Сменить пароль',
+    hintText: 'Мы отправим 6-значный код подтверждения на ',
+    sendingBtn: 'Отправка...',
+    sendCodeBtn: 'Отправить код',
+    newPasswordPlaceholder: 'Новый пароль',
+    confirmationCodePlaceholder: 'Код подтверждения',
+    resendCodeBtn: 'Отправить код повторно',
+    updatePasswordBtn: 'Обновить пароль',
+  },
+};
+
 const ChangePasswordModal = () => {
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
   const openedModal = useModalStore((state) => state.openedModal);
   const { data } = useGetMe();
   const email = data?.email ?? '';
@@ -38,16 +63,12 @@ const ChangePasswordModal = () => {
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalHeader
-        title={language === 'en' ? 'Change password' : 'Сменить пароль'}
-      />
+      <ModalHeader title={content.title} />
       <div className={styles.content}>
         {step === 'request' ? (
           <>
             <p className={styles.hint}>
-              {language === 'en'
-                ? "We'll send a 6-digit confirmation code to "
-                : 'Мы отправим 6-значный код подтверждения на '}
+              {content.hintText}
               <b>{email}</b>.
             </p>
             <button
@@ -57,12 +78,8 @@ const ChangePasswordModal = () => {
               disabled={requestResetCodeMutation.isPending || !email}
             >
               {requestResetCodeMutation.isPending
-                ? language === 'en'
-                  ? 'Sending...'
-                  : 'Отправка...'
-                : language === 'en'
-                  ? 'Send code'
-                  : 'Отправить код'}
+                ? content.sendingBtn
+                : content.sendCodeBtn}
             </button>
           </>
         ) : (
@@ -70,7 +87,7 @@ const ChangePasswordModal = () => {
             <input
               className={styles.input}
               type="password"
-              placeholder={language === 'en' ? 'New password' : 'Новый пароль'}
+              placeholder={content.newPasswordPlaceholder}
               {...register('newPassword', { required: true })}
             />
             <input
@@ -80,9 +97,7 @@ const ChangePasswordModal = () => {
               pattern="[0-9]*"
               minLength={6}
               maxLength={6}
-              placeholder={
-                language === 'en' ? 'Confirmation code' : 'Код подтверждения'
-              }
+              placeholder={content.confirmationCodePlaceholder}
               {...register('confirmationCode', { required: true })}
             />
             <button
@@ -90,10 +105,10 @@ const ChangePasswordModal = () => {
               type="button"
               onClick={handleSendCode}
             >
-              {language === 'en' ? 'Resend code' : 'Отправить код повторно'}
+              {content.resendCodeBtn}
             </button>
             <button className={styles.submitBtn} type="submit">
-              {language === 'en' ? 'Update password' : 'Обновить пароль'}
+              {content.updatePasswordBtn}
             </button>
           </form>
         )}

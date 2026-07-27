@@ -8,44 +8,56 @@ import FormCardFooter from '../../ui/FormCardFooter/FormCardFooter';
 import FormCardHeader from '../../ui/FormCardHeader/FormCardHeader';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
+const contentTranlations = {
+  en: {
+    title: 'Welcome back!',
+    subtitle: 'Sign in to your account',
+    emailPlaceholder: 'Email address',
+    passwordPlaceholder: 'Password',
+    signInBtn: 'Sign In',
+    forgotPasswordLink: 'Forgot password?',
+    noAccountText: "Don't have an account? ",
+    signUpLink: 'Sign up',
+  },
+  ru: {
+    title: 'С возвращением!',
+    subtitle: 'Войдите в свой аккаунт',
+    emailPlaceholder: 'Адрес электронной почты',
+    passwordPlaceholder: 'Пароль',
+    signInBtn: 'Войти',
+    forgotPasswordLink: 'Забыли пароль?',
+    noAccountText: 'Нет аккаунта? ',
+    signUpLink: 'Зарегистрироваться',
+  },
+};
+
 const SignInForm = () => {
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
   const { register, submit } = useSignInForm();
 
   return (
     <FormCard>
-      <FormCardHeader
-        title={language === 'en' ? 'Welcome back!' : 'С возвращением!'}
-        subtitle={
-          language === 'en'
-            ? 'Sign in to your account'
-            : 'Войдите в свой аккаунт'
-        }
-      />
+      <FormCardHeader title={content.title} subtitle={content.subtitle} />
       <Form onSubmit={submit}>
         <FormInput
           type="email"
-          placeholder={
-            language === 'en' ? 'Email address' : 'Адрес электронной почты'
-          }
+          placeholder={content.emailPlaceholder}
           {...register('email', { required: true })}
         />
         <FormInput
           type="password"
-          placeholder={language === 'en' ? 'Password' : 'Пароль'}
+          placeholder={content.passwordPlaceholder}
           {...register('password', { required: true })}
         />
-        <SubmitFormBtn>{language === 'en' ? 'Sign In' : 'Войти'}</SubmitFormBtn>
+        <SubmitFormBtn>{content.signInBtn}</SubmitFormBtn>
       </Form>
       <FormCardFooter>
-        <Link to="/sign-in/reset-password">
-          {language === 'en' ? 'Forgot password?' : 'Забыли пароль?'}
-        </Link>
+        <Link to="/sign-in/reset-password">{content.forgotPasswordLink}</Link>
         <span>
-          {language === 'en' ? "Don't have an account? " : 'Нет аккаунта? '}
-          <Link to="/sign-up">
-            {language === 'en' ? 'Sign up' : 'Зарегистрироваться'}
-          </Link>
+          {content.noAccountText}
+          <Link to="/sign-up">{content.signUpLink}</Link>
         </span>
       </FormCardFooter>
     </FormCard>

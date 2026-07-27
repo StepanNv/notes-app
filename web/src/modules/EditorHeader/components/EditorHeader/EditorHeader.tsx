@@ -9,6 +9,15 @@ import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 import UpdateStatusDropdown from '../UpdateStatusDropdown/UpdateStatusDropdown';
 import { useModalStore } from '../../../../stores/useModalStore';
 
+const contentTranlations = {
+  en: {
+    selectedText: 'Selected: ',
+  },
+  ru: {
+    selectedText: 'Выбрано: ',
+  },
+};
+
 const EditorHeader = ({
   currentPage,
 }: {
@@ -18,6 +27,8 @@ const EditorHeader = ({
   const deselectAll = useNotesSelectionStore((state) => state.clear);
   const openModal = useModalStore((state) => state.openModal);
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
 
   return (
     <Header>
@@ -25,7 +36,7 @@ const EditorHeader = ({
         <div className={styles.group}>
           <CrossBtn onClick={() => deselectAll()} />
           <div className={styles.selectedNotesCounter}>
-            {language === 'en' ? 'Selected: ' : 'Выбрано: '}
+            {content.selectedText}
             {selectedNotes.size}
           </div>
         </div>

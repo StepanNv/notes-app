@@ -8,12 +8,25 @@ import { useEffect } from 'react';
 import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
+const contentTranlations = {
+  en: {
+    loading: 'Loading...',
+    errorMessage: 'Something went wrong. Please try again later.',
+  },
+  ru: {
+    loading: 'Загрузка...',
+    errorMessage: 'Что-то пошло не так. Пожалуйста, попробуйте позже.',
+  },
+};
+
 const InfiniteNotesList = ({
   query,
 }: {
   query: NotesControllerGetManyParams;
 }) => {
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
   const {
     data,
     fetchNextPage,
@@ -31,20 +44,10 @@ const InfiniteNotesList = ({
   const notes = data?.pages.flatMap((page) => page.notes) ?? [];
 
   if (isLoading) {
-    return (
-      <div className={styles.loading}>
-        {language === 'en' ? 'Loading...' : 'Загрузка...'}
-      </div>
-    );
+    return <div className={styles.loading}>{content.loading}</div>;
   }
   if (isError) {
-    return (
-      <div className={styles.error}>
-        {language === 'en'
-          ? 'Something went wrong. Please try again later.'
-          : 'Что-то пошло не так. Пожалуйста, попробуйте позже.'}
-      </div>
-    );
+    return <div className={styles.error}>{content.errorMessage}</div>;
   }
 
   return (
@@ -63,7 +66,7 @@ const InfiniteNotesList = ({
             />
           ))}
           {isFetchingNextPage ? (
-            <div>{language === 'en' ? 'Loading...' : 'Загрузка...'}</div>
+            <div>{content.loading}</div>
           ) : (
             hasNextPage && <div ref={ref} />
           )}

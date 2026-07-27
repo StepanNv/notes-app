@@ -8,8 +8,19 @@ import { useGetNote } from './useGetNote';
 import { useEffect } from 'react';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
+const contentTranlations = {
+  en: {
+    titlePlaceholder: 'Title',
+  },
+  ru: {
+    titlePlaceholder: 'Заголовок',
+  },
+};
+
 const NoteForm = () => {
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
   const { id } = useParams();
   const { register, control, saveNote, reset } = useNoteForm(id);
   const editor = useNoteEditor(control);
@@ -35,7 +46,7 @@ const NoteForm = () => {
           <input
             className={styles.titleInput}
             type="text"
-            placeholder={language === 'en' ? 'Title' : 'Заголовок'}
+            placeholder={content.titlePlaceholder}
             {...register('title')}
             autoFocus
           />

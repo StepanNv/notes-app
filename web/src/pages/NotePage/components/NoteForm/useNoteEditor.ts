@@ -6,6 +6,15 @@ import Placeholder from '@tiptap/extension-placeholder';
 import { useEffect } from 'react';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
+const contentTranlations = {
+  en: {
+    notePlaceholder: 'Note',
+  },
+  ru: {
+    notePlaceholder: 'Заметка',
+  },
+};
+
 export type NoteFormValues = {
   title: string;
   text: string;
@@ -13,13 +22,16 @@ export type NoteFormValues = {
 
 export const useNoteEditor = (control: Control<NoteFormValues>) => {
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
+
   const { field } = useController({ control, name: 'text' });
 
   const editor = useEditor({
     extensions: [
       StarterKit.configure(),
       Placeholder.configure({
-        placeholder: language === 'en' ? 'Note' : 'Заметка',
+        placeholder: content.notePlaceholder,
       }),
     ],
     content: field.value,

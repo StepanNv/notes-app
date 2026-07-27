@@ -7,8 +7,19 @@ import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStor
 import { UpdateColorModal } from '../../../../modules/UpdateColorModal';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
+const contentTranlations = {
+  en: {
+    emptySearchQuery: 'Enter something to search',
+  },
+  ru: {
+    emptySearchQuery: 'Введите запрос для поиска',
+  },
+};
+
 const SearchPage = () => {
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
   const { searchQuery, setSearchQuery, debouncedSearchQuery } =
     useDebouncedSearchQuery();
   const selectedNotes = useNotesSelectionStore((state) => state.selectedNotes);
@@ -35,9 +46,7 @@ const SearchPage = () => {
           />
         ) : (
           <div className={styles.emptySearchQuery}>
-            {language === 'en'
-              ? 'Enter something to search'
-              : 'Введите запрос для поиска'}
+            {content.emptySearchQuery}
           </div>
         )}
       </main>

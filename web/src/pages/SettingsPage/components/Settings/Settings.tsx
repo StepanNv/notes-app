@@ -7,19 +7,46 @@ import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 import { useUpdateTheme } from './useUpdateTheme';
 import { useUpdateLanguage } from './useUpdateLanguage';
 
+const contentTranlations = {
+  en: {
+    title: 'Settings',
+    accountBlockTitle: 'Account',
+    changeUsername: 'Change username',
+    changePassword: 'Change password',
+    appBlockTitle: 'App',
+    theme: 'Theme',
+    lightTheme: 'Light',
+    darkTheme: 'Dark',
+    language: 'Language',
+    currentLanguage: 'English',
+  },
+  ru: {
+    title: 'Настройки',
+    accountBlockTitle: 'Аккаунт',
+    changeUsername: 'Сменить имя пользователя',
+    changePassword: 'Сменить пароль',
+    appBlockTitle: 'Приложение',
+    theme: 'Тема',
+    lightTheme: 'Светлая',
+    darkTheme: 'Тёмная',
+    language: 'Язык',
+    currentLanguage: 'Русский',
+  },
+};
+
 const Settings = () => {
   const openModal = useModalStore((state) => state.openModal);
   const language = useAppSettingsStore((state) => state.language);
   const currentTheme = useAppSettingsStore((state) => state.theme);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
   const updateTheme = useUpdateTheme();
   const updateLanguage = useUpdateLanguage();
 
   return (
     <div className={styles.settings}>
-      <h2 className={styles.title}>
-        {language === 'en' ? 'Settings' : 'Настройки'}
-      </h2>
-      <SettingsBlock title={language === 'en' ? 'Account' : 'Аккаунт'}>
+      <h2 className={styles.title}>{content.title}</h2>
+      <SettingsBlock title={content.accountBlockTitle}>
         <SettingItem
           onClick={(e) => {
             e.stopPropagation();
@@ -29,9 +56,7 @@ const Settings = () => {
           <div className={styles.settingItemContent}>
             <UserCircle className={styles.icon} />
             <span className={styles.settingItemText}>
-              {language === 'en'
-                ? 'Change username'
-                : 'Сменить имя пользователя'}
+              {content.changeUsername}
             </span>
             <ChevronRight />
           </div>
@@ -45,37 +70,29 @@ const Settings = () => {
           <div className={styles.settingItemContent}>
             <Lock className={styles.icon} />
             <span className={styles.settingItemText}>
-              {language === 'en' ? 'Change password' : 'Сменить пароль'}
+              {content.changePassword}
             </span>
             <ChevronRight />
           </div>
         </SettingItem>
       </SettingsBlock>
-      <SettingsBlock title={language === 'en' ? 'App' : 'Приложение'}>
+      <SettingsBlock title={content.appBlockTitle}>
         <SettingItem onClick={() => updateTheme()}>
           <div className={styles.settingItemContent}>
             <Sun className={styles.icon} />
-            <span className={styles.settingItemText}>
-              {language === 'en' ? 'Theme' : 'Тема'}
-            </span>
+            <span className={styles.settingItemText}>{content.theme}</span>
             <span>
               {currentTheme === 'light'
-                ? language === 'en'
-                  ? 'Light'
-                  : 'Светлая'
-                : language === 'en'
-                  ? 'Dark'
-                  : 'Тёмная'}
+                ? content.lightTheme
+                : content.darkTheme}
             </span>
           </div>
         </SettingItem>
         <SettingItem onClick={() => updateLanguage()}>
           <div className={styles.settingItemContent}>
             <Globe className={styles.icon} />
-            <span className={styles.settingItemText}>
-              {language === 'en' ? 'Language' : 'Язык'}
-            </span>
-            <span>{language === 'en' ? 'English' : 'Русский'}</span>
+            <span className={styles.settingItemText}>{content.language}</span>
+            <span>{content.currentLanguage}</span>
           </div>
         </SettingItem>
       </SettingsBlock>

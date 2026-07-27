@@ -12,11 +12,34 @@ import ConfirmCodeInput from '../ConfirmCodeInput/ConfirmCodeInput';
 import { useResendCodeMutation } from './useResendCodeMutation';
 import { useNewPasswordForm } from './useNewPasswdForm';
 
+const contentTranlations = {
+  en: {
+    title: 'Create New Password',
+    subtitle:
+      'Please enter a strong password and confirm it with the code that was sent to your email',
+    newPasswordPlaceholder: 'New password',
+    updatePasswordBtn: 'Update password',
+    backToText: 'Back to ',
+    signInLink: 'Sign In',
+  },
+  ru: {
+    title: 'Создайте новый пароль',
+    subtitle:
+      'Пожалуйста, введите надежный пароль и подтвердите его кодом, отправленным на вашу почту',
+    newPasswordPlaceholder: 'Новый пароль',
+    updatePasswordBtn: 'Обновить пароль',
+    backToText: 'Вернуться к ',
+    signInLink: 'Входу',
+  },
+};
+
 const NewPasswdForm = () => {
   const confirmationEmail = useConfirmationEmailStore(
     (state) => state.confirmationEmail,
   );
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
   const navigate = useNavigate();
   const resendCodeMutation = useResendCodeMutation();
   const { register, submit } = useNewPasswordForm();
@@ -35,20 +58,11 @@ const NewPasswdForm = () => {
 
   return (
     <FormCard>
-      <FormCardHeader
-        title={
-          language === 'en' ? 'Create New Password' : 'Создайте новый пароль'
-        }
-        subtitle={
-          language === 'en'
-            ? 'Please enter a strong password and confirm it with the code that was sent to your email'
-            : 'Пожалуйста, введите надежный пароль и подтвердите его кодом, отправленным на вашу почту'
-        }
-      />
+      <FormCardHeader title={content.title} subtitle={content.subtitle} />
       <Form onSubmit={submit}>
         <FormInput
           type="password"
-          placeholder={language === 'en' ? 'New password' : 'Новый пароль'}
+          placeholder={content.newPasswordPlaceholder}
           {...register('newPassword', { required: true })}
         />
         {/* <FormInput
@@ -59,14 +73,12 @@ const NewPasswdForm = () => {
           register={register}
           handleResendCode={handleResendCode}
         />
-        <SubmitFormBtn>
-          {language === 'en' ? 'Update password' : 'Обновить пароль'}
-        </SubmitFormBtn>
+        <SubmitFormBtn>{content.updatePasswordBtn}</SubmitFormBtn>
       </Form>
       <FormCardFooter>
         <span>
-          {language === 'en' ? 'Back to ' : 'Вернуться к '}
-          <Link to="/sign-in">{language === 'en' ? 'Sign In' : 'Входу'}</Link>
+          {content.backToText}
+          <Link to="/sign-in">{content.signInLink}</Link>
         </span>
       </FormCardFooter>
     </FormCard>

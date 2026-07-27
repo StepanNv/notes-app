@@ -6,8 +6,23 @@ import { useGetMe } from '../../../../hooks/useGetMe';
 import { useChangeUsernameForm } from './useChangeUsernameForm';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
+const contentTranlations = {
+  en: {
+    title: 'Change username',
+    usernamePlaceholder: 'New username',
+    saveBtn: 'Save',
+  },
+  ru: {
+    title: 'Сменить имя пользователя',
+    usernamePlaceholder: 'Новое имя пользователя',
+    saveBtn: 'Сохранить',
+  },
+};
+
 const ChangeUsernameModal = () => {
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
   const openedModal = useModalStore((state) => state.openedModal);
   const { data } = useGetMe();
   const { register, submit } = useChangeUsernameForm(data?.username);
@@ -16,24 +31,18 @@ const ChangeUsernameModal = () => {
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalHeader
-        title={
-          language === 'en' ? 'Change username' : 'Сменить имя пользователя'
-        }
-      />
+      <ModalHeader title={content.title} />
       <form className={styles.content} onSubmit={submit}>
         <input
           className={styles.input}
           type="text"
-          placeholder={
-            language === 'en' ? 'New username' : 'Новое имя пользователя'
-          }
+          placeholder={content.usernamePlaceholder}
           minLength={3}
           maxLength={30}
           {...register('username', { required: true })}
         />
         <button className={styles.submitBtn} type="submit">
-          {language === 'en' ? 'Save' : 'Сохранить'}
+          {content.saveBtn}
         </button>
       </form>
     </Modal>

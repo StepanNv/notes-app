@@ -8,48 +8,60 @@ import Form from '../../ui/Form/Form';
 import { useSignUpForm } from './useSignUpForm';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
+const contentTranlations = {
+  en: {
+    title: 'Create an account',
+    subtitle: 'Sign up to get started',
+    emailPlaceholder: 'Email address',
+    usernamePlaceholder: 'Username',
+    passwordPlaceholder: 'Password',
+    signUpBtn: 'Sign Up',
+    alreadyHaveAccountText: 'Already have an account? ',
+    signInLink: 'Sign in',
+  },
+  ru: {
+    title: 'Создать аккаунт',
+    subtitle: 'Зарегистрируйтесь, чтобы начать',
+    emailPlaceholder: 'Адрес электронной почты',
+    usernamePlaceholder: 'Имя пользователя',
+    passwordPlaceholder: 'Пароль',
+    signUpBtn: 'Зарегистрироваться',
+    alreadyHaveAccountText: 'Уже есть аккаунт? ',
+    signInLink: 'Войти',
+  },
+};
+
 const SignUpForm = () => {
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
   const { register, submit } = useSignUpForm();
 
   return (
     <FormCard>
-      <FormCardHeader
-        title={language === 'en' ? 'Create an account' : 'Создать аккаунт'}
-        subtitle={
-          language === 'en'
-            ? 'Sign up to get started'
-            : 'Зарегистрируйтесь, чтобы начать'
-        }
-      />
+      <FormCardHeader title={content.title} subtitle={content.subtitle} />
       <Form onSubmit={submit}>
         <FormInput
           type="email"
-          placeholder={
-            language === 'en' ? 'Email address' : 'Адрес электронной почты'
-          }
+          placeholder={content.emailPlaceholder}
           {...register('email', { required: true })}
         />
         <FormInput
           type="text"
-          placeholder={language === 'en' ? 'Username' : 'Имя пользователя'}
+          placeholder={content.usernamePlaceholder}
           {...register('username', { required: true })}
         />
         <FormInput
           type="password"
-          placeholder={language === 'en' ? 'Password' : 'Пароль'}
+          placeholder={content.passwordPlaceholder}
           {...register('password', { required: true })}
         />
-        <SubmitFormBtn>
-          {language === 'en' ? 'Sign Up' : 'Зарегистрироваться'}
-        </SubmitFormBtn>
+        <SubmitFormBtn>{content.signUpBtn}</SubmitFormBtn>
       </Form>
       <FormCardFooter>
         <span>
-          {language === 'en'
-            ? 'Already have an account? '
-            : 'Уже есть аккаунт? '}
-          <Link to="/sign-in">{language === 'en' ? 'Sign in' : 'Войти'}</Link>
+          {content.alreadyHaveAccountText}
+          <Link to="/sign-in">{content.signInLink}</Link>
         </span>
       </FormCardFooter>
     </FormCard>

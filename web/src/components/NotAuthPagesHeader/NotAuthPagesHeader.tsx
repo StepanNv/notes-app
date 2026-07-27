@@ -4,6 +4,17 @@ import styles from './NotAuthPagesHeader.module.scss';
 import { Link } from 'react-router-dom';
 import { useAppSettingsStore } from '../../stores/useAppSettingsStore';
 
+const contentTranlations = {
+  en: {
+    signInBtn: 'Sign in',
+    signUpBtn: 'Sign up',
+  },
+  ru: {
+    signInBtn: 'Вход',
+    signUpBtn: 'Регистрация',
+  },
+};
+
 const NotAuthPagesHeader = ({
   selectedAuthMethod,
 }: {
@@ -15,6 +26,8 @@ const NotAuthPagesHeader = ({
     | 'verify-email';
 }) => {
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
 
   return (
     <Header>
@@ -25,13 +38,13 @@ const NotAuthPagesHeader = ({
             to="/sign-in"
             className={`${styles.link} ${selectedAuthMethod === 'sign-in' ? styles.opened : ''}`}
           >
-            {language === 'en' ? 'Sign in' : 'Вход'}
+            {content.signInBtn}
           </Link>
           <Link
             to="/sign-up"
             className={`${styles.link} ${selectedAuthMethod === 'sign-up' ? styles.opened : ''}`}
           >
-            {language === 'en' ? 'Sign up' : 'Регистрация'}
+            {content.signUpBtn}
           </Link>
         </nav>
       </div>

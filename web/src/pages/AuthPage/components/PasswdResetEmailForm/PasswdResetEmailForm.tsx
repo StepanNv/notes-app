@@ -8,34 +8,46 @@ import { Link } from 'react-router-dom';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 import { usePasswdResetForm } from './usePasswdResetForm';
 
+const contentTranlations = {
+  en: {
+    title: 'Reset password',
+    subtitle: 'Please enter your email to reset your password',
+    emailPlaceholder: 'Your email',
+    continueBtn: 'Continue',
+    backToText: 'Back to ',
+    signInLink: 'Sign In',
+  },
+  ru: {
+    title: 'Сброс пароля',
+    subtitle: 'Пожалуйста, введите ваш email для сброса пароля',
+    emailPlaceholder: 'Ваш email',
+    continueBtn: 'Продолжить',
+    backToText: 'Вернуться к ',
+    signInLink: 'Входу',
+  },
+};
+
 const PasswdResetEmailForm = () => {
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
   const { register, submit } = usePasswdResetForm();
 
   return (
     <FormCard>
-      <FormCardHeader
-        title={language === 'en' ? 'Reset password' : 'Сброс пароля'}
-        subtitle={
-          language === 'en'
-            ? 'Please enter your email to reset your password'
-            : 'Пожалуйста, введите ваш email для сброса пароля'
-        }
-      />
+      <FormCardHeader title={content.title} subtitle={content.subtitle} />
       <Form onSubmit={submit}>
         <FormInput
           type="email"
-          placeholder={language === 'en' ? 'Your email' : 'Ваш email'}
+          placeholder={content.emailPlaceholder}
           {...register('email', { required: true })}
         />
-        <SubmitFormBtn>
-          {language === 'en' ? 'Continue' : 'Продолжить'}
-        </SubmitFormBtn>
+        <SubmitFormBtn>{content.continueBtn}</SubmitFormBtn>
       </Form>
       <FormCardFooter>
         <span>
-          {language === 'en' ? 'Back to ' : 'Вернуться к '}
-          <Link to="/sign-in">{language === 'en' ? 'Sign In' : 'Входу'}</Link>
+          {content.backToText}
+          <Link to="/sign-in">{content.signInLink}</Link>
         </span>
       </FormCardFooter>
     </FormCard>

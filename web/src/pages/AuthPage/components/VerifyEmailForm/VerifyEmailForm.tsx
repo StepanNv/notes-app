@@ -12,9 +12,31 @@ import { useEffect } from 'react';
 import { useResendCodeMutation } from './useResendCodeMutation';
 import ConfirmCodeInput from '../ConfirmCodeInput/ConfirmCodeInput';
 
+const contentTranlations = {
+  en: {
+    title: 'Check your email',
+    subtitle: (email: string) =>
+      `We sent a 6-digit verification code to ${email}`,
+    confirmBtn: 'Confirm',
+    backToText: 'Back to ',
+    signInLink: 'Sign In',
+  },
+  ru: {
+    title: 'Проверьте вашу почту',
+    subtitle: (email: string) =>
+      `Мы отправили 6-значный код подтверждения на ${email}`,
+    confirmBtn: 'Подтвердить',
+    backToText: 'Вернуться к ',
+    signInLink: 'Входу',
+  },
+};
+
 const VerifyEmailForm = () => {
   const { register, submit } = useVerifyEmailForm();
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
+
   const confimationEmail = useConfirmationEmailStore(
     (state) => state.confirmationEmail,
   );
@@ -40,26 +62,20 @@ const VerifyEmailForm = () => {
   return (
     <FormCard>
       <FormCardHeader
-        title={language === 'en' ? 'Check your email' : 'Проверьте вашу почту'}
-        subtitle={
-          language === 'en'
-            ? `We sent a 6-digit verification code to ${confimationEmail}`
-            : `Мы отправили 6-значный код подтверждения на ${confimationEmail}`
-        }
+        title={content.title}
+        subtitle={content.subtitle(confimationEmail)}
       />
       <Form onSubmit={submit}>
         <ConfirmCodeInput
           register={register}
           handleResendCode={handleResendCode}
         />
-        <SubmitFormBtn>
-          {language === 'en' ? 'Confirm' : 'Подтвердить'}
-        </SubmitFormBtn>
+        <SubmitFormBtn>{content.confirmBtn}</SubmitFormBtn>
       </Form>
       <FormCardFooter>
         <span>
-          {language === 'en' ? 'Back to ' : 'Вернуться к '}
-          <Link to="/sign-in">{language === 'en' ? 'Sign In' : 'Входу'}</Link>
+          {content.backToText}
+          <Link to="/sign-in">{content.signInLink}</Link>
         </span>
       </FormCardFooter>
     </FormCard>

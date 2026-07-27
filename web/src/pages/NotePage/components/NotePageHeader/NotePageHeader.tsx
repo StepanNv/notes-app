@@ -4,17 +4,30 @@ import styles from './NotePageHeader.module.scss';
 import BlueHeaderBtn from '../../../../ui/BlueHeaderBtn/BlueHeaderBtn';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
+const contentTranlations = {
+  en: {
+    backBtn: 'Back',
+    saveBtn: 'Save',
+  },
+  ru: {
+    backBtn: 'Назад',
+    saveBtn: 'Сохранить',
+  },
+};
+
 const NotePageHeader = () => {
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
 
   return (
     <Header>
       <div className={styles.headerBtns}>
         <Link className={styles.headerBtn} to={'/notes'}>
-          {language === 'en' ? 'Back' : 'Назад'}
+          {content.backBtn}
         </Link>
         <BlueHeaderBtn type="submit" form="note-form">
-          {language === 'en' ? 'Save' : 'Сохранить'}
+          {content.saveBtn}
         </BlueHeaderBtn>
       </div>
     </Header>

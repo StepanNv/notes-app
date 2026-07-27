@@ -6,12 +6,29 @@ import SortModalSortBtn from '../SortModalSortBtn/SortModalSortBtn';
 import { useNotesSortStore } from '../../../../stores/useNotesSortStore';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
+const contentTranlations = {
+  en: {
+    title: 'Sort by',
+    sortCustom: 'Custom',
+    sortCreatedAt: 'Created at',
+    sortUpdatedAt: 'Updated at',
+  },
+  ru: {
+    title: 'Сортировка',
+    sortCustom: 'По порядку',
+    sortCreatedAt: 'По дате создания',
+    sortUpdatedAt: 'По дате изменения',
+  },
+};
+
 const SortModal = () => {
   const openedModal = useModalStore((state) => state.openedModal);
   const closeModal = useModalStore((state) => state.closeModal);
   const sort = useNotesSortStore((state) => state.sort);
   const setSort = useNotesSortStore((state) => state.setSort);
   const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
 
   const isOpen = openedModal === 'sort';
 
@@ -22,21 +39,21 @@ const SortModal = () => {
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalHeader title={language === 'en' ? 'Sort by' : 'Сортировка'} />
+      <ModalHeader title={content.title} />
       <div className={styles.content}>
         <SortModalSortBtn
           isSelected={sort === 'custom'}
-          label={language === 'en' ? 'Custom' : 'По порядку'}
+          label={content.sortCustom}
           onClick={() => handleSortClick('custom')}
         />
         <SortModalSortBtn
           isSelected={sort === 'created_at'}
-          label={language === 'en' ? 'Created at' : 'По дате создания'}
+          label={content.sortCreatedAt}
           onClick={() => handleSortClick('created_at')}
         />
         <SortModalSortBtn
           isSelected={sort === 'updated_at'}
-          label={language === 'en' ? 'Updated at' : 'По дате изменения'}
+          label={content.sortUpdatedAt}
           onClick={() => handleSortClick('updated_at')}
         />
       </div>
