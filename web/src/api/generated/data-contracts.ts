@@ -11,6 +11,8 @@
  */
 
 export interface GetMeResDto {
+  theme: "light" | "dark";
+  language: "en" | "ru";
   email: string;
   username: string;
   /** @format date-time */
