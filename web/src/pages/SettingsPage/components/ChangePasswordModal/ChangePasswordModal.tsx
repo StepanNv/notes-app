@@ -12,7 +12,7 @@ const ChangePasswordModal = () => {
   const language = useAppSettingsStore((state) => state.language);
   const openedModal = useModalStore((state) => state.openedModal);
   const { data } = useGetMyProfile();
-  const email = data?.data.email ?? '';
+  const email = data?.email ?? '';
 
   const [step, setStep] = useState<'request' | 'confirm'>('request');
 

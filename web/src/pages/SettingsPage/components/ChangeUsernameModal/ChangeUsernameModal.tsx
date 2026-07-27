@@ -10,7 +10,7 @@ const ChangeUsernameModal = () => {
   const language = useAppSettingsStore((state) => state.language);
   const openedModal = useModalStore((state) => state.openedModal);
   const { data } = useGetMyProfile();
-  const { register, submit } = useChangeUsernameForm(data?.data.username);
+  const { register, submit } = useChangeUsernameForm(data?.username);
 
   const isOpen = openedModal === 'changeUsername';
 

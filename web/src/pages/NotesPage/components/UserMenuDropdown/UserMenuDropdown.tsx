@@ -13,7 +13,7 @@ const UserMenuDropdown = () => {
         className={styles.dropdownTrigger}
         onClick={() => setDropdownOpen(!isDropdownOpen)}
       >
-        {isLoading || isError ? 'Loading...' : data?.data.username}
+        {isLoading || isError ? 'Loading...' : data?.username}
       </button>
       <UserMenuDropdownList isOpen={isDropdownOpen} />
     </div>

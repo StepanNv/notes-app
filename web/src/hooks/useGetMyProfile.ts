@@ -8,5 +8,5 @@ export const useGetMyProfile = () => {
     staleTime: 1000 * 60 * 5,
   });
 
-  return { data, isLoading, isError };
+  return { data: data?.data, isLoading, isError };
 };
