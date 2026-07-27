@@ -2,14 +2,14 @@ import styles from './ChangeUsernameModal.module.scss';
 import Modal from '../../../../components/Modal/Modal';
 import ModalHeader from '../../../../components/ModalHeader/ModalHeader';
 import { useModalStore } from '../../../../stores/useModalStore';
-import { useGetMyProfile } from '../../../../hooks/useGetMyProfile';
+import { useGetMe } from '../../../../hooks/useGetMe';
 import { useChangeUsernameForm } from './useChangeUsernameForm';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
 const ChangeUsernameModal = () => {
   const language = useAppSettingsStore((state) => state.language);
   const openedModal = useModalStore((state) => state.openedModal);
-  const { data } = useGetMyProfile();
+  const { data } = useGetMe();
   const { register, submit } = useChangeUsernameForm(data?.username);
 
   const isOpen = openedModal === 'changeUsername';

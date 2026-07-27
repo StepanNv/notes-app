@@ -3,7 +3,7 @@ import styles from './ChangePasswordModal.module.scss';
 import Modal from '../../../../components/Modal/Modal';
 import ModalHeader from '../../../../components/ModalHeader/ModalHeader';
 import { useModalStore } from '../../../../stores/useModalStore';
-import { useGetMyProfile } from '../../../../hooks/useGetMyProfile';
+import { useGetMe } from '../../../../hooks/useGetMe';
 import { useRequestResetCodeMutation } from './useRequestResetCodeMutation';
 import { useChangePasswordForm } from './useChangePasswordForm';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
@@ -11,7 +11,7 @@ import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 const ChangePasswordModal = () => {
   const language = useAppSettingsStore((state) => state.language);
   const openedModal = useModalStore((state) => state.openedModal);
-  const { data } = useGetMyProfile();
+  const { data } = useGetMe();
   const email = data?.email ?? '';
 
   const [step, setStep] = useState<'request' | 'confirm'>('request');

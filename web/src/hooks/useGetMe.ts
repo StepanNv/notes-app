@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { usersController } from '../api/users-controller';
 
-export const useGetMyProfile = () => {
+export const useGetMe = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['myProfile'],
     queryFn: () => usersController.usersControllerGetMe(),
