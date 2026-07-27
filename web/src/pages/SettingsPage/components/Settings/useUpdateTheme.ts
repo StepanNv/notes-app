@@ -3,7 +3,7 @@ import { useUpdateThemeMutation } from './useUpdateThemeMutation';
 
 export const useUpdateTheme = () => {
   let themeOnClient = useAppSettingsStore((state) => state.theme);
-  const updateThemeOnClient = useAppSettingsStore((state) => state.toggleTheme);
+  const setThemeOnClient = useAppSettingsStore((state) => state.setTheme);
   const updateThemeOnServer = useUpdateThemeMutation();
 
   if (themeOnClient === 'light') {
@@ -11,9 +11,9 @@ export const useUpdateTheme = () => {
   } else {
     themeOnClient = 'light';
   }
-  
+
   return () => {
-    updateThemeOnClient();
+    setThemeOnClient(themeOnClient);
     updateThemeOnServer.mutate(themeOnClient);
   };
 };
