@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './LandingContent.module.scss';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 
@@ -19,14 +19,15 @@ const LandingContent = () => {
   const language = useAppSettingsStore((state) => state.language);
   const content =
     language === 'en' ? contentTranlations.en : contentTranlations.ru;
+  const navigate = useNavigate();
 
   return (
     <div className={styles.landingContent}>
       <span className={styles.title}>{content.title}</span>
       <span className={styles.subtitle}>{content.subtitle}</span>
-      <Link to={'/sign-up'} className={styles.button}>
+      <button onClick={() => navigate('/sign-up')} className={styles.button}>
         {content.getStartedBtn}
-      </Link>
+      </button>
     </div>
   );
 };

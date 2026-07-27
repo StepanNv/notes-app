@@ -1,7 +1,7 @@
 import Header from '../../ui/Header/Header';
 import Logo from '../Logo/Logo';
 import styles from './NotAuthPagesHeader.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppSettingsStore } from '../../stores/useAppSettingsStore';
 
 const contentTranlations = {
@@ -28,24 +28,25 @@ const NotAuthPagesHeader = ({
   const language = useAppSettingsStore((state) => state.language);
   const content =
     language === 'en' ? contentTranlations.en : contentTranlations.ru;
+  const navigate = useNavigate();
 
   return (
     <Header>
       <div className={styles.content}>
         <Logo isAppNameVisible={true} />
         <nav className={styles.authLinks}>
-          <Link
-            to="/sign-in"
-            className={`${styles.link} ${selectedAuthMethod === 'sign-in' ? styles.opened : ''}`}
+          <button
+            onClick={() => navigate('/sign-in')}
+            className={`${styles.navBtn} ${selectedAuthMethod === 'sign-in' ? styles.opened : ''}`}
           >
             {content.signInBtn}
-          </Link>
-          <Link
-            to="/sign-up"
-            className={`${styles.link} ${selectedAuthMethod === 'sign-up' ? styles.opened : ''}`}
+          </button>
+          <button
+            onClick={() => navigate('/sign-up')}
+            className={`${styles.navBtn} ${selectedAuthMethod === 'sign-up' ? styles.opened : ''}`}
           >
             {content.signUpBtn}
-          </Link>
+          </button>
         </nav>
       </div>
     </Header>

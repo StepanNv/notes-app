@@ -20,12 +20,12 @@
     gap: 8px;
   }
 
-  .link {
-    position: relative;
+  .navBtn {
     @include btn-reset;
     @include flex-center;
+    position: relative;
+    cursor: pointer;
     padding: 10px 16px;
-    text-decoration: none;
     font-size: 18px;
     margin-left: 20px;
     border-radius: 20px;

@@ -25,10 +25,11 @@
 }
 
 .button {
+  @include btn-reset;
   padding: 15px 30px;
   background-color: var(--btn-bg);
   color: var(--btn-text-color);
-  text-decoration: none;
+  cursor: pointer;
   font-weight: 600;
   border-radius: 8px;
   font-size: 18px;

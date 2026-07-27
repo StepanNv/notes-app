@@ -5,14 +5,15 @@
   box-sizing: border-box;
 }
 
-// theme variables
+// Light theme
 :root {
   --bg-color-1: #ffffff;
   --text-color: #464646;
-
-  --header-height: 60px;
   --bg-color-2: rgba(192, 192, 192, 0.4);
   --bg-color-2-hover: rgba(192, 192, 192, 0.6);
+
+  // Common
+  --header-height: 60px;
   --bg-color-2-text: rgba(128, 128, 128, 0.6);
   --btn-bg: #5596f6;
   --btn-text-color: #ffffff;
@@ -22,14 +23,17 @@
   --scrollbar-thumb-accent: #5596f6;
 }
 
+// Dark theme
 :root[data-theme='dark'] {
-  --bg-color-1: #1a1a1a;
+  --bg-color-1: #262626;
+  --bg-color-2: rgba(130, 130, 130, 0.4);
+  --bg-color-2-hover: rgba(130, 130, 130, 0.6);
   --text-color: #ffffff;
   --scrollbar-thumb: #747474;
   --scrollbar-thumb-accent: #5596f6;
 }
 
-// scrollbar
+// Scrollbar
 * {
   scrollbar-width: auto;
   scrollbar-color: var(--scrollbar-thumb) transparent;
@@ -62,7 +66,7 @@
   background: transparent;
 }
 
-// main styles
+// Main styles
 
 #root {
   height: 100vh;
@@ -77,4 +81,13 @@
   color: var(--text-color);
   font-family: 'Inter', sans-serif;
   user-select: none;
+
+  a {
+    color: var(--btn-bg);
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--active-btn-bg);
+    }
+  }
 }
