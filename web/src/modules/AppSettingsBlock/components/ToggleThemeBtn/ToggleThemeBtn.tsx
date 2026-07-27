@@ -3,11 +3,11 @@ import styles from './ToggleThemeBtn.module.scss';
 import { Sun, Moon } from 'lucide-react';
 
 const ToggleThemeBtn = () => {
-  const toggleTheme = useAppSettingsStore((state) => state.toggleTheme);
+  const setTheme = useAppSettingsStore((state) => state.setTheme);
   const theme = useAppSettingsStore((state) => state.theme);
 
   return (
-    <button className={styles.toggleThemeBtn} onClick={toggleTheme}>
+    <button className={styles.toggleThemeBtn} onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
       {theme === 'light' ? (
         <Moon className={styles.toggleThemeBtnIcon} />
       ) : (
