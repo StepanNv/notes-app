@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../../../ui/Header/Header';
 import styles from './NotePageHeader.module.scss';
 import BlueHeaderBtn from '../../../../ui/BlueHeaderBtn/BlueHeaderBtn';
