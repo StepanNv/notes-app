@@ -1,1 +1,0 @@
-export type AuthPageVariants = 'SIGN_IN' | 'SIGN_UP';
