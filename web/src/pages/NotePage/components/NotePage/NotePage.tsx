@@ -29,7 +29,9 @@ const NotePage = () => {
     return (
       <div className={styles.notePage}>
         <NotePageHeader />
-        <main className={styles.main}>{content.loadingText}</main>
+        <main className={styles.main}>
+          <div className={styles.content}>{content.loadingText}</div>
+        </main>
       </div>
     );
   }
@@ -38,7 +40,9 @@ const NotePage = () => {
     return (
       <>
         <NotePageHeader />
-        <main className={styles.main}>{content.errorText}</main>
+        <main className={styles.main}>
+          <div className={styles.content}>{content.errorText}</div>
+        </main>
       </>
     );
   }
