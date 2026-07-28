@@ -12,15 +12,12 @@ export class UsersService {
 
   public createOne(email: string, username: string, hashedPassword: string) {
     return this.prismaService.user.create({
-      data: {
-        email,
-        username,
-        hashedPassword,
-      },
+      data: { email, username, hashedPassword },
     });
   }
 
-  public async getOne(args: {
+  // Новый метод: ищет пользователя, но не бросает ошибку, если его нет
+  public async findOne(args: {
     id?: string;
     email?: string;
     username?: string;
@@ -35,11 +32,17 @@ export class UsersService {
       throw new BadRequestException('No arguments provided');
     }
 
-    const user = await this.prismaService.user.findFirst({
-      where: {
-        OR: orConditions,
-      },
+    return this.prismaService.user.findFirst({
+      where: { OR: orConditions },
     });
+  }
+
+  public async getOne(args: {
+    id?: string;
+    email?: string;
+    username?: string;
+  }) {
+    const user = await this.findOne(args);
 
     if (!user) {
       throw new NotFoundException('User not found');
@@ -49,7 +52,7 @@ export class UsersService {
   }
 
   public async updateOne(id: string, data: UserUpdateInput) {
-    const existingUser = await this.getOne({ id: id });
+    const existingUser = await this.getOne({ id }); // Здесь getOne уместен
     return this.prismaService.user.update({
       where: { id: existingUser.id },
       data,

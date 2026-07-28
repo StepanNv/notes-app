@@ -22,7 +22,7 @@ export class AuthService {
   ) {}
 
   public async signUp(dto: SignUpDto) {
-    const isUserExists = await this.usersService.getOne({
+    const isUserExists = await this.usersService.findOne({
       email: dto.email,
       username: dto.username,
     });
@@ -55,11 +55,6 @@ export class AuthService {
 
   public async signIn(dto: SignInDto) {
     const user = await this.usersService.getOne({ email: dto.email });
-    if (!user) {
-      throw new BadRequestException({
-        message: 'User with this email is not exists',
-      });
-    }
 
     const passwordEquals = await bcrypt.compare(
       dto.password,
