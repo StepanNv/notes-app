@@ -1,3 +1,9 @@
+.confirmCodeInput {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .resendBtn {
   @include btn-reset;
   align-self: flex-start;

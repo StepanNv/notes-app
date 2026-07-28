@@ -10,7 +10,7 @@ import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useResendCodeMutation } from './useResendCodeMutation';
-import ConfirmCodeInput from '../ConfirmCodeInput/ConfirmCodeInput';
+import FormInput from '../../ui/FormInput/FormInput';
 
 const contentTranlations = {
   en: {
@@ -18,6 +18,8 @@ const contentTranlations = {
     subtitle: (email: string) =>
       `We sent a 6-digit verification code to ${email}`,
     confirmBtn: 'Confirm',
+    codePlaceholder: 'Code',
+    resendCodeBtn: 'Resend code',
     backToText: 'Back to ',
     signInLink: 'Sign In',
   },
@@ -26,6 +28,8 @@ const contentTranlations = {
     subtitle: (email: string) =>
       `Мы отправили 6-значный код подтверждения на ${email}`,
     confirmBtn: 'Подтвердить',
+    codePlaceholder: 'Код',
+    resendCodeBtn: 'Отправить повторно',
     backToText: 'Вернуться к ',
     signInLink: 'Входу',
   },
@@ -66,10 +70,22 @@ const VerifyEmailForm = () => {
         subtitle={content.subtitle(confimationEmail)}
       />
       <Form onSubmit={submit}>
-        <ConfirmCodeInput
-          register={register}
-          handleResendCode={handleResendCode}
+        <FormInput
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          minLength="6"
+          maxLength="6"
+          placeholder={content.codePlaceholder}
+          {...register('confirmationCode', { required: true })}
         />
+        <button
+          className={styles.resendBtn}
+          type="button"
+          onClick={handleResendCode}
+        >
+          {content.resendCodeBtn}
+        </button>
         <SubmitFormBtn>{content.confirmBtn}</SubmitFormBtn>
       </Form>
       <FormCardFooter>
