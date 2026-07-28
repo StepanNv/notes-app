@@ -1,0 +1,17 @@
+.userMenuDropdown {
+  position: relative;
+}
+
+.dropdownTrigger {
+  max-width: 120px;
+  @include btn-reset;
+  font-size: 18px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include mobile {
+    max-width: 60px;
+  }
+}

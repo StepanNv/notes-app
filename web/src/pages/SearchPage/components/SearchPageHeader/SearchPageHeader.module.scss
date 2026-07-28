@@ -1,0 +1,15 @@
+.searchInput {
+  height: 40px;
+  display: flex;
+  flex: 1;
+  background-color: transparent;
+  border: 0;
+  font-size: 18px;
+  color: inherit;
+  margin-left: 10px;
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}

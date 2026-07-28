@@ -1,0 +1,8 @@
+.colorSelector {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(4, 70px);
+  grid-template-rows: repeat(2, 70px);
+  padding: 10px;
+  gap: 10px;
+}

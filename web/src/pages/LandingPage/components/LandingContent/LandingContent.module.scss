@@ -1,0 +1,49 @@
+.landingContent {
+  @include flex-center;
+  flex: 1;
+  flex-direction: column;
+  text-align: center;
+}
+
+.title {
+  font-size: 48px;
+  margin-bottom: 10px;
+
+  @include mobile {
+    font-size: 32px;
+  }
+}
+
+.subtitle {
+  font-size: 20px;
+  margin-bottom: 40px;
+
+  @include mobile {
+    font-size: 16px;
+    margin-bottom: 28px;
+  }
+}
+
+.button {
+  @include btn-reset;
+  padding: 15px 30px;
+  background-color: var(--btn-bg);
+  color: var(--btn-text-color);
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 8px;
+  font-size: 18px;
+  transition: background-color 0.2s;
+
+  @include mobile {
+    width: 100%;
+    max-width: 280px;
+    padding: 14px 20px;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  &:hover {
+    background-color: var(--active-btn-bg);
+  }
+}

@@ -1,18 +1,22 @@
-import '../src/styles/App.scss';
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './router/AppRouter';
-import { AuthProvider } from './context/auth/AuthProvider';
+import './styles/main.scss';
+import { ErrorAlertsBox } from './modules/ErrorAlertsBox';
+import { MessageAlertsBox } from './modules/MessageAlertsBox';
+import { useSyncAppSettings } from './hooks/useSyncAppSettings';
 
 const App = () => {
+  useSyncAppSettings();
+
   return (
-    <div className='App'>
-      <AuthProvider>
-        <BrowserRouter>
-          <AppRouter/>
-        </BrowserRouter>
-      </AuthProvider>
+    <div className="App">
+      <BrowserRouter>
+        <AppRouter />
+        <ErrorAlertsBox />
+        <MessageAlertsBox />
+      </BrowserRouter>
     </div>
-  )
-}
+  );
+};
 
 export default App;

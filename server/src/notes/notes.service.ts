@@ -5,24 +5,21 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import type { Note, Prisma, status, User } from '../../prisma/generated/client';
-import { AddNoteDto } from './dtos/add-note.dto';
-import { ArchiveNotesDto } from './dtos/archive-notes.dto';
-import { UnarchiveNotesDto } from './dtos/unarchive-notes.dto';
-import { TrashNotesDto } from './dtos/trash-notes.dto';
-import { RestoreTrashedNotesDto } from './dtos/restore-trashed-notes.dto';
-import { DeleteNotesDto } from './dtos/delete-notes.dto';
-import { UpdateNotesColorDto } from './dtos/update-notes-color.dto';
-import { UpdateNoteContentDto } from './dtos/update-note-content.dto';
-import { UpdateNotePositionDto } from './dtos/update-note-position.dto';
-import { GetNotesDto, SORT_METHODS } from './dtos/get-notes.dto';
+import type { Prisma, User } from '../../prisma/generated/client';
+import { AddNoteDto } from './dtos/req/add-note.dto';
+import { DeleteNotesDto } from './dtos/req/delete-notes.dto';
+import { UpdateNotesColorDto } from './dtos/req/update-notes-color.dto';
+import { UpdateNoteContentDto } from './dtos/req/update-note-content.dto';
+import { UpdateNotePositionDto } from './dtos/req/update-note-position.dto';
+import { GetNotesDto, SORT_METHODS } from './dtos/req/get-notes.dto';
+import { UpdateStatusDto } from './dtos/req/update-status.dto';
 
 @Injectable()
 export class NotesService {
   constructor(private readonly prismaService: PrismaService) {}
 
   // Добавить заметку
-  addNote(dto: AddNoteDto, authorId: User['id']) {
+  public addNote(dto: AddNoteDto, authorId: User['id']) {
     return this.prismaService.$transaction(async (prisma) => {
       const lastDefaultNote = await prisma.note.findFirst({
         where: { status: 'default', authorId: authorId },
@@ -46,48 +43,73 @@ export class NotesService {
     });
   }
 
-  // Поместить заметки в архив
-  archiveNotes(dto: ArchiveNotesDto, authorId: User['id']) {
-    return this.changeNoteStatus({
-      noteIds: dto.noteIds,
-      currentStatus: 'default',
-      selectedStatus: 'archived',
-      authorId: authorId,
-    });
-  }
+  // Сменить статус заметки
+  public updateStatus(dto: UpdateStatusDto, authorId: User['id']) {
+    return this.prismaService.$transaction(async (prisma) => {
+      // Получение и проверка на существование в этом статусе заметок которые прислал юзер.
+      const notesToChange = await this.prismaService.note.findMany({
+        where: {
+          id: { in: dto.noteIds },
+          status: dto.currentStatus,
+          authorId: authorId,
+        },
+        orderBy: { positionNumber: 'desc' },
+      });
 
-  // Вынуть из архива
-  unarchiveNotes(dto: UnarchiveNotesDto, authorId: User['id']) {
-    return this.changeNoteStatus({
-      noteIds: dto.noteIds,
-      currentStatus: 'archived',
-      selectedStatus: 'default',
-      authorId: authorId,
-    });
-  }
+      if (notesToChange.length < dto.noteIds.length) {
+        throw new ForbiddenException(
+          'Failed to change notes status due to their current status or access restrictions.',
+        );
+      }
 
-  // Поместить заметки в корзину
-  trashNotes(dto: TrashNotesDto, authorId: User['id']) {
-    return this.changeNoteStatus({
-      noteIds: dto.noteIds,
-      currentStatus: dto.currentStatus,
-      selectedStatus: 'trashed',
-      authorId: authorId,
-    });
-  }
+      // Получение самой последней заметки по postitionNumber
+      // из списка заметок с выбранным статусом для вычисления positionNumber,
+      // для перемащемых в новый статус заметок.
+      const lastNoteInSelectedStatus = await prisma.note.findFirst({
+        where: { status: dto.selectedStatus, authorId: authorId },
+        orderBy: { positionNumber: 'desc' },
+      });
 
-  // Вернуть заметки из корзины
-  restoreTrashedNotes(dto: RestoreTrashedNotesDto, authorId: User['id']) {
-    return this.changeNoteStatus({
-      noteIds: dto.noteIds,
-      currentStatus: 'trashed',
-      selectedStatus: 'default',
-      authorId: authorId,
+      // Вычисление positionNumber для перемещамых в новый статус заметок (последнее место)
+      let newPositionNumberInSelectedStatus =
+        lastNoteInSelectedStatus?.positionNumber
+          ? lastNoteInSelectedStatus.positionNumber + 1
+          : 1;
+
+      // Изменение статуса извлеченных заметок на selectedStatus и установка нового
+      for (const note of notesToChange) {
+        await prisma.note.update({
+          where: { id: note.id },
+          data: {
+            status: dto.selectedStatus,
+            positionNumber: newPositionNumberInSelectedStatus++,
+          },
+        });
+      }
+
+      // Получение позиции, которые заметки занимали ранее (для сдвига).
+      const oldPositions = notesToChange.map((note) => note.positionNumber);
+
+      // Закрытие дыр в нумерации заметок прошлого статуса путём сдвига positionNumber на -1.
+      // Массив oldPositions отсортирован от большего к меньшему, чтобы закрывать дыры с конца списка.
+      // Если идти по возрастанию, первый же сдвиг собьет нумерацию для всех оставшихся дыр.
+      for (const pos of oldPositions) {
+        await prisma.note.updateMany({
+          where: {
+            status: dto.currentStatus,
+            authorId: authorId,
+            positionNumber: { gt: pos }, // gt - geater than
+          },
+          data: {
+            positionNumber: { decrement: 1 },
+          },
+        });
+      }
     });
   }
 
   // Удалить заметки
-  deleteNotes(dto: DeleteNotesDto, authorId: User['id']) {
+  public deleteNotes(dto: DeleteNotesDto, authorId: User['id']) {
     return this.prismaService.$transaction(async (prisma) => {
       const notesToDelete = await prisma.note.findMany({
         where: {
@@ -125,7 +147,10 @@ export class NotesService {
   }
 
   // Обновить цвет заметки
-  async updateNotesColor(dto: UpdateNotesColorDto, authorId: User['id']) {
+  public async updateNotesColor(
+    dto: UpdateNotesColorDto,
+    authorId: User['id'],
+  ) {
     await this.prismaService.note.updateMany({
       where: {
         id: { in: dto.noteIds },
@@ -153,7 +178,10 @@ export class NotesService {
   }
 
   // Обновить контент заметки
-  async updateNoteContent(dto: UpdateNoteContentDto, authorId: User['id']) {
+  public async updateNoteContent(
+    dto: UpdateNoteContentDto,
+    authorId: User['id'],
+  ) {
     const updateResult = await this.prismaService.note.updateMany({
       where: {
         id: dto.noteId,
@@ -178,7 +206,7 @@ export class NotesService {
   }
 
   // Сменить позицию заметки
-  updateNotePosition(dto: UpdateNotePositionDto, authorId: User['id']) {
+  public updateNotePosition(dto: UpdateNotePositionDto, authorId: User['id']) {
     return this.prismaService.$transaction(async (prisma) => {
       const currentNote = await prisma.note.findFirst({
         where: { id: dto.noteId, authorId: authorId },
@@ -239,7 +267,7 @@ export class NotesService {
   }
 
   // Получить заметки
-  async getNotes(query: GetNotesDto, authorId: User['id']) {
+  public async getNotes(query: GetNotesDto, authorId: User['id']) {
     const { status, sort, search, limit, last_id } = query;
 
     // Формируем условия фильтрации (WHERE)
@@ -269,7 +297,7 @@ export class NotesService {
       case SORT_METHODS.CUSTOM:
         // Для custom сортировки у вас должно быть отдельное поле в БД,
         // например orderIndex, которое вы обновляете при drag-n-drop
-        orderBy = { positionNumber: 'asc' };
+        orderBy = { positionNumber: 'desc' };
         break;
     }
 
@@ -291,85 +319,22 @@ export class NotesService {
 
     // Возвращаем результат и следующий last_id для фронтенда
     return {
-      data: notes,
-      meta: {
-        // Если вернулось столько же элементов, сколько мы просили,
-        // значит скорее всего есть еще данные
-        next_last_id:
-          notes.length === limit ? notes[notes.length - 1].id : null,
-      },
+      notes: notes,
+      next_last_id: notes.length === limit ? notes[notes.length - 1].id : null, // Если вернулось столько же элементов,
+      // сколько мы просили, значит скорее всего есть еще данные
     };
   }
 
-  // PRIVATE METHODS
-
-  // Сменить статус заметки
-  private changeNoteStatus(args: {
-    noteIds: Note['id'][];
-    currentStatus: status;
-    selectedStatus: status;
-    authorId: Note['authorId'];
-  }) {
-    return this.prismaService.$transaction(async (prisma) => {
-      // Получение и проверка на существование в этом статусе заметок которые прислал юзер.
-      const notesToChange = await this.prismaService.note.findMany({
-        where: {
-          id: { in: args.noteIds },
-          status: args.currentStatus,
-          authorId: args.authorId,
-        },
-        orderBy: { positionNumber: 'desc' },
-      });
-
-      if (notesToChange.length < args.noteIds.length) {
-        throw new ForbiddenException(
-          'Failed to archive notes due to their current status or access restrictions.',
-        );
-      }
-
-      // Получение самой последней заметки по postitionNumber
-      // из списка заметок с выбранным статусом для вычисления positionNumber,
-      // для перемащемых в новый статус заметок.
-      const lastNoteInSelectedStatus = await prisma.note.findFirst({
-        where: { status: args.selectedStatus, authorId: args.authorId },
-        orderBy: { positionNumber: 'desc' },
-      });
-
-      // Вычисление positionNumber для перемещамых в новый статус заметок (последнее место)
-      let newPositionNumberInSelectedStatus =
-        lastNoteInSelectedStatus?.positionNumber
-          ? lastNoteInSelectedStatus.positionNumber + 1
-          : 1;
-
-      // Изменение статуса извлеченных заметок на selectedStatus и установка нового
-      for (const note of notesToChange) {
-        await prisma.note.update({
-          where: { id: note.id },
-          data: {
-            status: args.selectedStatus,
-            positionNumber: newPositionNumberInSelectedStatus++,
-          },
-        });
-      }
-
-      // Получение позиции, которые заметки занимали ранее (для сдвига).
-      const oldPositions = notesToChange.map((note) => note.positionNumber);
-
-      // Закрытие дыр в нумерации заметок прошлого статуса путём сдвига positionNumber на -1.
-      // Массив oldPositions отсортирован от большего к меньшему, чтобы закрывать дыры с конца списка.
-      // Если идти по возрастанию, первый же сдвиг собьет нумерацию для всех оставшихся дыр.
-      for (const pos of oldPositions) {
-        await prisma.note.updateMany({
-          where: {
-            status: args.currentStatus,
-            authorId: args.authorId,
-            positionNumber: { gt: pos }, // gt - geater than
-          },
-          data: {
-            positionNumber: { decrement: 1 },
-          },
-        });
-      }
+  // Получить заметку
+  public async getNote(id: string, authorId: User['id']) {
+    const note = await this.prismaService.note.findFirst({
+      where: { id: id, authorId: authorId },
     });
+
+    if (!note) {
+      throw new NotFoundException();
+    }
+
+    return { note };
   }
 }

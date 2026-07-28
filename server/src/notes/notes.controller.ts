@@ -3,25 +3,29 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
+  Patch,
   Post,
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { AddNoteDto } from './dtos/add-note.dto';
+import { AddNoteDto } from './dtos/req/add-note.dto';
 import { NotesService } from './notes.service';
-import { ArchiveNotesDto } from './dtos/archive-notes.dto';
-import { UnarchiveNotesDto } from './dtos/unarchive-notes.dto';
-import { TrashNotesDto } from './dtos/trash-notes.dto';
-import { RestoreTrashedNotesDto } from './dtos/restore-trashed-notes.dto';
-import { DeleteNotesDto } from './dtos/delete-notes.dto';
-import { UpdateNotesColorDto } from './dtos/update-notes-color.dto';
-import { UpdateNoteContentDto } from './dtos/update-note-content.dto';
-import { JwtAccessAuthGuard } from '../auth/guards/jwt-access-auth.guard';
+import { DeleteNotesDto } from './dtos/req/delete-notes.dto';
+import { UpdateNotesColorDto } from './dtos/req/update-notes-color.dto';
+import { UpdateNoteContentDto } from './dtos/req/update-note-content.dto';
+import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 import { GetAccessTokenPayload } from '../auth/decorators/get-at-payload.decorator';
-import type { TJwtPayload } from '../auth/types/jwt-payload';
-import { UpdateNotePositionDto } from './dtos/update-note-position.dto';
-import { GetNotesDto } from './dtos/get-notes.dto';
+import type { TTokensPayload } from '../auth/types/jwt-payload';
+import { UpdateNotePositionDto } from './dtos/req/update-note-position.dto';
+import { GetNotesDto } from './dtos/req/get-notes.dto';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import { AddNoteResDto } from './dtos/res/add-note-res.dto';
+import { UpdateNotesColorResDto } from './dtos/res/update-notes-color-res.dto';
+import { UpdateNoteContentResDto } from './dtos/res/update-note-content-res.dto';
+import { GetNotesResDto } from './dtos/res/get-notes-res.dto';
+import { GetNoteResDto } from './dtos/res/get-note.res.dto';
+import { UpdateStatusDto } from './dtos/req/update-status.dto';
 
 @ApiBearerAuth()
 @Controller('notes')
@@ -29,102 +33,82 @@ export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 
   @ApiOperation({ summary: 'Добавить заметку' })
-  @Post('/add')
-  @UseGuards(JwtAccessAuthGuard)
-  addNote(
+  @Post('/')
+  @UseGuards(AccessTokenGuard)
+  public add(
     @Body() dto: AddNoteDto,
-    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
-    return this.notesService.addNote(dto, accessJwtPayload.userId);
+    @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
+  ): Promise<AddNoteResDto> {
+    return this.notesService.addNote(dto, accessTokenPayload.userId);
   }
 
-  @ApiOperation({ summary: 'Архивировать заметку' })
-  @Post('/archive')
-  @UseGuards(JwtAccessAuthGuard)
-  archiveNotes(
-    @Body() dto: ArchiveNotesDto,
-    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
+  @ApiOperation({ summary: 'Обновить статус заметок' })
+  @Patch('/status')
+  @UseGuards(AccessTokenGuard)
+  public updateStatus(
+    @Body() dto: UpdateStatusDto,
+    @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
   ) {
-    return this.notesService.archiveNotes(dto, accessJwtPayload.userId);
+    return this.notesService.updateStatus(dto, accessTokenPayload.userId);
   }
 
-  @ApiOperation({ summary: 'Разрхивировать заметку' })
-  @Post('/unarchive')
-  @UseGuards(JwtAccessAuthGuard)
-  unarchiveNotes(
-    @Body() dto: UnarchiveNotesDto,
-    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
-    return this.notesService.unarchiveNotes(dto, accessJwtPayload.userId);
-  }
-
-  @ApiOperation({ summary: 'Поместить заметку корзину' })
-  @Post('/trash')
-  @UseGuards(JwtAccessAuthGuard)
-  trashNotes(
-    @Body() dto: TrashNotesDto,
-    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
-    return this.notesService.trashNotes(dto, accessJwtPayload.userId);
-  }
-
-  @ApiOperation({ summary: 'Убрать заметку из корзины' })
-  @Post('/restore-trashed')
-  @UseGuards(JwtAccessAuthGuard)
-  restoreTrashedNotes(
-    @Body() dto: RestoreTrashedNotesDto,
-    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
-    return this.notesService.restoreTrashedNotes(dto, accessJwtPayload.userId);
-  }
-
-  @ApiOperation({ summary: 'Удалить замтеку' })
-  @Delete('/delete')
-  @UseGuards(JwtAccessAuthGuard)
-  deleteNotes(
+  @ApiOperation({ summary: 'Удалить заметки' })
+  @Delete('/')
+  @UseGuards(AccessTokenGuard)
+  public deleteNotes(
     @Body() dto: DeleteNotesDto,
-    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
+    @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
   ) {
-    return this.notesService.deleteNotes(dto, accessJwtPayload.userId);
+    return this.notesService.deleteNotes(dto, accessTokenPayload.userId);
   }
 
-  @ApiOperation({ summary: 'Обновить цвет заметки' })
-  @Post('/update-color')
-  @UseGuards(JwtAccessAuthGuard)
-  updateNotesColor(
+  @ApiOperation({ summary: 'Обновить цвет заметок' })
+  @Patch('/color')
+  @UseGuards(AccessTokenGuard)
+  public updateColor(
     @Body() dto: UpdateNotesColorDto,
-    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
-    return this.notesService.updateNotesColor(dto, accessJwtPayload.userId);
+    @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
+  ): Promise<UpdateNotesColorResDto> {
+    return this.notesService.updateNotesColor(dto, accessTokenPayload.userId);
   }
 
   @ApiOperation({ summary: 'Обновить контент заметки (заголовок, текст)' })
-  @Post('/update-content')
-  @UseGuards(JwtAccessAuthGuard)
-  updateNoteContent(
+  @Patch('/content')
+  @UseGuards(AccessTokenGuard)
+  public updateContent(
     @Body() dto: UpdateNoteContentDto,
-    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
-    return this.notesService.updateNoteContent(dto, accessJwtPayload.userId);
+    @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
+  ): Promise<UpdateNoteContentResDto> {
+    return this.notesService.updateNoteContent(dto, accessTokenPayload.userId);
   }
 
-  @ApiOperation({ summary: 'Изменить позицию заметки' })
-  @Post('/update-position')
-  @UseGuards(JwtAccessAuthGuard)
-  updateNotePosition(
+  @ApiOperation({ summary: 'Обновить позицию заметки' })
+  @Patch('/position')
+  @UseGuards(AccessTokenGuard)
+  public updatePosition(
     @Body() dto: UpdateNotePositionDto,
-    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
+    @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
   ) {
-    return this.notesService.updateNotePosition(dto, accessJwtPayload.userId);
+    return this.notesService.updateNotePosition(dto, accessTokenPayload.userId);
   }
 
   @ApiOperation({ summary: 'Получить заметки' })
   @Get('/')
-  @UseGuards(JwtAccessAuthGuard)
-  getNotes(
+  @UseGuards(AccessTokenGuard)
+  public getMany(
     @Query() query: GetNotesDto,
-    @GetAccessTokenPayload() accessJwtPayload: TJwtPayload,
-  ) {
-    return this.notesService.getNotes(query, accessJwtPayload.userId);
+    @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
+  ): Promise<GetNotesResDto> {
+    return this.notesService.getNotes(query, accessTokenPayload.userId);
+  }
+
+  @ApiOperation({ summary: 'Получить заметку' })
+  @Get('/:id')
+  @UseGuards(AccessTokenGuard)
+  public getOne(
+    @Param('id') id: string,
+    @GetAccessTokenPayload() accessTokenPayload: TTokensPayload,
+  ): Promise<GetNoteResDto> {
+    return this.notesService.getNote(id, accessTokenPayload.userId);
   }
 }

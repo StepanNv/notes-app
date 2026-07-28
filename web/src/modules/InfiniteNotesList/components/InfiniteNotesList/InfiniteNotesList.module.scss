@@ -1,0 +1,23 @@
+.infiniteNotesList {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.loading {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

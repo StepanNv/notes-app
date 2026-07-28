@@ -1,0 +1,31 @@
+.sidebar {
+  width: 320px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color-1);
+  position: absolute;
+  top: 0;
+  left: -320px;
+  transition: left 0.3s ease;
+  z-index: 1001;
+  border-radius: 0 15px 15px 0;
+  cursor: default;
+  &.opened {
+    left: 0;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.navList {
+  width: 92%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}

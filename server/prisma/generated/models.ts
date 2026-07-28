@@ -10,4 +10,5 @@
  */
 export type * from './models/User.js'
 export type * from './models/Note.js'
+export type * from './models/ConfirmationCode.js'
 export type * from './commonInputTypes.js'

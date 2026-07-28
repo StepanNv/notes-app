@@ -1,0 +1,81 @@
+import styles from './InfiniteNotesList.module.scss';
+import NoNotesContent from '../NoNotesContent/NoNotesContent';
+import NoteItem from '../NoteItem/NoteItem';
+import { useInfiniteNotesQuery } from './useInfiniteNotesQuery';
+import { useInfiniteScrollTrigger } from './useInfiniteScrollTrigger';
+import type { NotesControllerGetManyParams } from '../../../../api/generated/data-contracts';
+import { useEffect } from 'react';
+import { useNotesSelectionStore } from '../../../../stores/useNotesSelectionStore';
+import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
+
+const contentTranlations = {
+  en: {
+    loading: 'Loading...',
+    errorMessage: 'Something went wrong. Please try again later.',
+  },
+  ru: {
+    loading: 'Загрузка...',
+    errorMessage: 'Что-то пошло не так. Пожалуйста, попробуйте позже.',
+  },
+};
+
+const InfiniteNotesList = ({
+  query,
+}: {
+  query: NotesControllerGetManyParams;
+}) => {
+  const language = useAppSettingsStore((state) => state.language);
+  const content =
+    language === 'en' ? contentTranlations.en : contentTranlations.ru;
+  const {
+    data,
+    fetchNextPage,
+    isError,
+    isLoading,
+    isFetchingNextPage,
+    hasNextPage,
+  } = useInfiniteNotesQuery(query);
+  const { ref } = useInfiniteScrollTrigger(fetchNextPage);
+  const isSelected = useNotesSelectionStore((state) => state.isSelected);
+  const clearSelectedNotes = useNotesSelectionStore((state) => state.clear);
+
+  useEffect(() => () => clearSelectedNotes(), []);
+
+  const notes = data?.pages.flatMap((page) => page.notes) ?? [];
+
+  if (isLoading) {
+    return <div className={styles.loading}>{content.loading}</div>;
+  }
+  if (isError) {
+    return <div className={styles.error}>{content.errorMessage}</div>;
+  }
+
+  return (
+    <ul className={styles.infiniteNotesList}>
+      {notes.length ? (
+        <>
+          {notes.map((note) => (
+            <NoteItem
+              key={note.id}
+              id={note.id}
+              title={note.title}
+              text={note.text}
+              status={note.status}
+              colorKey={note.colorKey}
+              isSelected={isSelected(note.id)}
+            />
+          ))}
+          {isFetchingNextPage ? (
+            <div>{content.loading}</div>
+          ) : (
+            hasNextPage && <div ref={ref} />
+          )}
+        </>
+      ) : (
+        <NoNotesContent />
+      )}
+    </ul>
+  );
+};
+
+export default InfiniteNotesList;

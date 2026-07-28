@@ -1,0 +1,97 @@
+$alert-bg-color: #34a853;
+$alert-text-color: #ffffff;
+
+.messageAlert {
+  display: flex;
+  align-items: flex-start;
+  background-color: $alert-bg-color;
+  color: $alert-text-color;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow:
+    0 8px 24px rgba(52, 168, 83, 0.25),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  max-width: 380px;
+  gap: 12px;
+  animation: slideAndFade 4s ease-in-out;
+  margin-bottom: 10px;
+}
+
+.closing {
+  animation: fadeOut 450ms ease-in-out forwards;
+}
+
+.iconWrapper {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $alert-bg-color;
+  margin-top: 2px;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.2px;
+}
+
+.message {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  opacity: 0.95;
+}
+
+@keyframes slideAndFade {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  85% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}

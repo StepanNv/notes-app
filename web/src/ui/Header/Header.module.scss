@@ -1,0 +1,10 @@
+.header {
+  width: 100%;
+  height: var(--header-height);
+  z-index: 100;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--mark-up);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+}

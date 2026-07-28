@@ -1,0 +1,97 @@
+$alert-bg-color: #ea4d3d;
+$alert-text-color: #ffffff;
+
+.errorAlert {
+  display: flex;
+  align-items: flex-start;
+  background-color: $alert-bg-color;
+  color: $alert-text-color;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow:
+    0 8px 24px rgba(234, 77, 61, 0.25),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  max-width: 380px;
+  gap: 12px;
+  animation: slideAndFade 4s ease-in-out;
+  margin-bottom: 10px;
+}
+
+.closing {
+  animation: fadeOut 450ms ease-in-out forwards;
+}
+
+.iconWrapper {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $alert-bg-color; // Передает красный цвет в SVG через currentColor
+  margin-top: 2px;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.2px;
+}
+
+.message {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  opacity: 0.95;
+}
+
+@keyframes slideAndFade {
+  0% {
+    transform: translateY(100%); /* Спрятан снизу */
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(0); /* Всплыл и встал на место */
+    opacity: 1;
+  }
+  85% {
+    transform: translateY(0); /* Висит и читается пользователем */
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0; /* Плавно растворился */
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,28 @@
+.sidebarHeader {
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  border-radius: 0px 10px 0px 0px;
+  border-bottom: 1px solid var(--mark-up);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logoIconWrapper {
+  width: 26px;
+  height: 26px;
+  margin-right: 6px;
+
+  svg {
+    border-radius: 2px;
+  }
+}
+
+.appName {
+  font-size: 22px;
+}

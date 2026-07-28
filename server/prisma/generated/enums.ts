@@ -21,7 +21,7 @@ export const colorKey = {
   NINTH: 'NINTH',
   TENTH: 'TENTH',
   ELEVENTH: 'ELEVENTH',
-  TWELVEFTH: 'TWELVEFTH'
+  TWELFTH: 'TWELFTH'
 } as const
 
 export type colorKey = (typeof colorKey)[keyof typeof colorKey]
@@ -34,3 +34,27 @@ export const status = {
 } as const
 
 export type status = (typeof status)[keyof typeof status]
+
+
+export const ConfirmationCodeType = {
+  VERIFICATION: 'VERIFICATION',
+  PASSWORD_RESET: 'PASSWORD_RESET'
+} as const
+
+export type ConfirmationCodeType = (typeof ConfirmationCodeType)[keyof typeof ConfirmationCodeType]
+
+
+export const theme = {
+  light: 'light',
+  dark: 'dark'
+} as const
+
+export type theme = (typeof theme)[keyof typeof theme]
+
+
+export const language = {
+  en: 'en',
+  ru: 'ru'
+} as const
+
+export type language = (typeof language)[keyof typeof language]

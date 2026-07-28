@@ -1,0 +1,7 @@
+.formCardFooter {
+  @include flex-center;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 14px;
+}

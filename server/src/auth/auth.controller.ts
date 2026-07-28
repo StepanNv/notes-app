@@ -2,13 +2,15 @@ import { Body, Controller, Post, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import type { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { JwtRefreshAuthGuard } from './guards/jwt-refresh-auth.guard';
+import { RefreshTokenGuard } from './guards/refresh-token.guard';
 import { GetRefreshTokenPayload } from './decorators/get-rt-payload.decorator';
-import { RegisterDto } from './dtos/register.dto';
-import { LoginDto } from './dtos/login.dto';
-import type { TJwtPayload } from './types/jwt-payload';
+import { SignUpDto } from './dtos/req/sign-up.dto';
+import { SignInDto } from './dtos/req/sign-in.dto';
+import { AuthResDto } from './dtos/res/auth-res.dto';
+import type { TTokensPayload } from './types/jwt-payload';
 import { TokensService } from './tokens/tokens.service';
 import { ApiOperation } from '@nestjs/swagger';
+import { PasswdResetDto } from './dtos/req/passwd-reset.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -19,50 +21,58 @@ export class AuthController {
   ) {}
 
   @ApiOperation({ summary: 'Регистрация в системе' })
-  @Post('/registration')
-  async register(
-    @Body() dto: RegisterDto,
-    @Res({ passthrough: true }) res: Response,
-  ) {
-    const userData = await this.authService.register(dto);
-    return this.giveJwts({ userId: userData.id }, res);
+  @Post('/sign-up')
+  public async signUp(@Body() dto: SignUpDto): Promise<{ message: string }> {
+    return await this.authService.signUp(dto);
   }
 
   @ApiOperation({ summary: 'Вход в систему' })
-  @Post('/login')
-  async login(
-    @Body() dto: LoginDto,
+  @Post('/sign-in')
+  public async signIn(
+    @Body() dto: SignInDto,
     @Res({ passthrough: true }) res: Response,
-  ) {
-    const userData = await this.authService.login(dto);
-    return this.giveJwts({ userId: userData.id }, res);
+  ): Promise<AuthResDto> {
+    const userData = await this.authService.signIn(dto);
+    return this.giveTokens({ userId: userData.id }, res);
   }
 
   @ApiOperation({ summary: 'Выход из системы' })
-  @Post('logout')
-  logout(@Res({ passthrough: true }) res: Response) {
-    res.cookie('refreshJwt', '');
+  @Post('sign-out')
+  public signOut(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('refreshToken');
   }
 
   @ApiOperation({ summary: 'Обновление токенов авторизации' })
   @Post('/refresh')
-  @UseGuards(JwtRefreshAuthGuard)
-  async refresh(
-    @GetRefreshTokenPayload() refreshJwtPayload: TJwtPayload,
+  @UseGuards(RefreshTokenGuard)
+  public async refresh(
+    @GetRefreshTokenPayload() refreshTokenPayload: TTokensPayload,
     @Res({ passthrough: true }) res: Response,
-  ) {
-    const userData = await this.authService.refresh(refreshJwtPayload);
-    return this.giveJwts({ userId: userData.id }, res);
+  ): Promise<AuthResDto> {
+    const userData = await this.authService.refresh(refreshTokenPayload);
+    return this.giveTokens({ userId: userData.id }, res);
   }
 
-  private async giveJwts(tokenPaylaod: TJwtPayload, res: Response) {
-    const jwts = await this.tokenService.generateJwts(tokenPaylaod);
+  @ApiOperation({ summary: 'Сброс пароля' })
+  @Post('/password-reset')
+  public async passwordReset(
+    @Body() dto: PasswdResetDto,
+  ): Promise<{ message: string }> {
+    return await this.authService.passwordReset(dto);
+  }
 
-    res.cookie('refreshJwt', jwts.refreshJwt, {
+  private async giveTokens(
+    tokenPaylaod: TTokensPayload,
+    res: Response,
+  ): Promise<AuthResDto> {
+    const tokens = await this.tokenService.generateTokens(tokenPaylaod);
+
+    res.cookie('refreshToken', tokens.refreshToken, {
       httpOnly: true,
-      maxAge: this.configService.get<number>('REFRESH_JWT_EXPIRES')! * 1000,
+      // secure: true,
+      maxAge: this.configService.get<number>('REFRESH_TOKEN_EXPIRES')! * 1000,
     });
 
-    return jwts.accessJwt;
+    return { accessToken: tokens.accessToken };
   }
 }

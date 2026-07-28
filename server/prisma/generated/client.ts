@@ -49,3 +49,8 @@ export type User = Prisma.UserModel
  * 
  */
 export type Note = Prisma.NoteModel
+/**
+ * Model ConfirmationCode
+ * 
+ */
+export type ConfirmationCode = Prisma.ConfirmationCodeModel

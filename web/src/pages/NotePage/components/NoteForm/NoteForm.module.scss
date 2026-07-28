@@ -1,0 +1,63 @@
+.noteForm {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.noteFormContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.scrollArea {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 12px;
+}
+
+.titleInput {
+  @include input-reset;
+  font-size: 22px;
+  margin-bottom: 12px;
+
+  &::placeholder {
+    color: silver;
+  }
+}
+
+.editorWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor {
+  padding: 10px;
+  flex: 1;
+  word-break: break-word;
+  background-color: var(--bg-color-2);
+  border-radius: 10px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+
+  &:focus {
+    outline: none;
+  }
+
+  :is(ol, ul) {
+    padding-left: 20px;
+  }
+
+  :global(p.is-editor-empty:first-child::before) {
+    color: var(--bg-color-2-text);
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+}

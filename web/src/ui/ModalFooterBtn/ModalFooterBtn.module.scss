@@ -1,0 +1,15 @@
+.modalFooterBtn {
+  @include btn-reset;
+  @include flex-center;
+  padding: 8px 8px;
+  text-decoration: none;
+  background-color: var(--btn-bg);
+  color: var(--btn-text-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--active-btn-bg);
+  }
+}

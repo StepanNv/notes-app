@@ -1,0 +1,18 @@
+.toggleThemeBtn {
+  @include btn-reset;
+  @include flex-center;
+  width: 35px;
+  height: 35px;
+  border-radius: 20px;
+  background-color: var(--btn-bg);
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: var(--active-btn-bg);
+  }
+}
+
+.toggleThemeBtnIcon {
+  color: var(--btn-text-color);
+}
