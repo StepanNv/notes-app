@@ -1,6 +1,6 @@
 services:
   db:
-    container_name: postgres
+    container_name: notes_app
     image: postgres:18
     restart: always # Всегда перезапускается в случае каких либо неполадок
     environment:
