@@ -32,7 +32,7 @@ export const useSignInForm = () => {
         if (error.response?.data?.code === 'EMAIL_NOT_VERIFIED') {
           setConfirmationEmail(formData.email);
           setTrueEnteredPassword(formData.password);
-          navigate('/sign-in/confirm-code');
+          navigate('/sign-in/verify-email');
         }
       },
     });

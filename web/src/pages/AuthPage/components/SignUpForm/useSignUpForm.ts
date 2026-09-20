@@ -20,7 +20,7 @@ export const useSignUpForm = () => {
       onSuccess: () => {
         setConfirmationEmail(formData.email);
         setTrueEnteredPassword(formData.password);
-        navigate('/sign-in/confirm-code');
+        navigate('/sign-in/verify-email');
       },
     });
   });
