@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useResendCodeMutation } from './useResendCodeMutation';
 import FormInput from '../../ui/FormInput/FormInput';
+import LinkBtn from '../../../../ui/LinkBtn/LinkBtn';
 
 const contentTranlations = {
   en: {
@@ -79,13 +80,7 @@ const VerifyEmailForm = () => {
           placeholder={content.codePlaceholder}
           {...register('confirmationCode', { required: true })}
         />
-        <button
-          className={styles.resendBtn}
-          type="button"
-          onClick={handleResendCode}
-        >
-          {content.resendCodeBtn}
-        </button>
+        <LinkBtn onClick={handleResendCode}>{content.resendCodeBtn}</LinkBtn>
         <SubmitFormBtn>{content.confirmBtn}</SubmitFormBtn>
       </Form>
       <FormCardFooter>

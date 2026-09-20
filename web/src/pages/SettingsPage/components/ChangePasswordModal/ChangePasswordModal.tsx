@@ -7,6 +7,7 @@ import { useGetMe } from '../../../../hooks/useGetMe';
 import { useRequestResetCodeMutation } from './useRequestResetCodeMutation';
 import { useChangePasswordForm } from './useChangePasswordForm';
 import { useAppSettingsStore } from '../../../../stores/useAppSettingsStore';
+import LinkBtn from '../../../../ui/LinkBtn/LinkBtn';
 
 const contentTranlations = {
   en: {
@@ -100,13 +101,7 @@ const ChangePasswordModal = () => {
               placeholder={content.confirmationCodePlaceholder}
               {...register('confirmationCode', { required: true })}
             />
-            <button
-              className={styles.resendBtn}
-              type="button"
-              onClick={handleSendCode}
-            >
-              {content.resendCodeBtn}
-            </button>
+            <LinkBtn onClick={handleSendCode}>{content.resendCodeBtn}</LinkBtn>
             <button className={styles.submitBtn} type="submit">
               {content.updatePasswordBtn}
             </button>
