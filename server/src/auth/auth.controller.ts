@@ -16,7 +16,7 @@ import { PasswdResetDto } from './dtos/req/passwd-reset.dto';
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly tokenService: TokensService,
+    private readonly tokensService: TokensService,
     private readonly configService: ConfigService,
   ) {}
 
@@ -65,7 +65,7 @@ export class AuthController {
     tokenPaylaod: TTokensPayload,
     res: Response,
   ): Promise<AuthResDto> {
-    const tokens = await this.tokenService.generateTokens(tokenPaylaod);
+    const tokens = await this.tokensService.generateTokens(tokenPaylaod);
 
     res.cookie('refreshToken', tokens.refreshToken, {
       httpOnly: true,
