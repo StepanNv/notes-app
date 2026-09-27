@@ -23,11 +23,13 @@ export class EmailConfirmationService {
   ) {}
 
   public async newVerification(dto: ConfirmEmailVerificationDto) {
-    const existingConfirmationCode = await this.checkConfirmationCode(
-      dto.email,
-      dto.confirmationCode,
-      ConfirmationCodeType.VERIFICATION,
-    );
+    // РАСКОМЕНТИТЬ ПРИ НАЛИЧИИ СЕРВИСА ОТПРАВКИ ПИСЕМ
+
+    // const existingConfirmationCode = await this.checkConfirmationCode(
+    //   dto.email,
+    //   dto.confirmationCode,
+    //   ConfirmationCodeType.VERIFICATION,
+    // );
 
     const existingUser = await this.usersService.getOne({
       email: dto.email,
@@ -48,35 +50,39 @@ export class EmailConfirmationService {
       },
     });
 
-    await this.prismaService.confirmationCode.delete({
-      where: {
-        id: existingConfirmationCode.id,
-        type: ConfirmationCodeType.VERIFICATION,
-      },
-    });
+    // РАСКОМЕНТИТЬ ПРИ НАЛИЧИИ СЕРВИСА ОТПРАВКИ ПИСЕМ
 
-    return this.tokensService.generateTokens({
-      userId: existingUser.id,
-    });
+    // await this.prismaService.confirmationCode.delete({
+    //   where: {
+    //     id: existingConfirmationCode.id,
+    //     type: ConfirmationCodeType.VERIFICATION,
+    //   },
+    // });
+
+    return existingUser;
   }
 
   public async newPasswordReset(dto: ConfirmPasswdResetDto) {
-    const existingConfirmationCode = await this.checkConfirmationCode(
-      dto.email,
-      dto.confirmationCode,
-      ConfirmationCodeType.PASSWORD_RESET,
-    );
+    // РАСКОМЕНТИТЬ ПРИ НАЛИЧИИ СЕРВИСА ОТПРАВКИ ПИСЕМ
+
+    // const existingConfirmationCode = await this.checkConfirmationCode(
+    //   dto.email,
+    //   dto.confirmationCode,
+    //   ConfirmationCodeType.PASSWORD_RESET,
+    // );
 
     const existingUser = await this.usersService.getOne({
       email: dto.email,
     });
 
-    await this.prismaService.confirmationCode.delete({
-      where: {
-        id: existingConfirmationCode.id,
-        type: ConfirmationCodeType.PASSWORD_RESET,
-      },
-    });
+    // РАСКОМЕНТИТЬ ПРИ НАЛИЧИИ СЕРВИСА ОТПРАВКИ ПИСЕМ
+
+    // await this.prismaService.confirmationCode.delete({
+    //   where: {
+    //     id: existingConfirmationCode.id,
+    //     type: ConfirmationCodeType.PASSWORD_RESET,
+    //   },
+    // });
 
     await this.usersService.updateOne(existingUser.id, {
       hashedPassword: await bcrypt.hash(dto.newPassword, 5),
@@ -89,100 +95,104 @@ export class EmailConfirmationService {
     user: User,
     confirmationCodeType: ConfirmationCodeType,
   ) {
-    const confirmationCode = await this.generateConfirmationCode(
-      user.email,
-      confirmationCodeType,
-    );
+    // РАСКОМЕНТИТЬ ПРИ НАЛИЧИИ СЕРВИСА ОТПРАВКИ ПИСЕМ
 
-    await this.mailService.sendConfirmationEmail(
-      user.email,
-      confirmationCode.confirmationCode,
-      confirmationCodeType,
-    );
+    // const confirmationCode = await this.generateConfirmationCode(
+    //   user.email,
+    //   confirmationCodeType,
+    // );
+
+    // await this.mailService.sendConfirmationEmail(
+    //   user.email,
+    //   confirmationCode.confirmationCode,
+    //   confirmationCodeType,
+    // );
 
     return true;
   }
 
-  private async generateConfirmationCode(
-    email: string,
-    confirmationCodeType: ConfirmationCodeType,
-  ) {
-    const confirmationCode = Math.floor(
-      100000 + Math.random() * 900000,
-    ).toString();
+  // РАСКОМЕНТИТЬ ПРИ НАЛИЧИИ СЕРВИСА ОТПРАВКИ ПИСЕМ
 
-    const expiresIn = new Date(new Date().getTime() + 3600 * 1000);
+  // private async generateConfirmationCode(
+  //   email: string,
+  //   confirmationCodeType: ConfirmationCodeType,
+  // ) {
+  //   const confirmationCode = Math.floor(
+  //     100000 + Math.random() * 900000,
+  //   ).toString();
 
-    const existingCode = await this.prismaService.confirmationCode.findFirst({
-      where: {
-        email,
-        type: confirmationCodeType,
-      },
-    });
+  //   const expiresIn = new Date(new Date().getTime() + 3600 * 1000);
 
-    if (existingCode) {
-      await this.prismaService.confirmationCode.delete({
-        where: {
-          id: existingCode.id,
-          type: confirmationCodeType,
-        },
-      });
-    }
+  //   const existingCode = await this.prismaService.confirmationCode.findFirst({
+  //     where: {
+  //       email,
+  //       type: confirmationCodeType,
+  //     },
+  //   });
 
-    return await this.prismaService.confirmationCode.create({
-      data: {
-        email,
-        confirmationCode,
-        expiresIn,
-        type: confirmationCodeType,
-      },
-    });
-  }
+  //   if (existingCode) {
+  //     await this.prismaService.confirmationCode.delete({
+  //       where: {
+  //         id: existingCode.id,
+  //         type: confirmationCodeType,
+  //       },
+  //     });
+  //   }
 
-  private async checkConfirmationCode(
-    email: string,
-    confirmationCode: string,
-    confirmationCodeType: ConfirmationCodeType,
-  ) {
-    const existingCode = await this.prismaService.confirmationCode.findFirst({
-      where: {
-        email: email,
-        type: confirmationCodeType,
-      },
-    });
+  //   return await this.prismaService.confirmationCode.create({
+  //     data: {
+  //       email,
+  //       confirmationCode,
+  //       expiresIn,
+  //       type: confirmationCodeType,
+  //     },
+  //   });
+  // }
 
-    if (!existingCode) {
-      throw new NotFoundException(
-        'Code not found. Please make sure you have the correct code.',
-      );
-    }
+  // private async checkConfirmationCode(
+  //   email: string,
+  //   confirmationCode: string,
+  //   confirmationCodeType: ConfirmationCodeType,
+  // ) {
+  //   const existingCode = await this.prismaService.confirmationCode.findFirst({
+  //     where: {
+  //       email: email,
+  //       type: confirmationCodeType,
+  //     },
+  //   });
 
-    const hasExpired = new Date(existingCode.expiresIn) < new Date();
+  //   if (!existingCode) {
+  //     throw new NotFoundException(
+  //       'Code not found. Please make sure you have the correct code.',
+  //     );
+  //   }
 
-    if (hasExpired) {
-      throw new BadRequestException(
-        'Code has expired. Please request a new code for verification.',
-      );
-    }
+  //   const hasExpired = new Date(existingCode.expiresIn) < new Date();
 
-    if (existingCode.attempts >= 5) {
-      throw new BadRequestException(
-        'You have reached the maximum number of attempts. Please request a new code for verification.',
-      );
-    }
+  //   if (hasExpired) {
+  //     throw new BadRequestException(
+  //       'Code has expired. Please request a new code for verification.',
+  //     );
+  //   }
 
-    if (existingCode.confirmationCode !== confirmationCode) {
-      await this.prismaService.confirmationCode.update({
-        where: {
-          id: existingCode.id,
-        },
-        data: {
-          attempts: existingCode.attempts + 1,
-        },
-      });
-      throw new BadRequestException('Invalid code. Please try again.');
-    }
+  //   if (existingCode.attempts >= 5) {
+  //     throw new BadRequestException(
+  //       'You have reached the maximum number of attempts. Please request a new code for verification.',
+  //     );
+  //   }
 
-    return existingCode;
-  }
+  //   if (existingCode.confirmationCode !== confirmationCode) {
+  //     await this.prismaService.confirmationCode.update({
+  //       where: {
+  //         id: existingCode.id,
+  //       },
+  //       data: {
+  //         attempts: existingCode.attempts + 1,
+  //       },
+  //     });
+  //     throw new BadRequestException('Invalid code. Please try again.');
+  //   }
+
+  //   return existingCode;
+  // }
 }
